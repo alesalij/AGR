@@ -185,7 +185,8 @@ namespace AGR
              Program.GV.Profile.MaskKey = tB_MaskKey.Text;
              Program.GV.Profile.MaskDB = tB_MaskDB.Text;
              Program.GV.Profile.OtherDB = chB_DB.Checked;
-             b_AddChanges.Enabled = false;
+            Program.GV.Profile.MainColumn = tB_MainColumn.Text;
+            b_AddChanges.Enabled = false;
         }
 
 

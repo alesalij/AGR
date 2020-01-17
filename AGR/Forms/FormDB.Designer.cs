@@ -342,6 +342,7 @@
             this.tB_MainColumn.Size = new System.Drawing.Size(96, 22);
             this.tB_MainColumn.TabIndex = 12;
             this.tB_MainColumn.Text = "C:\\";
+            this.tB_MainColumn.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cB_Profiles_KeyPress);
             // 
             // FormDB
             // 

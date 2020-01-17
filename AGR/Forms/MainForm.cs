@@ -126,11 +126,22 @@ namespace AGR
 
         private void b_Add_Click(object sender, EventArgs e)
         {
+            bool f = true;
             if (tV_Groups.SelectedNode.Parent == null)
             {
+                for (int i = 0; i < dGV_DB1.Columns.Count; i++)
+                {
+                    if (dGV_DB1.Columns[i].Name == Program.GV.Profile.MainColumn)
+                    {
+                        Array.Resize(ref Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].Spills, Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].Spills.Length + 1);
+                        Program.GV.Groups[tV_Groups.SelectedNode.Index].Spills[Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].Spills.Length - 1] = dGV_DB1.SelectedCells[i].Value.ToString();
+                        tV_Groups.SelectedNode.Nodes.Add(dGV_DB1.SelectedCells[i].Value.ToString());
+                        f = false;
+                    }
+                }
 
-                tV_Groups.SelectedNode.Nodes.Add(dGV_DB1.SelectedCells[0].Value.ToString());
-                            
+                if (f) MessageBox.Show("Проверьте параметр /Выбранный столбец/");
+                          
             }
         }
 

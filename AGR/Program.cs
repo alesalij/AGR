@@ -21,12 +21,12 @@ namespace AGR
             Application.Run(new MainForm());
 
         }
-        public class GV 
+        public class GV // Глобальные переменные
         {
             public static ProfileSettings Profile = new ProfileSettings(); // Профиль с настройками подключения к БД
             public static MainDBDataSet mainDBDataSet = new AGR.MainDBDataSet();
             public static DB MainDB = new DB(mainDBDataSet, "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=MainDB.accdb;"); // База данных для настроек, для полноценного обновления Данных нужно взаимодействовать между DS и mainDBDataset
-            public static Group[] Groups;
+            public static Group[] Groups; 
             
         }
 
