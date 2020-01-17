@@ -37,8 +37,9 @@ namespace AGR
         public void Load(ProfileSettings profile)
         {
 
-            //Program.GV.MainDBDataAdapter.Fill(Program.GV.mainDBDataSet);
-            //Program.DBAdapters.Fill();
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
+
             foreach (DataRow row in Program.GV.mainDBDataSet.Profiles.Rows)
             {
 

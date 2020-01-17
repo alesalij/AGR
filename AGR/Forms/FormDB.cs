@@ -19,7 +19,9 @@ namespace AGR
 
             cB_Profiles.Items.Clear();
 
-            Program.DBAdapters.Fill();
+            //Program.DBAdapters.Fill();
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
             /*if (Program.GV.Profile.ProfileName == null) 
             Program.GV.Profile.Load(Program.GV.Profile);*/
             LoadSettings();
@@ -50,8 +52,8 @@ namespace AGR
         // Кнопка ок (подключиться к БД) 
         private void b_LoadDB_Click(object sender, EventArgs e)
         {
-            Database = new DB(tB_OpenDB.Text);
-            Database.Connect();
+//            Database = new DB(tB_OpenDB.Text);
+ //           Database.Connect();
             Database.OleConnection.Open();
             Database.OleConnection.Close();
 
@@ -60,7 +62,8 @@ namespace AGR
         {
 
             // TODO: данная строка кода позволяет загрузить данные в таблицу "Program.GV.Program.GV.mainDBDataSet.Profiles" из БД
-           Program.DBAdapters.Fill();
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
             Program.GV.mainDBDataSet.Profiles.DefaultView.Sort = "ProfileName asc";
             dataGridView1.DataSource = Program.GV.mainDBDataSet.Profiles;
            
@@ -72,7 +75,9 @@ namespace AGR
         {
 
             // Сохранение данных в БД
-            Program.DBAdapters.Update();
+            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+            Program.GV.MainDB.Update();
+            
 
         }
 
@@ -83,7 +88,8 @@ namespace AGR
             
             cB_Profiles.Items.Clear();
             // TODO: данная строка кода позволяет загрузить данные в таблицу "Program.GV.mainDBDataSet.Profiles" из БД
-            Program.DBAdapters.Fill();
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
             Program.GV.mainDBDataSet.Profiles.DefaultView.Sort = "ProfileName asc";
              foreach (DataRowView row in Program.GV.mainDBDataSet.Profiles.DefaultView)
              {
@@ -105,7 +111,8 @@ namespace AGR
         {
             b_delete.Enabled = true;
             // TODO: данная строка кода позволяет загрузить данные в таблицу "Program.GV.mainDBDataSet.Profiles" из БД
-            Program.DBAdapters.Fill();
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
             int i = 0;
             foreach (DataRow row in Program.GV.mainDBDataSet.Profiles.Rows)
             {
@@ -129,8 +136,9 @@ namespace AGR
                     Program.GV.mainDBDataSet.Profiles.Rows[i][Program.GV.mainDBDataSet.Profiles.SelectedColumn] = false;
                 i++;
             }
-            Program.DBAdapters.Update();
-
+            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+            Program.GV.MainDB.Update();
+            
 
         }
 
@@ -204,7 +212,9 @@ namespace AGR
                     Program.GV.mainDBDataSet.Profiles[i][Program.GV.mainDBDataSet.Profiles.SelectedColumn] = true;           
                 } else Program.GV.mainDBDataSet.Profiles[i][Program.GV.mainDBDataSet.Profiles.SelectedColumn] = false;
             }
-            Program.DBAdapters.Update();
+            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+            Program.GV.MainDB.Update();
+            
 
         }
         
@@ -212,7 +222,12 @@ namespace AGR
         private void b_make_Click(object sender, EventArgs e)
         {
             Program.GV.mainDBDataSet.Profiles.Rows.Add();
-            Program.DBAdapters.UpdateFill();
+            
+            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+            Program.GV.MainDB.Update();
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
+
             Program.GV.mainDBDataSet.Profiles.DefaultView.Sort = "ID desc" ;
             DataRowView drv = Program.GV.mainDBDataSet.Profiles.DefaultView[0];
             Program.GV.Profile.ID = Convert.ToInt32(drv["ID"]);
@@ -235,7 +250,9 @@ namespace AGR
                     }
 
                 }
-                Program.DBAdapters.Update();
+                Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+                Program.GV.MainDB.Update();
+                
 
             }
            

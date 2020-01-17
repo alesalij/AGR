@@ -30,25 +30,6 @@ namespace AGR
             
             // Получение ДБ Настроек
             Program.GV.Profile.Load(Program.GV.Profile);
-            //tV_Groups.CheckBoxes = true;
-            Program.GV.MainConnection.Open();
-
-            //DataSet DS = new DataSet();
-
-           // Program.DBAdapters.Fill();
-            // Program.GV.MainDBDataAdapter.Fill(Program.GV.mainDBDataSet, Program.GV.mainDBDataSet.SaveGroupParameters.TableName);
-
-
-            //MainDBDataSet m = new MainDBDataSet;
-            //m.SaveGroups.
-            // Program.GV.saveGroupsTableAdapter.Adapter.Fill(Program.GV.mainDBDataSet.SaveGroups);
-
-            /*Program.GV.saveGroupsTableAdapter.Update(Program.GV.mainDBDataSet.SaveGroups);
-            Program.GV.saveGroupsTableAdapter.Fill(Program.GV.mainDBDataSet.SaveGroups);
-            Program.GV.saveGroupParametersTableAdapter.Fill(Program.GV.mainDBDataSet.SaveGroupParameters);
-            Program.GV.selectedSpillsTableAdapter.Fill(Program.GV.mainDBDataSet.SelectedSpills);
-            Program.GV.subgroupsTableAdapter.Fill(Program.GV.mainDBDataSet.Subgroups);
-            Program.GV.subGroupParametersTableAdapter.Fill(Program.GV.mainDBDataSet.SubGroupParameters);*/
             Program.GV.Groups = new Group[Program.GV.mainDBDataSet.SaveGroupParameters.Rows.Count];
             
             // Зачем это здесь??
@@ -63,16 +44,13 @@ namespace AGR
 
         private void button1_Click(object sender, EventArgs e)
         {
-            //Program.GV.saveGroupsTableAdapter.Adapter.SelectCommand = Program.GV.s;
-            // Program.GV.mainDBDataSet.SaveGroupParameters 
-            Program.GV.SaveGroupsDataAdapter.Fill(Program.GV.mainDBDataSet.SaveGroups);
-            // Program.GV.saveGroupsTableAdapter.Fill(Program.GV.mainDBDataSet.SaveGroups);
+
+            /*Program.GV.SaveGroupsDataAdapter.Fill(Program.GV.mainDBDataSet.SaveGroups);    
             OleDbCommandBuilder cmd = new OleDbCommandBuilder(Program.GV.SaveGroupsDataAdapter);
-            Program.GV.SaveGroupsDataAdapter.UpdateCommand = cmd.GetUpdateCommand();
+            Program.GV.SaveGroupsDataAdapter.UpdateCommand = cmd.GetUpdateCommand();*/
 
-           // tB_OpenDB.Text = Program.GV.SaveGroupsDataAdapter.UpdateCommand.CommandText;
-
-            //Program.DBAdapters.Fill();
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
 
 
             // Создаем пустую книгу. Используйте использование statment, поэтому пакет будет утилизирован, когда мы закончим. 
@@ -94,13 +72,7 @@ namespace AGR
         {
             Test f = new Test();
             f.MakeDT(Program.GV.mainDBDataSet.SaveGroups);
-           // tB_OpenDB.Text = Program.GV.SaveGroupsDataAdapter.UpdateCommand.CommandText;
-            // Program.GV.saveGroupsTableAdapter.Update(Program.GV.mainDBDataSet.SaveGroups);
-            //Program.GV.saveGroupsTableAdapter.Fill(Program.GV.mainDBDataSet.SaveGroups);
-            //Program.GV.saveGroupsTableAdapter.GetData();
-
-            //tB_OpenDB.Text = Program.GV.SaveGroupsDataAdapter.UpdateCommand.CommandText;
-
+          
 
 
         }
@@ -108,14 +80,15 @@ namespace AGR
         {
 
             //!!!!!!!!!!!!!!!!!!!!!!!
-            OleDbCommandBuilder cmd = new OleDbCommandBuilder(Program.GV.SaveGroupsDataAdapter);                     
-            cmd.QuotePrefix = "[";
-            cmd.QuoteSuffix = "]";
-            Program.GV.SaveGroupsDataAdapter.UpdateCommand = cmd.GetUpdateCommand();
-            tB_OpenDB.Text = Program.GV.SaveGroupsDataAdapter.UpdateCommand.CommandText;
-            Program.GV.SaveGroupsDataAdapter.Update(Program.GV.mainDBDataSet, "SaveGroups");
-        
-
+            /*  OleDbCommandBuilder cmd = new OleDbCommandBuilder(Program.GV.SaveGroupsDataAdapter);                     
+              cmd.QuotePrefix = "[";
+              cmd.QuoteSuffix = "]";
+              Program.GV.SaveGroupsDataAdapter.UpdateCommand = cmd.GetUpdateCommand();
+              tB_OpenDB.Text = Program.GV.SaveGroupsDataAdapter.UpdateCommand.CommandText;
+              Program.GV.SaveGroupsDataAdapter.Update(Program.GV.mainDBDataSet, "SaveGroups");*/
+            
+            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+            Program.GV.MainDB.Update();
         }
 
         private void b_LoadDB_Click(object sender, EventArgs e)
@@ -148,7 +121,7 @@ namespace AGR
         private void MainForm_FormClosed(object sender, FormClosedEventArgs e)
         {
             //Program.GV.profilesTableAdapter.Connection.Close();
-            Program.GV.MainConnection.Close();
+           
         }
 
         private void b_Add_Click(object sender, EventArgs e)
@@ -166,13 +139,18 @@ namespace AGR
 
 
             tV_Groups.Nodes.Add("Группа " + tV_Groups.Nodes.Count);
-            Program.DBAdapters.Fill();
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
             Program.GV.mainDBDataSet.SaveGroups.Rows.Add();
             Program.GV.mainDBDataSet.SaveGroups.Rows[Program.GV.mainDBDataSet.SaveGroups.Rows.Count - 1][1] = tV_Groups.Nodes[tV_Groups.Nodes.Count - 1].Text;       
             for(int i=2;i< Program.GV.mainDBDataSet.SaveGroups.Columns.Count;i++)
                 Program.GV.mainDBDataSet.SaveGroups.Rows[Program.GV.mainDBDataSet.SaveGroups.Rows.Count - 1][i] = true;
 
-            Program.DBAdapters.UpdateFill();
+            
+            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+            Program.GV.MainDB.Update();
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
 
 
             Array.Resize(ref Program.GV.Groups, Program.GV.Groups.Length + 1);
@@ -197,30 +175,28 @@ namespace AGR
             tV_Groups.Nodes.Remove(tV_Groups.SelectedNode);
             
         }
+     
         // Происходит при каждом переключении на текущую форму
         private void MainForm_Activated(object sender, EventArgs e)
         {
-            // Заполнение dataGridView
             try
             {
-                DataBase1 = new DB(Program.GV.Profile.DataBasePlace);   // Создание подключения к БД        
-                DataBase1.DBTable = Program.GV.Profile.Table1; // Параметр чтения - нужная таблица в БД
-                DataBase1.DBColumns = Program.GV.Profile.Columns1; // Параметр - нужные колонки
-                DataBase1.SQLString = DataBase1.SQLMake(); // Создание строки SQL запроса 
-                DataBase1.MakeConnectString(); // Создание строки подключения OLEDB\
-                DataBase1.Connect(); // Подключение к БД
-                DataBase1.DSMake(); // Создание и запись данных в Dataset
+                DataBase1 = new DB(Program.GV.Profile.Table1, Program.GV.Profile.Columns1, Program.GV.Profile.DataBasePlace);   // Создание подключения к БД     
+            // Заполнение dataGridView
+          
+            
+
+            //DataBase1.MakeConnectString(); // Создание строки подключения OLEDB\
+
+                DataBase1.Fill();
                 dGV_DB1.DataSource = DataBase1.DS.Tables[0];
                 dGV_DB1.Update();
+
             }
             catch { }
 
             // Заполнение treeViewGroups
-            /* Program.GV.saveGroupsTableAdapter.Fill(Program.GV.mainDBDataSet.SaveGroups);
-             Program.GV.saveGroupParametersTableAdapter.Fill(Program.GV.mainDBDataSet.SaveGroupParameters);
-             Program.GV.selectedSpillsTableAdapter.Fill(Program.GV.mainDBDataSet.SelectedSpills);
-             Program.GV.subgroupsTableAdapter.Fill(Program.GV.mainDBDataSet.Subgroups);
-             Program.GV.subGroupParametersTableAdapter.Fill(Program.GV.mainDBDataSet.SubGroupParameters);*/
+
             for (int i = 0; i < Program.GV.Groups.Length; i++)
             {
                 tV_Groups.Nodes.Add(Program.GV.Groups[i].NameGroup);
@@ -244,7 +220,7 @@ namespace AGR
 
             if (tV_Groups.SelectedNode.Parent == null)
             {
-                Program.DBAdapters.Fill();
+               // Program.DBAdapters.Fill();
                 tVWTB_Parameters.Tree.Items.Clear();
 
                 
@@ -286,9 +262,7 @@ namespace AGR
              */
         }
 
-   
-
-        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+           private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             tB_OpenDB.Text = checkBox1.Checked.ToString();
         }
