@@ -155,9 +155,9 @@
     </None>
     <None Include="MainDBDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>MainDBDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <LastGenOutput>MainDBDataSet1.Designer.cs</LastGenOutput>
     </None>
     <None Include="MainDBDataSet.xss">
       <DependentUpon>MainDBDataSet.xsd</DependentUpon>

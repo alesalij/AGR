@@ -5655,7 +5655,7 @@ namespace AGR.MainDBDataSetTableAdapters {
     [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
         ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ProfilesTableAdapter : global::System.ComponentModel.Component {
+    public partial class MainTableAdapter : global::System.ComponentModel.Component {
         
         private global::System.Data.OleDb.OleDbDataAdapter _adapter;
         
@@ -5669,7 +5669,7 @@ namespace AGR.MainDBDataSetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public ProfilesTableAdapter() {
+        public MainTableAdapter() {
             this.ClearBeforeFill = true;
         }
         
@@ -9339,7 +9339,7 @@ namespace AGR.MainDBDataSetTableAdapters {
         
         private UpdateOrderOption _updateOrder;
         
-        private ProfilesTableAdapter _profilesTableAdapter;
+        private MainTableAdapter _MainTableAdapter;
         
         private DefaultGroupsTableAdapter _defaultGroupsTableAdapter;
         
@@ -9375,12 +9375,12 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public ProfilesTableAdapter ProfilesTableAdapter {
+        public MainTableAdapter MainTableAdapter {
             get {
-                return this._profilesTableAdapter;
+                return this._MainTableAdapter;
             }
             set {
-                this._profilesTableAdapter = value;
+                this._MainTableAdapter = value;
             }
         }
         
@@ -9501,9 +9501,9 @@ namespace AGR.MainDBDataSetTableAdapters {
                 if ((this._connection != null)) {
                     return this._connection;
                 }
-                if (((this._profilesTableAdapter != null) 
-                            && (this._profilesTableAdapter.Connection != null))) {
-                    return this._profilesTableAdapter.Connection;
+                if (((this._MainTableAdapter != null) 
+                            && (this._MainTableAdapter.Connection != null))) {
+                    return this._MainTableAdapter.Connection;
                 }
                 if (((this._defaultGroupsTableAdapter != null) 
                             && (this._defaultGroupsTableAdapter.Connection != null))) {
@@ -9546,7 +9546,7 @@ namespace AGR.MainDBDataSetTableAdapters {
         public int TableAdapterInstanceCount {
             get {
                 int count = 0;
-                if ((this._profilesTableAdapter != null)) {
+                if ((this._MainTableAdapter != null)) {
                     count = (count + 1);
                 }
                 if ((this._defaultGroupsTableAdapter != null)) {
@@ -9608,12 +9608,12 @@ namespace AGR.MainDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._profilesTableAdapter != null)) {
+            if ((this._MainTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.Profiles.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
-                    result = (result + this._profilesTableAdapter.Update(updatedRows));
+                    result = (result + this._MainTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -9687,11 +9687,11 @@ namespace AGR.MainDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._profilesTableAdapter != null)) {
+            if ((this._MainTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.Profiles.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
-                    result = (result + this._profilesTableAdapter.Update(addedRows));
+                    result = (result + this._MainTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -9769,11 +9769,11 @@ namespace AGR.MainDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
-            if ((this._profilesTableAdapter != null)) {
+            if ((this._MainTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.Profiles.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
-                    result = (result + this._profilesTableAdapter.Update(deletedRows));
+                    result = (result + this._MainTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -9840,8 +9840,8 @@ namespace AGR.MainDBDataSetTableAdapters {
             if ((dataSet.HasChanges() == false)) {
                 return 0;
             }
-            if (((this._profilesTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._profilesTableAdapter.Connection) == false))) {
+            if (((this._MainTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._MainTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("Все адаптеры таблицы, управляемые диспетчером адаптера таблицы TableAdapterManage" +
                         "r, должны использовать одинаковую строку подключения.");
             }
@@ -9912,13 +9912,13 @@ namespace AGR.MainDBDataSetTableAdapters {
             try {
                 // ---- Prepare for update -----------
                 //
-                if ((this._profilesTableAdapter != null)) {
-                    revertConnections.Add(this._profilesTableAdapter, this._profilesTableAdapter.Connection);
-                    this._profilesTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
-                    this._profilesTableAdapter.Transaction = ((global::System.Data.OleDb.OleDbTransaction)(workTransaction));
-                    if (this._profilesTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._profilesTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._profilesTableAdapter.Adapter);
+                if ((this._MainTableAdapter != null)) {
+                    revertConnections.Add(this._MainTableAdapter, this._MainTableAdapter.Connection);
+                    this._MainTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
+                    this._MainTableAdapter.Transaction = ((global::System.Data.OleDb.OleDbTransaction)(workTransaction));
+                    if (this._MainTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._MainTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._MainTableAdapter.Adapter);
                     }
                 }
                 if ((this._defaultGroupsTableAdapter != null)) {
@@ -10042,9 +10042,9 @@ namespace AGR.MainDBDataSetTableAdapters {
                 if (workConnOpened) {
                     workConnection.Close();
                 }
-                if ((this._profilesTableAdapter != null)) {
-                    this._profilesTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._profilesTableAdapter]));
-                    this._profilesTableAdapter.Transaction = null;
+                if ((this._MainTableAdapter != null)) {
+                    this._MainTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._MainTableAdapter]));
+                    this._MainTableAdapter.Transaction = null;
                 }
                 if ((this._defaultGroupsTableAdapter != null)) {
                     this._defaultGroupsTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._defaultGroupsTableAdapter]));

@@ -179,6 +179,7 @@ namespace AGR
         // Происходит при каждом переключении на текущую форму
         private void MainForm_Activated(object sender, EventArgs e)
         {
+            tV_Groups.Nodes.Clear();
             try
             {
                 DataBase1 = new DB(Program.GV.Profile.Table1, Program.GV.Profile.Columns1, Program.GV.Profile.DataBasePlace);   // Создание подключения к БД     
@@ -221,7 +222,7 @@ namespace AGR
             if (tV_Groups.SelectedNode.Parent == null)
             {
                // Program.DBAdapters.Fill();
-                tVWTB_Parameters.Tree.Items.Clear();
+               tVWTB_Parameters.Tree.Items.Clear();
 
                 
 

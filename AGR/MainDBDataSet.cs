@@ -4,12 +4,16 @@
 
     public partial class MainDBDataSet
     {
+        partial class ProfilesDataTable
+        {
+        }
     }
 }
 
 namespace AGR.MainDBDataSetTableAdapters {
     
-    
-    public partial class ProfilesTableAdapter {
+      
+    public partial class MainTableAdapter
+    {
     }
 }

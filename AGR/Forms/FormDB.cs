@@ -277,5 +277,10 @@ namespace AGR
         {
 
         }
+
+        private void FormDB_Load(object sender, EventArgs e)
+        {
+
+        }
     }
 }

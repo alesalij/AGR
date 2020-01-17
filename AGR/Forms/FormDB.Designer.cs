@@ -46,12 +46,18 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.oFD_BD = new System.Windows.Forms.OpenFileDialog();
             this.button2 = new System.Windows.Forms.Button();
-            this.profilesTableAdapter = new AGR.MainDBDataSetTableAdapters.ProfilesTableAdapter();
+            this.mainTableAdapter = new AGR.MainDBDataSetTableAdapters.MainTableAdapter();
             this.b_delete = new System.Windows.Forms.Button();
             this.b_make = new System.Windows.Forms.Button();
             this.fBD_DB_Folder = new System.Windows.Forms.FolderBrowserDialog();
             this.tB_Table2 = new System.Windows.Forms.TextBox();
             this.tB_Table1 = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
+            this.tB_MainColumn1 = new System.Windows.Forms.TextBox();
+            this.tB_MainColumn2 = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,12 +96,12 @@
             // chB_DB
             // 
             this.chB_DB.AutoSize = true;
-            this.chB_DB.Location = new System.Drawing.Point(145, 162);
+            this.chB_DB.Location = new System.Drawing.Point(137, 167);
             this.chB_DB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.chB_DB.Name = "chB_DB";
-            this.chB_DB.Size = new System.Drawing.Size(98, 21);
+            this.chB_DB.Size = new System.Drawing.Size(238, 21);
             this.chB_DB.TabIndex = 8;
-            this.chB_DB.Text = "checkBox1";
+            this.chB_DB.Text = "Имеется несколько баз данных";
             this.chB_DB.UseVisualStyleBackColor = true;
             this.chB_DB.CheckedChanged += new System.EventHandler(this.chB_DB_CheckedChanged);
             // 
@@ -114,7 +120,7 @@
             // 
             // tB_Columns1
             // 
-            this.tB_Columns1.Location = new System.Drawing.Point(312, 100);
+            this.tB_Columns1.Location = new System.Drawing.Point(402, 100);
             this.tB_Columns1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tB_Columns1.Name = "tB_Columns1";
             this.tB_Columns1.Size = new System.Drawing.Size(495, 22);
@@ -124,7 +130,7 @@
             // 
             // tB_Columns2
             // 
-            this.tB_Columns2.Location = new System.Drawing.Point(312, 126);
+            this.tB_Columns2.Location = new System.Drawing.Point(402, 126);
             this.tB_Columns2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tB_Columns2.Name = "tB_Columns2";
             this.tB_Columns2.Size = new System.Drawing.Size(495, 22);
@@ -134,7 +140,7 @@
             // 
             // tB_FolderDB
             // 
-            this.tB_FolderDB.Location = new System.Drawing.Point(137, 198);
+            this.tB_FolderDB.Location = new System.Drawing.Point(333, 256);
             this.tB_FolderDB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tB_FolderDB.Name = "tB_FolderDB";
             this.tB_FolderDB.Size = new System.Drawing.Size(495, 22);
@@ -144,7 +150,7 @@
             // 
             // bTestFolderDB
             // 
-            this.bTestFolderDB.Location = new System.Drawing.Point(664, 194);
+            this.bTestFolderDB.Location = new System.Drawing.Point(860, 252);
             this.bTestFolderDB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.bTestFolderDB.Name = "bTestFolderDB";
             this.bTestFolderDB.Size = new System.Drawing.Size(100, 27);
@@ -154,7 +160,7 @@
             // 
             // b_OpenFolderDB
             // 
-            this.b_OpenFolderDB.Location = new System.Drawing.Point(28, 193);
+            this.b_OpenFolderDB.Location = new System.Drawing.Point(224, 251);
             this.b_OpenFolderDB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.b_OpenFolderDB.Name = "b_OpenFolderDB";
             this.b_OpenFolderDB.Size = new System.Drawing.Size(100, 27);
@@ -165,7 +171,7 @@
             // 
             // tB_MaskKey
             // 
-            this.tB_MaskKey.Location = new System.Drawing.Point(28, 261);
+            this.tB_MaskKey.Location = new System.Drawing.Point(224, 319);
             this.tB_MaskKey.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tB_MaskKey.Name = "tB_MaskKey";
             this.tB_MaskKey.Size = new System.Drawing.Size(265, 22);
@@ -175,7 +181,7 @@
             // 
             // tB_MaskDB
             // 
-            this.tB_MaskDB.Location = new System.Drawing.Point(476, 261);
+            this.tB_MaskDB.Location = new System.Drawing.Point(672, 319);
             this.tB_MaskDB.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.tB_MaskDB.Name = "tB_MaskDB";
             this.tB_MaskDB.Size = new System.Drawing.Size(288, 22);
@@ -186,7 +192,7 @@
             // b_AddChanges
             // 
             this.b_AddChanges.Enabled = false;
-            this.b_AddChanges.Location = new System.Drawing.Point(601, 325);
+            this.b_AddChanges.Location = new System.Drawing.Point(797, 383);
             this.b_AddChanges.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.b_AddChanges.Name = "b_AddChanges";
             this.b_AddChanges.Size = new System.Drawing.Size(100, 27);
@@ -198,7 +204,7 @@
             // b_SaveChanges
             // 
             this.b_SaveChanges.Enabled = false;
-            this.b_SaveChanges.Location = new System.Drawing.Point(723, 325);
+            this.b_SaveChanges.Location = new System.Drawing.Point(919, 383);
             this.b_SaveChanges.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.b_SaveChanges.Name = "b_SaveChanges";
             this.b_SaveChanges.Size = new System.Drawing.Size(100, 27);
@@ -226,7 +232,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.RowTemplate.Height = 28;
-            this.dataGridView1.Size = new System.Drawing.Size(811, 258);
+            this.dataGridView1.Size = new System.Drawing.Size(1041, 258);
             this.dataGridView1.TabIndex = 10;
             // 
             // oFD_BD
@@ -244,13 +250,13 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // profilesTableAdapter
+            // mainTableAdapter
             // 
-            this.profilesTableAdapter.ClearBeforeFill = true;
+            this.mainTableAdapter.ClearBeforeFill = true;
             // 
             // b_delete
             // 
-            this.b_delete.Location = new System.Drawing.Point(483, 325);
+            this.b_delete.Location = new System.Drawing.Point(679, 383);
             this.b_delete.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.b_delete.Name = "b_delete";
             this.b_delete.Size = new System.Drawing.Size(100, 27);
@@ -294,11 +300,76 @@
             this.tB_Table1.Text = "C:\\";
             this.tB_Table1.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.cB_Profiles_KeyPress);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(25, 103);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(91, 17);
+            this.label1.TabIndex = 11;
+            this.label1.Text = "Таблица №1";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(25, 131);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(91, 17);
+            this.label2.TabIndex = 11;
+            this.label2.Text = "Таблица №2";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(320, 100);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(70, 17);
+            this.label3.TabIndex = 11;
+            this.label3.Text = "Столбцы:";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(320, 129);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(70, 17);
+            this.label4.TabIndex = 11;
+            this.label4.Text = "Столбцы:";
+            this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // tB_MainColumn1
+            // 
+            this.tB_MainColumn1.Location = new System.Drawing.Point(948, 100);
+            this.tB_MainColumn1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tB_MainColumn1.Name = "tB_MainColumn1";
+            this.tB_MainColumn1.Size = new System.Drawing.Size(96, 22);
+            this.tB_MainColumn1.TabIndex = 12;
+            this.tB_MainColumn1.Text = "C:\\";
+            // 
+            // tB_MainColumn2
+            // 
+            this.tB_MainColumn2.Location = new System.Drawing.Point(948, 152);
+            this.tB_MainColumn2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tB_MainColumn2.Name = "tB_MainColumn2";
+            this.tB_MainColumn2.Size = new System.Drawing.Size(96, 22);
+            this.tB_MainColumn2.TabIndex = 12;
+            this.tB_MainColumn2.Text = "C:\\";
+            this.tB_MainColumn2.Visible = false;
+            // 
             // FormDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 686);
+            this.ClientSize = new System.Drawing.Size(1065, 686);
+            this.Controls.Add(this.tB_MainColumn2);
+            this.Controls.Add(this.tB_MainColumn1);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.label2);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.cB_Profiles);
             this.Controls.Add(this.chB_DB);
@@ -323,6 +394,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormDB";
             this.Text = "Расширенные настройки подключения к БД";
+            this.Load += new System.EventHandler(this.FormDB_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -348,12 +420,18 @@
         
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.OpenFileDialog oFD_BD;
-        private MainDBDataSetTableAdapters.ProfilesTableAdapter profilesTableAdapter;
+        private MainDBDataSetTableAdapters.MainTableAdapter mainTableAdapter;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button b_delete;
         private System.Windows.Forms.Button b_make;
         private System.Windows.Forms.FolderBrowserDialog fBD_DB_Folder;
         private System.Windows.Forms.TextBox tB_Table2;
         private System.Windows.Forms.TextBox tB_Table1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.TextBox tB_MainColumn1;
+        private System.Windows.Forms.TextBox tB_MainColumn2;
     }
 }
