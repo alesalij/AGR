@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29609.76
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AGR", "AGR\AGR.csproj", "{BE916B99-F7EF-4F4F-BAFA-21C637DC9C85}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BE916B99-F7EF-4F4F-BAFA-21C637DC9C85}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE916B99-F7EF-4F4F-BAFA-21C637DC9C85}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE916B99-F7EF-4F4F-BAFA-21C637DC9C85}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE916B99-F7EF-4F4F-BAFA-21C637DC9C85}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {35CB0A0B-5A71-4520-9E75-6E2EF1E11D40}
+	EndGlobalSection
+EndGlobal
