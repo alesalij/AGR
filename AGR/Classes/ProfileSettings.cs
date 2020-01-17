@@ -18,6 +18,7 @@ namespace AGR
         public string Table2;
         public string Columns1;
         public string Columns2;
+        public string MainColumn;
 
 
         public bool OtherDB;
@@ -56,6 +57,7 @@ namespace AGR
                     profile.MaskDB = row[Program.GV.mainDBDataSet.Profiles.MaskDBColumn].ToString();
                     profile.OtherDB = Convert.ToBoolean(row[Program.GV.mainDBDataSet.Profiles.OtherDBColumn]);
                     profile.OtherDataBaseFolder = row[Program.GV.mainDBDataSet.Profiles.DataBaseFolderColumn].ToString();
+                    profile.MainColumn = row[Program.GV.mainDBDataSet.Profiles.MainColumnColumn].ToString();
                 }
             }
             

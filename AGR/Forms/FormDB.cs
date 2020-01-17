@@ -45,7 +45,9 @@ namespace AGR
             tB_FolderDB.Text = Program.GV.Profile.OtherDataBaseFolder;
             tB_MaskKey.Text = Program.GV.Profile.MaskKey;
             tB_MaskDB.Text = Program.GV.Profile.MaskDB;
+            tB_MainColumn.Text = Program.GV.Profile.MainColumn;
             chB_DB.Checked = Program.GV.Profile.OtherDB;
+
         }
 
         
@@ -130,6 +132,7 @@ namespace AGR
                     Program.GV.Profile.MaskDB = row[Program.GV.mainDBDataSet.Profiles.MaskDBColumn].ToString();
                     Program.GV.Profile.OtherDB = Convert.ToBoolean(row[Program.GV.mainDBDataSet.Profiles.OtherDBColumn]);
                     Program.GV.Profile.OtherDataBaseFolder = row[Program.GV.mainDBDataSet.Profiles.DataBaseFolderColumn].ToString();
+                    Program.GV.Profile.MainColumn = row[Program.GV.mainDBDataSet.Profiles.MainColumnColumn].ToString();
                     Program.GV.mainDBDataSet.Profiles.Rows[i][Program.GV.mainDBDataSet.Profiles.SelectedColumn] = true;
                 }
                 else
@@ -209,6 +212,7 @@ namespace AGR
                     Program.GV.mainDBDataSet.Profiles[i][Program.GV.mainDBDataSet.Profiles.MaskKeyColumn] = Program.GV.Profile.MaskKey;
                     Program.GV.mainDBDataSet.Profiles[i][Program.GV.mainDBDataSet.Profiles.MaskDBColumn] = Program.GV.Profile.MaskDB;
                     Program.GV.mainDBDataSet.Profiles[i][Program.GV.mainDBDataSet.Profiles.DataBaseFolderColumn] = Program.GV.Profile.OtherDataBaseFolder;
+                    Program.GV.mainDBDataSet.Profiles[i][Program.GV.mainDBDataSet.Profiles.MainColumnColumn] = Program.GV.Profile.MainColumn;
                     Program.GV.mainDBDataSet.Profiles[i][Program.GV.mainDBDataSet.Profiles.SelectedColumn] = true;           
                 } else Program.GV.mainDBDataSet.Profiles[i][Program.GV.mainDBDataSet.Profiles.SelectedColumn] = false;
             }

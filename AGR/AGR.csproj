@@ -77,6 +77,11 @@
     <Compile Include="Classes\SubGroup.cs" />
     <Compile Include="Classes\SubGroupParameter.cs" />
     <Compile Include="Classes\Test.cs" />
+    <Compile Include="MainDBDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MainDBDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="MyElements\CheckBoxWLabel.xaml.cs">
       <DependentUpon>CheckBoxWLabel.xaml</DependentUpon>
     </Compile>
@@ -87,16 +92,6 @@
       <DependentUpon>FormDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Classes\Group.cs" />
-    <Compile Include="MainDBDataSet.cs">
-      <DependentUpon>MainDBDataSet.xsd</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
-    <Compile Include="MainDBDataSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>MainDBDataSet.xsd</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Compile>
     <Compile Include="MyElements\NumberBoxWLabel.xaml.cs">
       <DependentUpon>NumberBoxWLabel.xaml</DependentUpon>
     </Compile>
@@ -151,17 +146,14 @@
     </Compile>
     <None Include="MainDBDataSet.xsc">
       <DependentUpon>MainDBDataSet.xsd</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="MainDBDataSet.xsd">
       <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MainDBDataSet.Designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-      <LastGenOutput>MainDBDataSet1.Designer.cs</LastGenOutput>
     </None>
     <None Include="MainDBDataSet.xss">
       <DependentUpon>MainDBDataSet.xsd</DependentUpon>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

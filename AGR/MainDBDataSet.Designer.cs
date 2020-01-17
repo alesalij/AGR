@@ -24,9 +24,11 @@ namespace AGR {
     [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.DataSet")]
     public partial class MainDBDataSet : global::System.Data.DataSet {
         
-        private ProfilesDataTable tableProfiles;
-        
         private DefaultGroupsDataTable tableDefaultGroups;
+        
+        private ExcelParametersDataTable tableExcelParameters;
+        
+        private ProfilesDataTable tableProfiles;
         
         private SaveGroupParametersDataTable tableSaveGroupParameters;
         
@@ -38,15 +40,13 @@ namespace AGR {
         
         private SubgroupsDataTable tableSubgroups;
         
-        private ExcelParametersDataTable tableExcelParameters;
+        private global::System.Data.DataRelation relationSaveGroupsSaveGroupParameters;
         
         private global::System.Data.DataRelation relationSubGroupParametersSaveGroupParameters;
         
         private global::System.Data.DataRelation relationSubgroupsSaveGroupParameters;
         
         private global::System.Data.DataRelation relationSaveGroupsSelectedSpills;
-        
-        private global::System.Data.DataRelation relationSaveGroupsSaveGroupParameters;
         
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
@@ -76,11 +76,14 @@ namespace AGR {
             if ((this.DetermineSchemaSerializationMode(info, context) == global::System.Data.SchemaSerializationMode.IncludeSchema)) {
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXmlSchema(new global::System.Xml.XmlTextReader(new global::System.IO.StringReader(strSchema)));
-                if ((ds.Tables["Profiles"] != null)) {
-                    base.Tables.Add(new ProfilesDataTable(ds.Tables["Profiles"]));
-                }
                 if ((ds.Tables["DefaultGroups"] != null)) {
                     base.Tables.Add(new DefaultGroupsDataTable(ds.Tables["DefaultGroups"]));
+                }
+                if ((ds.Tables["ExcelParameters"] != null)) {
+                    base.Tables.Add(new ExcelParametersDataTable(ds.Tables["ExcelParameters"]));
+                }
+                if ((ds.Tables["Profiles"] != null)) {
+                    base.Tables.Add(new ProfilesDataTable(ds.Tables["Profiles"]));
                 }
                 if ((ds.Tables["SaveGroupParameters"] != null)) {
                     base.Tables.Add(new SaveGroupParametersDataTable(ds.Tables["SaveGroupParameters"]));
@@ -96,9 +99,6 @@ namespace AGR {
                 }
                 if ((ds.Tables["Subgroups"] != null)) {
                     base.Tables.Add(new SubgroupsDataTable(ds.Tables["Subgroups"]));
-                }
-                if ((ds.Tables["ExcelParameters"] != null)) {
-                    base.Tables.Add(new ExcelParametersDataTable(ds.Tables["ExcelParameters"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -122,9 +122,9 @@ namespace AGR {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ProfilesDataTable Profiles {
+        public DefaultGroupsDataTable DefaultGroups {
             get {
-                return this.tableProfiles;
+                return this.tableDefaultGroups;
             }
         }
         
@@ -132,9 +132,19 @@ namespace AGR {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Browsable(false)]
         [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public DefaultGroupsDataTable DefaultGroups {
+        public ExcelParametersDataTable ExcelParameters {
             get {
-                return this.tableDefaultGroups;
+                return this.tableExcelParameters;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public ProfilesDataTable Profiles {
+            get {
+                return this.tableProfiles;
             }
         }
         
@@ -185,16 +195,6 @@ namespace AGR {
         public SubgroupsDataTable Subgroups {
             get {
                 return this.tableSubgroups;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Browsable(false)]
-        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
-        public ExcelParametersDataTable ExcelParameters {
-            get {
-                return this.tableExcelParameters;
             }
         }
         
@@ -265,11 +265,14 @@ namespace AGR {
                 this.Reset();
                 global::System.Data.DataSet ds = new global::System.Data.DataSet();
                 ds.ReadXml(reader);
-                if ((ds.Tables["Profiles"] != null)) {
-                    base.Tables.Add(new ProfilesDataTable(ds.Tables["Profiles"]));
-                }
                 if ((ds.Tables["DefaultGroups"] != null)) {
                     base.Tables.Add(new DefaultGroupsDataTable(ds.Tables["DefaultGroups"]));
+                }
+                if ((ds.Tables["ExcelParameters"] != null)) {
+                    base.Tables.Add(new ExcelParametersDataTable(ds.Tables["ExcelParameters"]));
+                }
+                if ((ds.Tables["Profiles"] != null)) {
+                    base.Tables.Add(new ProfilesDataTable(ds.Tables["Profiles"]));
                 }
                 if ((ds.Tables["SaveGroupParameters"] != null)) {
                     base.Tables.Add(new SaveGroupParametersDataTable(ds.Tables["SaveGroupParameters"]));
@@ -285,9 +288,6 @@ namespace AGR {
                 }
                 if ((ds.Tables["Subgroups"] != null)) {
                     base.Tables.Add(new SubgroupsDataTable(ds.Tables["Subgroups"]));
-                }
-                if ((ds.Tables["ExcelParameters"] != null)) {
-                    base.Tables.Add(new ExcelParametersDataTable(ds.Tables["ExcelParameters"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -322,16 +322,22 @@ namespace AGR {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         internal void InitVars(bool initTable) {
-            this.tableProfiles = ((ProfilesDataTable)(base.Tables["Profiles"]));
-            if ((initTable == true)) {
-                if ((this.tableProfiles != null)) {
-                    this.tableProfiles.InitVars();
-                }
-            }
             this.tableDefaultGroups = ((DefaultGroupsDataTable)(base.Tables["DefaultGroups"]));
             if ((initTable == true)) {
                 if ((this.tableDefaultGroups != null)) {
                     this.tableDefaultGroups.InitVars();
+                }
+            }
+            this.tableExcelParameters = ((ExcelParametersDataTable)(base.Tables["ExcelParameters"]));
+            if ((initTable == true)) {
+                if ((this.tableExcelParameters != null)) {
+                    this.tableExcelParameters.InitVars();
+                }
+            }
+            this.tableProfiles = ((ProfilesDataTable)(base.Tables["Profiles"]));
+            if ((initTable == true)) {
+                if ((this.tableProfiles != null)) {
+                    this.tableProfiles.InitVars();
                 }
             }
             this.tableSaveGroupParameters = ((SaveGroupParametersDataTable)(base.Tables["SaveGroupParameters"]));
@@ -364,16 +370,10 @@ namespace AGR {
                     this.tableSubgroups.InitVars();
                 }
             }
-            this.tableExcelParameters = ((ExcelParametersDataTable)(base.Tables["ExcelParameters"]));
-            if ((initTable == true)) {
-                if ((this.tableExcelParameters != null)) {
-                    this.tableExcelParameters.InitVars();
-                }
-            }
+            this.relationSaveGroupsSaveGroupParameters = this.Relations["SaveGroupsSaveGroupParameters"];
             this.relationSubGroupParametersSaveGroupParameters = this.Relations["SubGroupParametersSaveGroupParameters"];
             this.relationSubgroupsSaveGroupParameters = this.Relations["SubgroupsSaveGroupParameters"];
             this.relationSaveGroupsSelectedSpills = this.Relations["SaveGroupsSelectedSpills"];
-            this.relationSaveGroupsSaveGroupParameters = this.Relations["SaveGroupsSaveGroupParameters"];
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -384,10 +384,12 @@ namespace AGR {
             this.Namespace = "http://tempuri.org/MainDBDataSet.xsd";
             this.EnforceConstraints = true;
             this.SchemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
-            this.tableProfiles = new ProfilesDataTable();
-            base.Tables.Add(this.tableProfiles);
             this.tableDefaultGroups = new DefaultGroupsDataTable();
             base.Tables.Add(this.tableDefaultGroups);
+            this.tableExcelParameters = new ExcelParametersDataTable();
+            base.Tables.Add(this.tableExcelParameters);
+            this.tableProfiles = new ProfilesDataTable();
+            base.Tables.Add(this.tableProfiles);
             this.tableSaveGroupParameters = new SaveGroupParametersDataTable();
             base.Tables.Add(this.tableSaveGroupParameters);
             this.tableSaveGroups = new SaveGroupsDataTable();
@@ -398,8 +400,10 @@ namespace AGR {
             base.Tables.Add(this.tableSubGroupParameters);
             this.tableSubgroups = new SubgroupsDataTable();
             base.Tables.Add(this.tableSubgroups);
-            this.tableExcelParameters = new ExcelParametersDataTable();
-            base.Tables.Add(this.tableExcelParameters);
+            this.relationSaveGroupsSaveGroupParameters = new global::System.Data.DataRelation("SaveGroupsSaveGroupParameters", new global::System.Data.DataColumn[] {
+                        this.tableSaveGroups.ID_GroupColumn}, new global::System.Data.DataColumn[] {
+                        this.tableSaveGroupParameters.ID_GroupColumn}, false);
+            this.Relations.Add(this.relationSaveGroupsSaveGroupParameters);
             this.relationSubGroupParametersSaveGroupParameters = new global::System.Data.DataRelation("SubGroupParametersSaveGroupParameters", new global::System.Data.DataColumn[] {
                         this.tableSubGroupParameters.ID_SubParametersColumn}, new global::System.Data.DataColumn[] {
                         this.tableSaveGroupParameters.ID_SubParameterColumn}, false);
@@ -412,21 +416,23 @@ namespace AGR {
                         this.tableSaveGroups.ID_GroupColumn}, new global::System.Data.DataColumn[] {
                         this.tableSelectedSpills.ID_GroupColumn}, false);
             this.Relations.Add(this.relationSaveGroupsSelectedSpills);
-            this.relationSaveGroupsSaveGroupParameters = new global::System.Data.DataRelation("SaveGroupsSaveGroupParameters", new global::System.Data.DataColumn[] {
-                        this.tableSaveGroups.ID_GroupColumn}, new global::System.Data.DataColumn[] {
-                        this.tableSaveGroupParameters.ID_GroupColumn}, false);
-            this.Relations.Add(this.relationSaveGroupsSaveGroupParameters);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeProfiles() {
-            return false;
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private bool ShouldSerializeDefaultGroups() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeExcelParameters() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private bool ShouldSerializeProfiles() {
             return false;
         }
         
@@ -457,12 +463,6 @@ namespace AGR {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private bool ShouldSerializeSubgroups() {
-            return false;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private bool ShouldSerializeExcelParameters() {
             return false;
         }
         
@@ -522,10 +522,13 @@ namespace AGR {
         }
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void ProfilesRowChangeEventHandler(object sender, ProfilesRowChangeEvent e);
+        public delegate void DefaultGroupsRowChangeEventHandler(object sender, DefaultGroupsRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void DefaultGroupsRowChangeEventHandler(object sender, DefaultGroupsRowChangeEvent e);
+        public delegate void ExcelParametersRowChangeEventHandler(object sender, ExcelParametersRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public delegate void ProfilesRowChangeEventHandler(object sender, ProfilesRowChangeEvent e);
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void SaveGroupParametersRowChangeEventHandler(object sender, SaveGroupParametersRowChangeEvent e);
@@ -541,433 +544,6 @@ namespace AGR {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public delegate void SubgroupsRowChangeEventHandler(object sender, SubgroupsRowChangeEvent e);
-        
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public delegate void ExcelParametersRowChangeEventHandler(object sender, ExcelParametersRowChangeEvent e);
-        
-        /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ProfilesDataTable : global::System.Data.TypedTableBase<ProfilesRow> {
-            
-            private global::System.Data.DataColumn columnID;
-            
-            private global::System.Data.DataColumn columnProfileName;
-            
-            private global::System.Data.DataColumn columnDataBasePlace;
-            
-            private global::System.Data.DataColumn columnOtherDB;
-            
-            private global::System.Data.DataColumn columnMaskKey;
-            
-            private global::System.Data.DataColumn columnMaskDB;
-            
-            private global::System.Data.DataColumn columnDataBaseFolder;
-            
-            private global::System.Data.DataColumn columnSelected;
-            
-            private global::System.Data.DataColumn columnTable1;
-            
-            private global::System.Data.DataColumn columnColumns1;
-            
-            private global::System.Data.DataColumn columnTable2;
-            
-            private global::System.Data.DataColumn columnColumns2;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProfilesDataTable() {
-                this.TableName = "Profiles";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal ProfilesDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected ProfilesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn IDColumn {
-                get {
-                    return this.columnID;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ProfileNameColumn {
-                get {
-                    return this.columnProfileName;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DataBasePlaceColumn {
-                get {
-                    return this.columnDataBasePlace;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn OtherDBColumn {
-                get {
-                    return this.columnOtherDB;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn MaskKeyColumn {
-                get {
-                    return this.columnMaskKey;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn MaskDBColumn {
-                get {
-                    return this.columnMaskDB;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn DataBaseFolderColumn {
-                get {
-                    return this.columnDataBaseFolder;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn SelectedColumn {
-                get {
-                    return this.columnSelected;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Table1Column {
-                get {
-                    return this.columnTable1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Columns1Column {
-                get {
-                    return this.columnColumns1;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Table2Column {
-                get {
-                    return this.columnTable2;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn Columns2Column {
-                get {
-                    return this.columnColumns2;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProfilesRow this[int index] {
-                get {
-                    return ((ProfilesRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ProfilesRowChangeEventHandler ProfilesRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ProfilesRowChangeEventHandler ProfilesRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ProfilesRowChangeEventHandler ProfilesRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ProfilesRowChangeEventHandler ProfilesRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddProfilesRow(ProfilesRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProfilesRow AddProfilesRow(string ProfileName, string DataBasePlace, bool OtherDB, string MaskKey, string MaskDB, string DataBaseFolder, bool Selected, string Table1, string Columns1, string Table2, string Columns2) {
-                ProfilesRow rowProfilesRow = ((ProfilesRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        null,
-                        ProfileName,
-                        DataBasePlace,
-                        OtherDB,
-                        MaskKey,
-                        MaskDB,
-                        DataBaseFolder,
-                        Selected,
-                        Table1,
-                        Columns1,
-                        Table2,
-                        Columns2};
-                rowProfilesRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowProfilesRow);
-                return rowProfilesRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProfilesRow FindByID(int ID) {
-                return ((ProfilesRow)(this.Rows.Find(new object[] {
-                            ID})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                ProfilesDataTable cln = ((ProfilesDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new ProfilesDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal void InitVars() {
-                this.columnID = base.Columns["ID"];
-                this.columnProfileName = base.Columns["ProfileName"];
-                this.columnDataBasePlace = base.Columns["DataBasePlace"];
-                this.columnOtherDB = base.Columns["OtherDB"];
-                this.columnMaskKey = base.Columns["MaskKey"];
-                this.columnMaskDB = base.Columns["MaskDB"];
-                this.columnDataBaseFolder = base.Columns["DataBaseFolder"];
-                this.columnSelected = base.Columns["Selected"];
-                this.columnTable1 = base.Columns["Table1"];
-                this.columnColumns1 = base.Columns["Columns1"];
-                this.columnTable2 = base.Columns["Table2"];
-                this.columnColumns2 = base.Columns["Columns2"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            private void InitClass() {
-                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnID);
-                this.columnProfileName = new global::System.Data.DataColumn("ProfileName", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnProfileName);
-                this.columnDataBasePlace = new global::System.Data.DataColumn("DataBasePlace", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDataBasePlace);
-                this.columnOtherDB = new global::System.Data.DataColumn("OtherDB", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnOtherDB);
-                this.columnMaskKey = new global::System.Data.DataColumn("MaskKey", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnMaskKey);
-                this.columnMaskDB = new global::System.Data.DataColumn("MaskDB", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnMaskDB);
-                this.columnDataBaseFolder = new global::System.Data.DataColumn("DataBaseFolder", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnDataBaseFolder);
-                this.columnSelected = new global::System.Data.DataColumn("Selected", typeof(bool), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnSelected);
-                this.columnTable1 = new global::System.Data.DataColumn("Table1", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTable1);
-                this.columnColumns1 = new global::System.Data.DataColumn("Columns1", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnColumns1);
-                this.columnTable2 = new global::System.Data.DataColumn("Table2", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnTable2);
-                this.columnColumns2 = new global::System.Data.DataColumn("Columns2", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnColumns2);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnID}, true));
-                this.columnID.AutoIncrement = true;
-                this.columnID.AutoIncrementSeed = -1;
-                this.columnID.AutoIncrementStep = -1;
-                this.columnID.AllowDBNull = false;
-                this.columnID.Unique = true;
-                this.columnProfileName.MaxLength = 536870910;
-                this.columnDataBasePlace.MaxLength = 536870910;
-                this.columnMaskKey.MaxLength = 255;
-                this.columnMaskDB.MaxLength = 255;
-                this.columnDataBaseFolder.MaxLength = 536870910;
-                this.columnTable1.MaxLength = 536870910;
-                this.columnColumns1.MaxLength = 536870910;
-                this.columnTable2.MaxLength = 536870910;
-                this.columnColumns2.MaxLength = 536870910;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ProfilesRow NewProfilesRow() {
-                return ((ProfilesRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ProfilesRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(ProfilesRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.ProfilesRowChanged != null)) {
-                    this.ProfilesRowChanged(this, new ProfilesRowChangeEvent(((ProfilesRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.ProfilesRowChanging != null)) {
-                    this.ProfilesRowChanging(this, new ProfilesRowChangeEvent(((ProfilesRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.ProfilesRowDeleted != null)) {
-                    this.ProfilesRowDeleted(this, new ProfilesRowChangeEvent(((ProfilesRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.ProfilesRowDeleting != null)) {
-                    this.ProfilesRowDeleting(this, new ProfilesRowChangeEvent(((ProfilesRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveProfilesRow(ProfilesRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                MainDBDataSet ds = new MainDBDataSet();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ProfilesDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -991,6 +567,8 @@ namespace AGR {
             private global::System.Data.DataColumn _columnСкорость_потока_Среднее_по_кассетам;
             
             private global::System.Data.DataColumn _columnСкорость_потока_Шаг_усреднения__л;
+            
+            private global::System.Data.DataColumn _columnСкорость_потока_Шаг_усреднения__мин;
             
             private global::System.Data.DataColumn _columnВходное_давление_По_времени;
             
@@ -1027,8 +605,6 @@ namespace AGR {
             private global::System.Data.DataColumn _columnДифференциальное_давление_Шаг_усреднения__л;
             
             private global::System.Data.DataColumn _columnДифференциальное_давление_Шаг_усреднения_мин;
-            
-            private global::System.Data.DataColumn _columnСкорость_потока_Шаг_усреднения__мин;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -1124,6 +700,14 @@ namespace AGR {
             public global::System.Data.DataColumn _Скорость_потока_Шаг_усреднения__лColumn {
                 get {
                     return this._columnСкорость_потока_Шаг_усреднения__л;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn _Скорость_потока_Шаг_усреднения__минColumn {
+                get {
+                    return this._columnСкорость_потока_Шаг_усреднения__мин;
                 }
             }
             
@@ -1273,14 +857,6 @@ namespace AGR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn _Скорость_потока_Шаг_усреднения__минColumn {
-                get {
-                    return this._columnСкорость_потока_Шаг_усреднения__мин;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1324,6 +900,7 @@ namespace AGR {
                         bool _Скорость_потока_Среднее, 
                         bool _Скорость_потока_Среднее_по_кассетам, 
                         int _Скорость_потока_Шаг_усреднения__л, 
+                        int _Скорость_потока_Шаг_усреднения__мин, 
                         bool _Входное_давление_По_времени, 
                         bool _Входное_давление_По_ресурсу, 
                         bool _Входное_давление_Среднее, 
@@ -1341,8 +918,7 @@ namespace AGR {
                         bool _Дифференциальное_давление_Среднее, 
                         bool _Дифференциальное_давление_Среднее_по_кассетам, 
                         int _Дифференциальное_давление_Шаг_усреднения__л, 
-                        int _Дифференциальное_давление_Шаг_усреднения_мин, 
-                        int _Скорость_потока_Шаг_усреднения__мин) {
+                        int _Дифференциальное_давление_Шаг_усреднения_мин) {
                 DefaultGroupsRow rowDefaultGroupsRow = ((DefaultGroupsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
@@ -1353,6 +929,7 @@ namespace AGR {
                         _Скорость_потока_Среднее,
                         _Скорость_потока_Среднее_по_кассетам,
                         _Скорость_потока_Шаг_усреднения__л,
+                        _Скорость_потока_Шаг_усреднения__мин,
                         _Входное_давление_По_времени,
                         _Входное_давление_По_ресурсу,
                         _Входное_давление_Среднее,
@@ -1370,8 +947,7 @@ namespace AGR {
                         _Дифференциальное_давление_Среднее,
                         _Дифференциальное_давление_Среднее_по_кассетам,
                         _Дифференциальное_давление_Шаг_усреднения__л,
-                        _Дифференциальное_давление_Шаг_усреднения_мин,
-                        _Скорость_потока_Шаг_усреднения__мин};
+                        _Дифференциальное_давление_Шаг_усреднения_мин};
                 rowDefaultGroupsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowDefaultGroupsRow);
                 return rowDefaultGroupsRow;
@@ -1409,6 +985,7 @@ namespace AGR {
                 this._columnСкорость_потока_Среднее = base.Columns["Скорость потока;Среднее"];
                 this._columnСкорость_потока_Среднее_по_кассетам = base.Columns["Скорость потока;Среднее по кассетам"];
                 this._columnСкорость_потока_Шаг_усреднения__л = base.Columns["Скорость потока;Шаг усреднения, л"];
+                this._columnСкорость_потока_Шаг_усреднения__мин = base.Columns["Скорость потока;Шаг усреднения, мин"];
                 this._columnВходное_давление_По_времени = base.Columns["Входное давление;По времени"];
                 this._columnВходное_давление_По_ресурсу = base.Columns["Входное давление;По ресурсу"];
                 this._columnВходное_давление_Среднее = base.Columns["Входное давление;Среднее"];
@@ -1427,7 +1004,6 @@ namespace AGR {
                 this._columnДифференциальное_давление_Среднее_по_кассетам = base.Columns["Дифференциальное давление;Среднее по кассетам"];
                 this._columnДифференциальное_давление_Шаг_усреднения__л = base.Columns["Дифференциальное давление;Шаг усреднения, л"];
                 this._columnДифференциальное_давление_Шаг_усреднения_мин = base.Columns["Дифференциальное давление;Шаг усреднения,мин"];
-                this._columnСкорость_потока_Шаг_усреднения__мин = base.Columns["Скорость потока;Шаг усреднения, мин"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1459,6 +1035,10 @@ namespace AGR {
                 this._columnСкорость_потока_Шаг_усреднения__л.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_columnСкорость_потока_Шаг_усреднения__л");
                 this._columnСкорость_потока_Шаг_усреднения__л.ExtendedProperties.Add("Generator_UserColumnName", "Скорость потока;Шаг усреднения, л");
                 base.Columns.Add(this._columnСкорость_потока_Шаг_усреднения__л);
+                this._columnСкорость_потока_Шаг_усреднения__мин = new global::System.Data.DataColumn("Скорость потока;Шаг усреднения, мин", typeof(int), null, global::System.Data.MappingType.Element);
+                this._columnСкорость_потока_Шаг_усреднения__мин.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_columnСкорость_потока_Шаг_усреднения__мин");
+                this._columnСкорость_потока_Шаг_усреднения__мин.ExtendedProperties.Add("Generator_UserColumnName", "Скорость потока;Шаг усреднения, мин");
+                base.Columns.Add(this._columnСкорость_потока_Шаг_усреднения__мин);
                 this._columnВходное_давление_По_времени = new global::System.Data.DataColumn("Входное давление;По времени", typeof(bool), null, global::System.Data.MappingType.Element);
                 this._columnВходное_давление_По_времени.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_columnВходное_давление_По_времени");
                 this._columnВходное_давление_По_времени.ExtendedProperties.Add("Generator_UserColumnName", "Входное давление;По времени");
@@ -1531,10 +1111,6 @@ namespace AGR {
                 this._columnДифференциальное_давление_Шаг_усреднения_мин.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_columnДифференциальное_давление_Шаг_усреднения_мин");
                 this._columnДифференциальное_давление_Шаг_усреднения_мин.ExtendedProperties.Add("Generator_UserColumnName", "Дифференциальное давление;Шаг усреднения,мин");
                 base.Columns.Add(this._columnДифференциальное_давление_Шаг_усреднения_мин);
-                this._columnСкорость_потока_Шаг_усреднения__мин = new global::System.Data.DataColumn("Скорость потока;Шаг усреднения, мин", typeof(int), null, global::System.Data.MappingType.Element);
-                this._columnСкорость_потока_Шаг_усреднения__мин.ExtendedProperties.Add("Generator_ColumnVarNameInTable", "_columnСкорость_потока_Шаг_усреднения__мин");
-                this._columnСкорость_потока_Шаг_усреднения__мин.ExtendedProperties.Add("Generator_UserColumnName", "Скорость потока;Шаг усреднения, мин");
-                base.Columns.Add(this._columnСкорость_потока_Шаг_усреднения__мин);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnКод}, true));
                 this.columnКод.AutoIncrement = true;
@@ -1674,6 +1250,766 @@ namespace AGR {
         ///</summary>
         [global::System.Serializable()]
         [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ExcelParametersDataTable : global::System.Data.TypedTableBase<ExcelParametersRow> {
+            
+            private global::System.Data.DataColumn columnКод;
+            
+            private global::System.Data.DataColumn columnПараметр;
+            
+            private global::System.Data.DataColumn columnБаза_данных;
+            
+            private global::System.Data.DataColumn columnТаблица;
+            
+            private global::System.Data.DataColumn columnСтолбец;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ExcelParametersDataTable() {
+                this.TableName = "ExcelParameters";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal ExcelParametersDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected ExcelParametersDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn КодColumn {
+                get {
+                    return this.columnКод;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ПараметрColumn {
+                get {
+                    return this.columnПараметр;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn База_данныхColumn {
+                get {
+                    return this.columnБаза_данных;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ТаблицаColumn {
+                get {
+                    return this.columnТаблица;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn СтолбецColumn {
+                get {
+                    return this.columnСтолбец;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ExcelParametersRow this[int index] {
+                get {
+                    return ((ExcelParametersRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ExcelParametersRowChangeEventHandler ExcelParametersRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ExcelParametersRowChangeEventHandler ExcelParametersRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ExcelParametersRowChangeEventHandler ExcelParametersRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ExcelParametersRowChangeEventHandler ExcelParametersRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddExcelParametersRow(ExcelParametersRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ExcelParametersRow AddExcelParametersRow(string Параметр, string База_данных, string Таблица, string Столбец) {
+                ExcelParametersRow rowExcelParametersRow = ((ExcelParametersRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        Параметр,
+                        База_данных,
+                        Таблица,
+                        Столбец};
+                rowExcelParametersRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowExcelParametersRow);
+                return rowExcelParametersRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ExcelParametersRow FindByКод(int Код) {
+                return ((ExcelParametersRow)(this.Rows.Find(new object[] {
+                            Код})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                ExcelParametersDataTable cln = ((ExcelParametersDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new ExcelParametersDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnКод = base.Columns["Код"];
+                this.columnПараметр = base.Columns["Параметр"];
+                this.columnБаза_данных = base.Columns["База данных"];
+                this.columnТаблица = base.Columns["Таблица"];
+                this.columnСтолбец = base.Columns["Столбец"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnКод = new global::System.Data.DataColumn("Код", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnКод);
+                this.columnПараметр = new global::System.Data.DataColumn("Параметр", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnПараметр);
+                this.columnБаза_данных = new global::System.Data.DataColumn("База данных", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnБаза_данных);
+                this.columnТаблица = new global::System.Data.DataColumn("Таблица", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnТаблица);
+                this.columnСтолбец = new global::System.Data.DataColumn("Столбец", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnСтолбец);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnКод}, true));
+                this.columnКод.AutoIncrement = true;
+                this.columnКод.AutoIncrementSeed = -1;
+                this.columnКод.AutoIncrementStep = -1;
+                this.columnКод.AllowDBNull = false;
+                this.columnКод.Unique = true;
+                this.columnПараметр.MaxLength = 255;
+                this.columnБаза_данных.MaxLength = 255;
+                this.columnТаблица.MaxLength = 255;
+                this.columnСтолбец.MaxLength = 255;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ExcelParametersRow NewExcelParametersRow() {
+                return ((ExcelParametersRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new ExcelParametersRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(ExcelParametersRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ExcelParametersRowChanged != null)) {
+                    this.ExcelParametersRowChanged(this, new ExcelParametersRowChangeEvent(((ExcelParametersRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ExcelParametersRowChanging != null)) {
+                    this.ExcelParametersRowChanging(this, new ExcelParametersRowChangeEvent(((ExcelParametersRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ExcelParametersRowDeleted != null)) {
+                    this.ExcelParametersRowDeleted(this, new ExcelParametersRowChangeEvent(((ExcelParametersRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ExcelParametersRowDeleting != null)) {
+                    this.ExcelParametersRowDeleting(this, new ExcelParametersRowChangeEvent(((ExcelParametersRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveExcelParametersRow(ExcelParametersRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                MainDBDataSet ds = new MainDBDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ExcelParametersDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class ProfilesDataTable : global::System.Data.TypedTableBase<ProfilesRow> {
+            
+            private global::System.Data.DataColumn columnID;
+            
+            private global::System.Data.DataColumn columnProfileName;
+            
+            private global::System.Data.DataColumn columnDataBasePlace;
+            
+            private global::System.Data.DataColumn columnTable1;
+            
+            private global::System.Data.DataColumn columnColumns1;
+            
+            private global::System.Data.DataColumn columnTable2;
+            
+            private global::System.Data.DataColumn columnColumns2;
+            
+            private global::System.Data.DataColumn columnOtherDB;
+            
+            private global::System.Data.DataColumn columnMaskKey;
+            
+            private global::System.Data.DataColumn columnMaskDB;
+            
+            private global::System.Data.DataColumn columnDataBaseFolder;
+            
+            private global::System.Data.DataColumn columnSelected;
+            
+            private global::System.Data.DataColumn columnMainColumn;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ProfilesDataTable() {
+                this.TableName = "Profiles";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal ProfilesDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected ProfilesDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn IDColumn {
+                get {
+                    return this.columnID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ProfileNameColumn {
+                get {
+                    return this.columnProfileName;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DataBasePlaceColumn {
+                get {
+                    return this.columnDataBasePlace;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Table1Column {
+                get {
+                    return this.columnTable1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Columns1Column {
+                get {
+                    return this.columnColumns1;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Table2Column {
+                get {
+                    return this.columnTable2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn Columns2Column {
+                get {
+                    return this.columnColumns2;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn OtherDBColumn {
+                get {
+                    return this.columnOtherDB;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn MaskKeyColumn {
+                get {
+                    return this.columnMaskKey;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn MaskDBColumn {
+                get {
+                    return this.columnMaskDB;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn DataBaseFolderColumn {
+                get {
+                    return this.columnDataBaseFolder;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SelectedColumn {
+                get {
+                    return this.columnSelected;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn MainColumnColumn {
+                get {
+                    return this.columnMainColumn;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ProfilesRow this[int index] {
+                get {
+                    return ((ProfilesRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ProfilesRowChangeEventHandler ProfilesRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ProfilesRowChangeEventHandler ProfilesRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ProfilesRowChangeEventHandler ProfilesRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public event ProfilesRowChangeEventHandler ProfilesRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void AddProfilesRow(ProfilesRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ProfilesRow AddProfilesRow(string ProfileName, string DataBasePlace, string Table1, string Columns1, string Table2, string Columns2, bool OtherDB, string MaskKey, string MaskDB, string DataBaseFolder, bool Selected, string MainColumn) {
+                ProfilesRow rowProfilesRow = ((ProfilesRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        null,
+                        ProfileName,
+                        DataBasePlace,
+                        Table1,
+                        Columns1,
+                        Table2,
+                        Columns2,
+                        OtherDB,
+                        MaskKey,
+                        MaskDB,
+                        DataBaseFolder,
+                        Selected,
+                        MainColumn};
+                rowProfilesRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowProfilesRow);
+                return rowProfilesRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ProfilesRow FindByID(int ID) {
+                return ((ProfilesRow)(this.Rows.Find(new object[] {
+                            ID})));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                ProfilesDataTable cln = ((ProfilesDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new ProfilesDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal void InitVars() {
+                this.columnID = base.Columns["ID"];
+                this.columnProfileName = base.Columns["ProfileName"];
+                this.columnDataBasePlace = base.Columns["DataBasePlace"];
+                this.columnTable1 = base.Columns["Table1"];
+                this.columnColumns1 = base.Columns["Columns1"];
+                this.columnTable2 = base.Columns["Table2"];
+                this.columnColumns2 = base.Columns["Columns2"];
+                this.columnOtherDB = base.Columns["OtherDB"];
+                this.columnMaskKey = base.Columns["MaskKey"];
+                this.columnMaskDB = base.Columns["MaskDB"];
+                this.columnDataBaseFolder = base.Columns["DataBaseFolder"];
+                this.columnSelected = base.Columns["Selected"];
+                this.columnMainColumn = base.Columns["MainColumn"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            private void InitClass() {
+                this.columnID = new global::System.Data.DataColumn("ID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnID);
+                this.columnProfileName = new global::System.Data.DataColumn("ProfileName", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnProfileName);
+                this.columnDataBasePlace = new global::System.Data.DataColumn("DataBasePlace", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDataBasePlace);
+                this.columnTable1 = new global::System.Data.DataColumn("Table1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTable1);
+                this.columnColumns1 = new global::System.Data.DataColumn("Columns1", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColumns1);
+                this.columnTable2 = new global::System.Data.DataColumn("Table2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTable2);
+                this.columnColumns2 = new global::System.Data.DataColumn("Columns2", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnColumns2);
+                this.columnOtherDB = new global::System.Data.DataColumn("OtherDB", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnOtherDB);
+                this.columnMaskKey = new global::System.Data.DataColumn("MaskKey", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMaskKey);
+                this.columnMaskDB = new global::System.Data.DataColumn("MaskDB", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMaskDB);
+                this.columnDataBaseFolder = new global::System.Data.DataColumn("DataBaseFolder", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnDataBaseFolder);
+                this.columnSelected = new global::System.Data.DataColumn("Selected", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSelected);
+                this.columnMainColumn = new global::System.Data.DataColumn("MainColumn", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnMainColumn);
+                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
+                                this.columnID}, true));
+                this.columnID.AutoIncrement = true;
+                this.columnID.AutoIncrementSeed = -1;
+                this.columnID.AutoIncrementStep = -1;
+                this.columnID.AllowDBNull = false;
+                this.columnID.Unique = true;
+                this.columnProfileName.MaxLength = 536870910;
+                this.columnDataBasePlace.MaxLength = 536870910;
+                this.columnTable1.MaxLength = 536870910;
+                this.columnColumns1.MaxLength = 536870910;
+                this.columnTable2.MaxLength = 536870910;
+                this.columnColumns2.MaxLength = 536870910;
+                this.columnMaskKey.MaxLength = 255;
+                this.columnMaskDB.MaxLength = 255;
+                this.columnDataBaseFolder.MaxLength = 536870910;
+                this.columnMainColumn.MaxLength = 255;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ProfilesRow NewProfilesRow() {
+                return ((ProfilesRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new ProfilesRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(ProfilesRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.ProfilesRowChanged != null)) {
+                    this.ProfilesRowChanged(this, new ProfilesRowChangeEvent(((ProfilesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.ProfilesRowChanging != null)) {
+                    this.ProfilesRowChanging(this, new ProfilesRowChangeEvent(((ProfilesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.ProfilesRowDeleted != null)) {
+                    this.ProfilesRowDeleted(this, new ProfilesRowChangeEvent(((ProfilesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.ProfilesRowDeleting != null)) {
+                    this.ProfilesRowDeleting(this, new ProfilesRowChangeEvent(((ProfilesRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void RemoveProfilesRow(ProfilesRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                MainDBDataSet ds = new MainDBDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "ProfilesDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
         public partial class SaveGroupParametersDataTable : global::System.Data.TypedTableBase<SaveGroupParametersRow> {
             
             private global::System.Data.DataColumn columnID_Parameter;
@@ -1683,6 +2019,8 @@ namespace AGR {
             private global::System.Data.DataColumn columnID_SubGroup;
             
             private global::System.Data.DataColumn columnID_SubParameter;
+            
+            private global::System.Data.DataColumn columnValues;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
@@ -1751,6 +2089,14 @@ namespace AGR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn ValuesColumn {
+                get {
+                    return this.columnValues;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -1786,13 +2132,14 @@ namespace AGR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SaveGroupParametersRow AddSaveGroupParametersRow(SaveGroupsRow parentSaveGroupsRowBySaveGroupsSaveGroupParameters, SubgroupsRow parentSubgroupsRowBySubgroupsSaveGroupParameters, SubGroupParametersRow parentSubGroupParametersRowBySubGroupParametersSaveGroupParameters) {
+            public SaveGroupParametersRow AddSaveGroupParametersRow(SaveGroupsRow parentSaveGroupsRowBySaveGroupsSaveGroupParameters, SubgroupsRow parentSubgroupsRowBySubgroupsSaveGroupParameters, SubGroupParametersRow parentSubGroupParametersRowBySubGroupParametersSaveGroupParameters, string Values) {
                 SaveGroupParametersRow rowSaveGroupParametersRow = ((SaveGroupParametersRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         null,
                         null,
-                        null};
+                        null,
+                        Values};
                 if ((parentSaveGroupsRowBySaveGroupsSaveGroupParameters != null)) {
                     columnValuesArray[1] = parentSaveGroupsRowBySaveGroupsSaveGroupParameters[0];
                 }
@@ -1835,6 +2182,7 @@ namespace AGR {
                 this.columnID_Group = base.Columns["ID Group"];
                 this.columnID_SubGroup = base.Columns["ID SubGroup"];
                 this.columnID_SubParameter = base.Columns["ID SubParameter"];
+                this.columnValues = base.Columns["Values"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1848,6 +2196,8 @@ namespace AGR {
                 base.Columns.Add(this.columnID_SubGroup);
                 this.columnID_SubParameter = new global::System.Data.DataColumn("ID SubParameter", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnID_SubParameter);
+                this.columnValues = new global::System.Data.DataColumn("Values", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnValues);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID_Parameter}, true));
                 this.columnID_Parameter.AutoIncrement = true;
@@ -1855,6 +2205,7 @@ namespace AGR {
                 this.columnID_Parameter.AutoIncrementStep = -1;
                 this.columnID_Parameter.AllowDBNull = false;
                 this.columnID_Parameter.Unique = true;
+                this.columnValues.MaxLength = 536870910;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -1998,6 +2349,8 @@ namespace AGR {
             
             private global::System.Data.DataColumn columnSubGroup3;
             
+            private global::System.Data.DataColumn columnSubGroup4;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SaveGroupsDataTable() {
@@ -2073,6 +2426,14 @@ namespace AGR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public global::System.Data.DataColumn SubGroup4Column {
+                get {
+                    return this.columnSubGroup4;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -2108,14 +2469,15 @@ namespace AGR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SaveGroupsRow AddSaveGroupsRow(string Group, bool SubGroup1, bool SubGroup2, bool SubGroup3) {
+            public SaveGroupsRow AddSaveGroupsRow(string Group, bool SubGroup1, bool SubGroup2, bool SubGroup3, bool SubGroup4) {
                 SaveGroupsRow rowSaveGroupsRow = ((SaveGroupsRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         null,
                         Group,
                         SubGroup1,
                         SubGroup2,
-                        SubGroup3};
+                        SubGroup3,
+                        SubGroup4};
                 rowSaveGroupsRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowSaveGroupsRow);
                 return rowSaveGroupsRow;
@@ -2150,6 +2512,7 @@ namespace AGR {
                 this.columnSubGroup1 = base.Columns["SubGroup1"];
                 this.columnSubGroup2 = base.Columns["SubGroup2"];
                 this.columnSubGroup3 = base.Columns["SubGroup3"];
+                this.columnSubGroup4 = base.Columns["SubGroup4"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -2165,6 +2528,8 @@ namespace AGR {
                 base.Columns.Add(this.columnSubGroup2);
                 this.columnSubGroup3 = new global::System.Data.DataColumn("SubGroup3", typeof(bool), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnSubGroup3);
+                this.columnSubGroup4 = new global::System.Data.DataColumn("SubGroup4", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnSubGroup4);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnID_Group}, true));
                 this.columnID_Group.AutoIncrement = true;
@@ -3189,661 +3554,6 @@ namespace AGR {
         }
         
         /// <summary>
-        ///Represents the strongly named DataTable class.
-        ///</summary>
-        [global::System.Serializable()]
-        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
-        public partial class ExcelParametersDataTable : global::System.Data.TypedTableBase<ExcelParametersRow> {
-            
-            private global::System.Data.DataColumn columnКод;
-            
-            private global::System.Data.DataColumn columnПараметр;
-            
-            private global::System.Data.DataColumn columnБаза_данных;
-            
-            private global::System.Data.DataColumn columnТаблица;
-            
-            private global::System.Data.DataColumn columnСтолбец;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ExcelParametersDataTable() {
-                this.TableName = "ExcelParameters";
-                this.BeginInit();
-                this.InitClass();
-                this.EndInit();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal ExcelParametersDataTable(global::System.Data.DataTable table) {
-                this.TableName = table.TableName;
-                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
-                    this.CaseSensitive = table.CaseSensitive;
-                }
-                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
-                    this.Locale = table.Locale;
-                }
-                if ((table.Namespace != table.DataSet.Namespace)) {
-                    this.Namespace = table.Namespace;
-                }
-                this.Prefix = table.Prefix;
-                this.MinimumCapacity = table.MinimumCapacity;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected ExcelParametersDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
-                    base(info, context) {
-                this.InitVars();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn КодColumn {
-                get {
-                    return this.columnКод;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ПараметрColumn {
-                get {
-                    return this.columnПараметр;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn База_данныхColumn {
-                get {
-                    return this.columnБаза_данных;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn ТаблицаColumn {
-                get {
-                    return this.columnТаблица;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataColumn СтолбецColumn {
-                get {
-                    return this.columnСтолбец;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            [global::System.ComponentModel.Browsable(false)]
-            public int Count {
-                get {
-                    return this.Rows.Count;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ExcelParametersRow this[int index] {
-                get {
-                    return ((ExcelParametersRow)(this.Rows[index]));
-                }
-            }
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ExcelParametersRowChangeEventHandler ExcelParametersRowChanging;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ExcelParametersRowChangeEventHandler ExcelParametersRowChanged;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ExcelParametersRowChangeEventHandler ExcelParametersRowDeleting;
-            
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public event ExcelParametersRowChangeEventHandler ExcelParametersRowDeleted;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void AddExcelParametersRow(ExcelParametersRow row) {
-                this.Rows.Add(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ExcelParametersRow AddExcelParametersRow(string Параметр, string База_данных, string Таблица, string Столбец) {
-                ExcelParametersRow rowExcelParametersRow = ((ExcelParametersRow)(this.NewRow()));
-                object[] columnValuesArray = new object[] {
-                        null,
-                        Параметр,
-                        База_данных,
-                        Таблица,
-                        Столбец};
-                rowExcelParametersRow.ItemArray = columnValuesArray;
-                this.Rows.Add(rowExcelParametersRow);
-                return rowExcelParametersRow;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ExcelParametersRow FindByКод(int Код) {
-                return ((ExcelParametersRow)(this.Rows.Find(new object[] {
-                            Код})));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public override global::System.Data.DataTable Clone() {
-                ExcelParametersDataTable cln = ((ExcelParametersDataTable)(base.Clone()));
-                cln.InitVars();
-                return cln;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Data.DataTable CreateInstance() {
-                return new ExcelParametersDataTable();
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal void InitVars() {
-                this.columnКод = base.Columns["Код"];
-                this.columnПараметр = base.Columns["Параметр"];
-                this.columnБаза_данных = base.Columns["База данных"];
-                this.columnТаблица = base.Columns["Таблица"];
-                this.columnСтолбец = base.Columns["Столбец"];
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            private void InitClass() {
-                this.columnКод = new global::System.Data.DataColumn("Код", typeof(int), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnКод);
-                this.columnПараметр = new global::System.Data.DataColumn("Параметр", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnПараметр);
-                this.columnБаза_данных = new global::System.Data.DataColumn("База данных", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnБаза_данных);
-                this.columnТаблица = new global::System.Data.DataColumn("Таблица", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnТаблица);
-                this.columnСтолбец = new global::System.Data.DataColumn("Столбец", typeof(string), null, global::System.Data.MappingType.Element);
-                base.Columns.Add(this.columnСтолбец);
-                this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
-                                this.columnКод}, true));
-                this.columnКод.AutoIncrement = true;
-                this.columnКод.AutoIncrementSeed = -1;
-                this.columnКод.AutoIncrementStep = -1;
-                this.columnКод.AllowDBNull = false;
-                this.columnКод.Unique = true;
-                this.columnПараметр.MaxLength = 255;
-                this.columnБаза_данных.MaxLength = 255;
-                this.columnТаблица.MaxLength = 255;
-                this.columnСтолбец.MaxLength = 255;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ExcelParametersRow NewExcelParametersRow() {
-                return ((ExcelParametersRow)(this.NewRow()));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
-                return new ExcelParametersRow(builder);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override global::System.Type GetRowType() {
-                return typeof(ExcelParametersRow);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanged(e);
-                if ((this.ExcelParametersRowChanged != null)) {
-                    this.ExcelParametersRowChanged(this, new ExcelParametersRowChangeEvent(((ExcelParametersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowChanging(e);
-                if ((this.ExcelParametersRowChanging != null)) {
-                    this.ExcelParametersRowChanging(this, new ExcelParametersRowChangeEvent(((ExcelParametersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleted(e);
-                if ((this.ExcelParametersRowDeleted != null)) {
-                    this.ExcelParametersRowDeleted(this, new ExcelParametersRowChangeEvent(((ExcelParametersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
-                base.OnRowDeleting(e);
-                if ((this.ExcelParametersRowDeleting != null)) {
-                    this.ExcelParametersRowDeleting(this, new ExcelParametersRowChangeEvent(((ExcelParametersRow)(e.Row)), e.Action));
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void RemoveExcelParametersRow(ExcelParametersRow row) {
-                this.Rows.Remove(row);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
-                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
-                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
-                MainDBDataSet ds = new MainDBDataSet();
-                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
-                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
-                any1.MinOccurs = new decimal(0);
-                any1.MaxOccurs = decimal.MaxValue;
-                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any1);
-                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
-                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
-                any2.MinOccurs = new decimal(1);
-                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
-                sequence.Items.Add(any2);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute1.Name = "namespace";
-                attribute1.FixedValue = ds.Namespace;
-                type.Attributes.Add(attribute1);
-                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
-                attribute2.Name = "tableTypeName";
-                attribute2.FixedValue = "ExcelParametersDataTable";
-                type.Attributes.Add(attribute2);
-                type.Particle = sequence;
-                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
-                if (xs.Contains(dsSchema.TargetNamespace)) {
-                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
-                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
-                    try {
-                        global::System.Xml.Schema.XmlSchema schema = null;
-                        dsSchema.Write(s1);
-                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
-                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
-                            s2.SetLength(0);
-                            schema.Write(s2);
-                            if ((s1.Length == s2.Length)) {
-                                s1.Position = 0;
-                                s2.Position = 0;
-                                for (; ((s1.Position != s1.Length) 
-                                            && (s1.ReadByte() == s2.ReadByte())); ) {
-                                    ;
-                                }
-                                if ((s1.Position == s1.Length)) {
-                                    return type;
-                                }
-                            }
-                        }
-                    }
-                    finally {
-                        if ((s1 != null)) {
-                            s1.Close();
-                        }
-                        if ((s2 != null)) {
-                            s2.Close();
-                        }
-                    }
-                }
-                xs.Add(dsSchema);
-                return type;
-            }
-        }
-        
-        /// <summary>
-        ///Represents strongly named DataRow class.
-        ///</summary>
-        public partial class ProfilesRow : global::System.Data.DataRow {
-            
-            private ProfilesDataTable tableProfiles;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal ProfilesRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableProfiles = ((ProfilesDataTable)(this.Table));
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int ID {
-                get {
-                    return ((int)(this[this.tableProfiles.IDColumn]));
-                }
-                set {
-                    this[this.tableProfiles.IDColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string ProfileName {
-                get {
-                    try {
-                        return ((string)(this[this.tableProfiles.ProfileNameColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'ProfileName\' в таблице \'Profiles\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProfiles.ProfileNameColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DataBasePlace {
-                get {
-                    try {
-                        return ((string)(this[this.tableProfiles.DataBasePlaceColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'DataBasePlace\' в таблице \'Profiles\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProfiles.DataBasePlaceColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool OtherDB {
-                get {
-                    try {
-                        return ((bool)(this[this.tableProfiles.OtherDBColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'OtherDB\' в таблице \'Profiles\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProfiles.OtherDBColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string MaskKey {
-                get {
-                    try {
-                        return ((string)(this[this.tableProfiles.MaskKeyColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'MaskKey\' в таблице \'Profiles\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProfiles.MaskKeyColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string MaskDB {
-                get {
-                    try {
-                        return ((string)(this[this.tableProfiles.MaskDBColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'MaskDB\' в таблице \'Profiles\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProfiles.MaskDBColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string DataBaseFolder {
-                get {
-                    try {
-                        return ((string)(this[this.tableProfiles.DataBaseFolderColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'DataBaseFolder\' в таблице \'Profiles\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProfiles.DataBaseFolderColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Selected {
-                get {
-                    try {
-                        return ((bool)(this[this.tableProfiles.SelectedColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Selected\' в таблице \'Profiles\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProfiles.SelectedColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Table1 {
-                get {
-                    try {
-                        return ((string)(this[this.tableProfiles.Table1Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Table1\' в таблице \'Profiles\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProfiles.Table1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Columns1 {
-                get {
-                    try {
-                        return ((string)(this[this.tableProfiles.Columns1Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Columns1\' в таблице \'Profiles\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProfiles.Columns1Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Table2 {
-                get {
-                    try {
-                        return ((string)(this[this.tableProfiles.Table2Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Table2\' в таблице \'Profiles\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProfiles.Table2Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Columns2 {
-                get {
-                    try {
-                        return ((string)(this[this.tableProfiles.Columns2Column]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Columns2\' в таблице \'Profiles\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableProfiles.Columns2Column] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsProfileNameNull() {
-                return this.IsNull(this.tableProfiles.ProfileNameColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetProfileNameNull() {
-                this[this.tableProfiles.ProfileNameColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDataBasePlaceNull() {
-                return this.IsNull(this.tableProfiles.DataBasePlaceColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDataBasePlaceNull() {
-                this[this.tableProfiles.DataBasePlaceColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsOtherDBNull() {
-                return this.IsNull(this.tableProfiles.OtherDBColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetOtherDBNull() {
-                this[this.tableProfiles.OtherDBColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsMaskKeyNull() {
-                return this.IsNull(this.tableProfiles.MaskKeyColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetMaskKeyNull() {
-                this[this.tableProfiles.MaskKeyColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsMaskDBNull() {
-                return this.IsNull(this.tableProfiles.MaskDBColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetMaskDBNull() {
-                this[this.tableProfiles.MaskDBColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsDataBaseFolderNull() {
-                return this.IsNull(this.tableProfiles.DataBaseFolderColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetDataBaseFolderNull() {
-                this[this.tableProfiles.DataBaseFolderColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsSelectedNull() {
-                return this.IsNull(this.tableProfiles.SelectedColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetSelectedNull() {
-                this[this.tableProfiles.SelectedColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTable1Null() {
-                return this.IsNull(this.tableProfiles.Table1Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTable1Null() {
-                this[this.tableProfiles.Table1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsColumns1Null() {
-                return this.IsNull(this.tableProfiles.Columns1Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetColumns1Null() {
-                this[this.tableProfiles.Columns1Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsTable2Null() {
-                return this.IsNull(this.tableProfiles.Table2Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetTable2Null() {
-                this[this.tableProfiles.Table2Column] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsColumns2Null() {
-                return this.IsNull(this.tableProfiles.Columns2Column);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetColumns2Null() {
-                this[this.tableProfiles.Columns2Column] = global::System.Convert.DBNull;
-            }
-        }
-        
-        /// <summary>
         ///Represents strongly named DataRow class.
         ///</summary>
         public partial class DefaultGroupsRow : global::System.Data.DataRow {
@@ -3982,6 +3692,23 @@ namespace AGR {
                 }
                 set {
                     this[this.tableDefaultGroups._Скорость_потока_Шаг_усреднения__лColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int _Скорость_потока_Шаг_усреднения__мин {
+                get {
+                    try {
+                        return ((int)(this[this.tableDefaultGroups._Скорость_потока_Шаг_усреднения__минColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Скорость потока;Шаг усреднения, мин\' в таблице \'DefaultGrou" +
+                                "ps\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableDefaultGroups._Скорость_потока_Шаг_усреднения__минColumn] = value;
                 }
             }
             
@@ -4293,23 +4020,6 @@ namespace AGR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int _Скорость_потока_Шаг_усреднения__мин {
-                get {
-                    try {
-                        return ((int)(this[this.tableDefaultGroups._Скорость_потока_Шаг_усреднения__минColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Скорость потока;Шаг усреднения, мин\' в таблице \'DefaultGrou" +
-                                "ps\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableDefaultGroups._Скорость_потока_Шаг_усреднения__минColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsГруппаNull() {
                 return this.IsNull(this.tableDefaultGroups.ГруппаColumn);
             }
@@ -4390,6 +4100,18 @@ namespace AGR {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void Set_Скорость_потока_Шаг_усреднения__лNull() {
                 this[this.tableDefaultGroups._Скорость_потока_Шаг_усреднения__лColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Is_Скорость_потока_Шаг_усреднения__минNull() {
+                return this.IsNull(this.tableDefaultGroups._Скорость_потока_Шаг_усреднения__минColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void Set_Скорость_потока_Шаг_усреднения__минNull() {
+                this[this.tableDefaultGroups._Скорость_потока_Шаг_усреднения__минColumn] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4607,17 +4329,505 @@ namespace AGR {
             public void Set_Дифференциальное_давление_Шаг_усреднения_минNull() {
                 this[this.tableDefaultGroups._Дифференциальное_давление_Шаг_усреднения_минColumn] = global::System.Convert.DBNull;
             }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class ExcelParametersRow : global::System.Data.DataRow {
+            
+            private ExcelParametersDataTable tableExcelParameters;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool Is_Скорость_потока_Шаг_усреднения__минNull() {
-                return this.IsNull(this.tableDefaultGroups._Скорость_потока_Шаг_усреднения__минColumn);
+            internal ExcelParametersRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableExcelParameters = ((ExcelParametersDataTable)(this.Table));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void Set_Скорость_потока_Шаг_усреднения__минNull() {
-                this[this.tableDefaultGroups._Скорость_потока_Шаг_усреднения__минColumn] = global::System.Convert.DBNull;
+            public int Код {
+                get {
+                    return ((int)(this[this.tableExcelParameters.КодColumn]));
+                }
+                set {
+                    this[this.tableExcelParameters.КодColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Параметр {
+                get {
+                    try {
+                        return ((string)(this[this.tableExcelParameters.ПараметрColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Параметр\' в таблице \'ExcelParameters\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableExcelParameters.ПараметрColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string База_данных {
+                get {
+                    try {
+                        return ((string)(this[this.tableExcelParameters.База_данныхColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'База данных\' в таблице \'ExcelParameters\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableExcelParameters.База_данныхColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Таблица {
+                get {
+                    try {
+                        return ((string)(this[this.tableExcelParameters.ТаблицаColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Таблица\' в таблице \'ExcelParameters\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableExcelParameters.ТаблицаColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Столбец {
+                get {
+                    try {
+                        return ((string)(this[this.tableExcelParameters.СтолбецColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Столбец\' в таблице \'ExcelParameters\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableExcelParameters.СтолбецColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsПараметрNull() {
+                return this.IsNull(this.tableExcelParameters.ПараметрColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetПараметрNull() {
+                this[this.tableExcelParameters.ПараметрColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsБаза_данныхNull() {
+                return this.IsNull(this.tableExcelParameters.База_данныхColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetБаза_данныхNull() {
+                this[this.tableExcelParameters.База_данныхColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsТаблицаNull() {
+                return this.IsNull(this.tableExcelParameters.ТаблицаColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetТаблицаNull() {
+                this[this.tableExcelParameters.ТаблицаColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsСтолбецNull() {
+                return this.IsNull(this.tableExcelParameters.СтолбецColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetСтолбецNull() {
+                this[this.tableExcelParameters.СтолбецColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class ProfilesRow : global::System.Data.DataRow {
+            
+            private ProfilesDataTable tableProfiles;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            internal ProfilesRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableProfiles = ((ProfilesDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public int ID {
+                get {
+                    return ((int)(this[this.tableProfiles.IDColumn]));
+                }
+                set {
+                    this[this.tableProfiles.IDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string ProfileName {
+                get {
+                    try {
+                        return ((string)(this[this.tableProfiles.ProfileNameColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'ProfileName\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.ProfileNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DataBasePlace {
+                get {
+                    try {
+                        return ((string)(this[this.tableProfiles.DataBasePlaceColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'DataBasePlace\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.DataBasePlaceColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Table1 {
+                get {
+                    try {
+                        return ((string)(this[this.tableProfiles.Table1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Table1\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.Table1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Columns1 {
+                get {
+                    try {
+                        return ((string)(this[this.tableProfiles.Columns1Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Columns1\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.Columns1Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Table2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableProfiles.Table2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Table2\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.Table2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Columns2 {
+                get {
+                    try {
+                        return ((string)(this[this.tableProfiles.Columns2Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Columns2\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.Columns2Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool OtherDB {
+                get {
+                    try {
+                        return ((bool)(this[this.tableProfiles.OtherDBColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'OtherDB\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.OtherDBColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string MaskKey {
+                get {
+                    try {
+                        return ((string)(this[this.tableProfiles.MaskKeyColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'MaskKey\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.MaskKeyColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string MaskDB {
+                get {
+                    try {
+                        return ((string)(this[this.tableProfiles.MaskDBColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'MaskDB\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.MaskDBColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string DataBaseFolder {
+                get {
+                    try {
+                        return ((string)(this[this.tableProfiles.DataBaseFolderColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'DataBaseFolder\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.DataBaseFolderColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool Selected {
+                get {
+                    try {
+                        return ((bool)(this[this.tableProfiles.SelectedColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Selected\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.SelectedColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string MainColumn {
+                get {
+                    try {
+                        return ((string)(this[this.tableProfiles.MainColumnColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'MainColumn\' в таблице \'Profiles\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableProfiles.MainColumnColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsProfileNameNull() {
+                return this.IsNull(this.tableProfiles.ProfileNameColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetProfileNameNull() {
+                this[this.tableProfiles.ProfileNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDataBasePlaceNull() {
+                return this.IsNull(this.tableProfiles.DataBasePlaceColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDataBasePlaceNull() {
+                this[this.tableProfiles.DataBasePlaceColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTable1Null() {
+                return this.IsNull(this.tableProfiles.Table1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTable1Null() {
+                this[this.tableProfiles.Table1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsColumns1Null() {
+                return this.IsNull(this.tableProfiles.Columns1Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetColumns1Null() {
+                this[this.tableProfiles.Columns1Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsTable2Null() {
+                return this.IsNull(this.tableProfiles.Table2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetTable2Null() {
+                this[this.tableProfiles.Table2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsColumns2Null() {
+                return this.IsNull(this.tableProfiles.Columns2Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetColumns2Null() {
+                this[this.tableProfiles.Columns2Column] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsOtherDBNull() {
+                return this.IsNull(this.tableProfiles.OtherDBColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetOtherDBNull() {
+                this[this.tableProfiles.OtherDBColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsMaskKeyNull() {
+                return this.IsNull(this.tableProfiles.MaskKeyColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetMaskKeyNull() {
+                this[this.tableProfiles.MaskKeyColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsMaskDBNull() {
+                return this.IsNull(this.tableProfiles.MaskDBColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetMaskDBNull() {
+                this[this.tableProfiles.MaskDBColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsDataBaseFolderNull() {
+                return this.IsNull(this.tableProfiles.DataBaseFolderColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetDataBaseFolderNull() {
+                this[this.tableProfiles.DataBaseFolderColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsSelectedNull() {
+                return this.IsNull(this.tableProfiles.SelectedColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetSelectedNull() {
+                this[this.tableProfiles.SelectedColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsMainColumnNull() {
+                return this.IsNull(this.tableProfiles.MainColumnColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetMainColumnNull() {
+                this[this.tableProfiles.MainColumnColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -4697,6 +4907,33 @@ namespace AGR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public string Values {
+                get {
+                    try {
+                        return ((string)(this[this.tableSaveGroupParameters.ValuesColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Values\' в таблице \'SaveGroupParameters\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSaveGroupParameters.ValuesColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public SaveGroupsRow SaveGroupsRow {
+                get {
+                    return ((SaveGroupsRow)(this.GetParentRow(this.Table.ParentRelations["SaveGroupsSaveGroupParameters"])));
+                }
+                set {
+                    this.SetParentRow(value, this.Table.ParentRelations["SaveGroupsSaveGroupParameters"]);
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public SubGroupParametersRow SubGroupParametersRow {
                 get {
                     return ((SubGroupParametersRow)(this.GetParentRow(this.Table.ParentRelations["SubGroupParametersSaveGroupParameters"])));
@@ -4714,17 +4951,6 @@ namespace AGR {
                 }
                 set {
                     this.SetParentRow(value, this.Table.ParentRelations["SubgroupsSaveGroupParameters"]);
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SaveGroupsRow SaveGroupsRow {
-                get {
-                    return ((SaveGroupsRow)(this.GetParentRow(this.Table.ParentRelations["SaveGroupsSaveGroupParameters"])));
-                }
-                set {
-                    this.SetParentRow(value, this.Table.ParentRelations["SaveGroupsSaveGroupParameters"]);
                 }
             }
             
@@ -4762,6 +4988,18 @@ namespace AGR {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public void SetID_SubParameterNull() {
                 this[this.tableSaveGroupParameters.ID_SubParameterColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool IsValuesNull() {
+                return this.IsNull(this.tableSaveGroupParameters.ValuesColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetValuesNull() {
+                this[this.tableSaveGroupParameters.ValuesColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -4856,6 +5094,22 @@ namespace AGR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public bool SubGroup4 {
+                get {
+                    try {
+                        return ((bool)(this[this.tableSaveGroups.SubGroup4Column]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("Значение для столбца \'SubGroup4\' в таблице \'SaveGroups\' равно DBNull.", e);
+                    }
+                }
+                set {
+                    this[this.tableSaveGroups.SubGroup4Column] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public bool IsGroupNull() {
                 return this.IsNull(this.tableSaveGroups.GroupColumn);
             }
@@ -4904,13 +5158,14 @@ namespace AGR {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public SelectedSpillsRow[] GetSelectedSpillsRows() {
-                if ((this.Table.ChildRelations["SaveGroupsSelectedSpills"] == null)) {
-                    return new SelectedSpillsRow[0];
-                }
-                else {
-                    return ((SelectedSpillsRow[])(base.GetChildRows(this.Table.ChildRelations["SaveGroupsSelectedSpills"])));
-                }
+            public bool IsSubGroup4Null() {
+                return this.IsNull(this.tableSaveGroups.SubGroup4Column);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public void SetSubGroup4Null() {
+                this[this.tableSaveGroups.SubGroup4Column] = global::System.Convert.DBNull;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4921,6 +5176,17 @@ namespace AGR {
                 }
                 else {
                     return ((SaveGroupParametersRow[])(base.GetChildRows(this.Table.ChildRelations["SaveGroupsSaveGroupParameters"])));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public SelectedSpillsRow[] GetSelectedSpillsRows() {
+                if ((this.Table.ChildRelations["SaveGroupsSelectedSpills"] == null)) {
+                    return new SelectedSpillsRow[0];
+                }
+                else {
+                    return ((SelectedSpillsRow[])(base.GetChildRows(this.Table.ChildRelations["SaveGroupsSelectedSpills"])));
                 }
             }
         }
@@ -5233,140 +5499,70 @@ namespace AGR {
         }
         
         /// <summary>
-        ///Represents strongly named DataRow class.
+        ///Row event argument class
         ///</summary>
-        public partial class ExcelParametersRow : global::System.Data.DataRow {
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class DefaultGroupsRowChangeEvent : global::System.EventArgs {
             
-            private ExcelParametersDataTable tableExcelParameters;
+            private DefaultGroupsRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            internal ExcelParametersRow(global::System.Data.DataRowBuilder rb) : 
-                    base(rb) {
-                this.tableExcelParameters = ((ExcelParametersDataTable)(this.Table));
+            public DefaultGroupsRowChangeEvent(DefaultGroupsRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public int Код {
+            public DefaultGroupsRow Row {
                 get {
-                    return ((int)(this[this.tableExcelParameters.КодColumn]));
-                }
-                set {
-                    this[this.tableExcelParameters.КодColumn] = value;
+                    return this.eventRow;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Параметр {
+            public global::System.Data.DataRowAction Action {
                 get {
-                    try {
-                        return ((string)(this[this.tableExcelParameters.ПараметрColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Параметр\' в таблице \'ExcelParameters\' равно DBNull.", e);
-                    }
+                    return this.eventAction;
                 }
-                set {
-                    this[this.tableExcelParameters.ПараметрColumn] = value;
-                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public class ExcelParametersRowChangeEvent : global::System.EventArgs {
+            
+            private ExcelParametersRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+            public ExcelParametersRowChangeEvent(ExcelParametersRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string База_данных {
+            public ExcelParametersRow Row {
                 get {
-                    try {
-                        return ((string)(this[this.tableExcelParameters.База_данныхColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'База данных\' в таблице \'ExcelParameters\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableExcelParameters.База_данныхColumn] = value;
+                    return this.eventRow;
                 }
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Таблица {
+            public global::System.Data.DataRowAction Action {
                 get {
-                    try {
-                        return ((string)(this[this.tableExcelParameters.ТаблицаColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Таблица\' в таблице \'ExcelParameters\' равно DBNull.", e);
-                    }
+                    return this.eventAction;
                 }
-                set {
-                    this[this.tableExcelParameters.ТаблицаColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public string Столбец {
-                get {
-                    try {
-                        return ((string)(this[this.tableExcelParameters.СтолбецColumn]));
-                    }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("Значение для столбца \'Столбец\' в таблице \'ExcelParameters\' равно DBNull.", e);
-                    }
-                }
-                set {
-                    this[this.tableExcelParameters.СтолбецColumn] = value;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsПараметрNull() {
-                return this.IsNull(this.tableExcelParameters.ПараметрColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetПараметрNull() {
-                this[this.tableExcelParameters.ПараметрColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsБаза_данныхNull() {
-                return this.IsNull(this.tableExcelParameters.База_данныхColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetБаза_данныхNull() {
-                this[this.tableExcelParameters.База_данныхColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsТаблицаNull() {
-                return this.IsNull(this.tableExcelParameters.ТаблицаColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetТаблицаNull() {
-                this[this.tableExcelParameters.ТаблицаColumn] = global::System.Convert.DBNull;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public bool IsСтолбецNull() {
-                return this.IsNull(this.tableExcelParameters.СтолбецColumn);
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public void SetСтолбецNull() {
-                this[this.tableExcelParameters.СтолбецColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -5390,40 +5586,6 @@ namespace AGR {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
             public ProfilesRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
-        
-        /// <summary>
-        ///Row event argument class
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class DefaultGroupsRowChangeEvent : global::System.EventArgs {
-            
-            private DefaultGroupsRow eventRow;
-            
-            private global::System.Data.DataRowAction eventAction;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DefaultGroupsRowChangeEvent(DefaultGroupsRow row, global::System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public DefaultGroupsRow Row {
                 get {
                     return this.eventRow;
                 }
@@ -5607,539 +5769,10 @@ namespace AGR {
                 }
             }
         }
-        
-        /// <summary>
-        ///Row event argument class
-        ///</summary>
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public class ExcelParametersRowChangeEvent : global::System.EventArgs {
-            
-            private ExcelParametersRow eventRow;
-            
-            private global::System.Data.DataRowAction eventAction;
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ExcelParametersRowChangeEvent(ExcelParametersRow row, global::System.Data.DataRowAction action) {
-                this.eventRow = row;
-                this.eventAction = action;
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public ExcelParametersRow Row {
-                get {
-                    return this.eventRow;
-                }
-            }
-            
-            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-            public global::System.Data.DataRowAction Action {
-                get {
-                    return this.eventAction;
-                }
-            }
-        }
     }
 }
 namespace AGR.MainDBDataSetTableAdapters {
     
-    
-    /// <summary>
-    ///Represents the connection and commands used to retrieve and save data.
-    ///</summary>
-    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
-    [global::System.ComponentModel.ToolboxItem(true)]
-    [global::System.ComponentModel.DataObjectAttribute(true)]
-    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class MainTableAdapter : global::System.ComponentModel.Component {
-        
-        private global::System.Data.OleDb.OleDbDataAdapter _adapter;
-        
-        private global::System.Data.OleDb.OleDbConnection _connection;
-        
-        private global::System.Data.OleDb.OleDbTransaction _transaction;
-        
-        private global::System.Data.OleDb.OleDbCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public MainTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected internal global::System.Data.OleDb.OleDbDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        internal global::System.Data.OleDb.OleDbConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((global::System.Data.OleDb.OleDbCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        internal global::System.Data.OleDb.OleDbTransaction Transaction {
-            get {
-                return this._transaction;
-            }
-            set {
-                this._transaction = value;
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    this.CommandCollection[i].Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.DeleteCommand != null))) {
-                    this.Adapter.DeleteCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.InsertCommand != null))) {
-                    this.Adapter.InsertCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.UpdateCommand != null))) {
-                    this.Adapter.UpdateCommand.Transaction = this._transaction;
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected global::System.Data.OleDb.OleDbCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private void InitAdapter() {
-            this._adapter = new global::System.Data.OleDb.OleDbDataAdapter();
-            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "Profiles";
-            tableMapping.ColumnMappings.Add("ID", "ID");
-            tableMapping.ColumnMappings.Add("ProfileName", "ProfileName");
-            tableMapping.ColumnMappings.Add("DataBasePlace", "DataBasePlace");
-            tableMapping.ColumnMappings.Add("OtherDB", "OtherDB");
-            tableMapping.ColumnMappings.Add("MaskKey", "MaskKey");
-            tableMapping.ColumnMappings.Add("MaskDB", "MaskDB");
-            tableMapping.ColumnMappings.Add("DataBaseFolder", "DataBaseFolder");
-            tableMapping.ColumnMappings.Add("Selected", "Selected");
-            tableMapping.ColumnMappings.Add("Table1", "Table1");
-            tableMapping.ColumnMappings.Add("Columns1", "Columns1");
-            tableMapping.ColumnMappings.Add("Table2", "Table2");
-            tableMapping.ColumnMappings.Add("Columns2", "Columns2");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Profiles` WHERE ((`ID` = ?) AND ((? = 1 AND `OtherDB` IS NULL) OR (`OtherDB` = ?)) AND ((? = 1 AND `MaskKey` IS NULL) OR (`MaskKey` = ?)) AND ((? = 1 AND `MaskDB` IS NULL) OR (`MaskDB` = ?)) AND ((? = 1 AND `Selected` IS NULL) OR (`Selected` = ?)))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OtherDB", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OtherDB", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MaskKey", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MaskKey", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MaskDB", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MaskDB", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Selected", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Selected", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `Profiles` (`ProfileName`, `DataBasePlace`, `OtherDB`, `MaskKey`, `Ma" +
-                "skDB`, `DataBaseFolder`, `Selected`, `Columns1`, `Columns2`, `Table1`, `Table2`)" +
-                " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProfileName", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProfileName", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DataBasePlace", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DataBasePlace", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OtherDB", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MaskKey", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MaskDB", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DataBaseFolder", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DataBaseFolder", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Selected", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Columns1", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Columns1", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Columns2", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Columns2", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Table1", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Table1", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Table2", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Table2", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `Profiles` SET `ProfileName` = ?, `DataBasePlace` = ?, `OtherDB` = ?, `MaskKey` = ?, `MaskDB` = ?, `DataBaseFolder` = ?, `Selected` = ?, `Columns1` = ?, `Columns2` = ?, `Table1` = ?, `Table2` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `OtherDB` IS NULL) OR (`OtherDB` = ?)) AND ((? = 1 AND `MaskKey` IS NULL) OR (`MaskKey` = ?)) AND ((? = 1 AND `MaskDB` IS NULL) OR (`MaskDB` = ?)) AND ((? = 1 AND `Selected` IS NULL) OR (`Selected` = ?)))";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProfileName", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProfileName", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DataBasePlace", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DataBasePlace", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OtherDB", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MaskKey", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MaskDB", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DataBaseFolder", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DataBaseFolder", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Selected", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Columns1", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Columns1", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Columns2", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Columns2", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Table1", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Table1", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Table2", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Table2", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OtherDB", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OtherDB", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MaskKey", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MaskKey", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MaskDB", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MaskDB", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Selected", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Selected", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Original, false, null));
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private void InitConnection() {
-            this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::AGR.Properties.Settings.Default.MainDBConnectionString;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
-            this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT ID, ProfileName, DataBasePlace, OtherDB, MaskKey, MaskDB, DataBaseFolder, " +
-                "Selected, Columns1, Columns2, Table1, Table2 FROM Profiles";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(MainDBDataSet.ProfilesDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual MainDBDataSet.ProfilesDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            MainDBDataSet.ProfilesDataTable dataTable = new MainDBDataSet.ProfilesDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MainDBDataSet.ProfilesDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MainDBDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "Profiles");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID, bool Original_OtherDB, string Original_MaskKey, string Original_MaskDB, bool Original_Selected) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((bool)(Original_OtherDB));
-            if ((Original_MaskKey == null)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_MaskKey));
-            }
-            if ((Original_MaskDB == null)) {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_MaskDB));
-            }
-            this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[8].Value = ((bool)(Original_Selected));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string ProfileName, string DataBasePlace, bool OtherDB, string MaskKey, string MaskDB, string DataBaseFolder, bool Selected, string Columns1, string Columns2, string Table1, string Table2) {
-            if ((ProfileName == null)) {
-                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(ProfileName));
-            }
-            if ((DataBasePlace == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(DataBasePlace));
-            }
-            this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(OtherDB));
-            if ((MaskKey == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(MaskKey));
-            }
-            if ((MaskDB == null)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(MaskDB));
-            }
-            if ((DataBaseFolder == null)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(DataBaseFolder));
-            }
-            this.Adapter.InsertCommand.Parameters[6].Value = ((bool)(Selected));
-            if ((Columns1 == null)) {
-                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(Columns1));
-            }
-            if ((Columns2 == null)) {
-                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(Columns2));
-            }
-            if ((Table1 == null)) {
-                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(Table1));
-            }
-            if ((Table2 == null)) {
-                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[10].Value = ((string)(Table2));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(
-                    string ProfileName, 
-                    string DataBasePlace, 
-                    bool OtherDB, 
-                    string MaskKey, 
-                    string MaskDB, 
-                    string DataBaseFolder, 
-                    bool Selected, 
-                    string Columns1, 
-                    string Columns2, 
-                    string Table1, 
-                    string Table2, 
-                    int Original_ID, 
-                    bool Original_OtherDB, 
-                    string Original_MaskKey, 
-                    string Original_MaskDB, 
-                    bool Original_Selected) {
-            if ((ProfileName == null)) {
-                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(ProfileName));
-            }
-            if ((DataBasePlace == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(DataBasePlace));
-            }
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(OtherDB));
-            if ((MaskKey == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(MaskKey));
-            }
-            if ((MaskDB == null)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(MaskDB));
-            }
-            if ((DataBaseFolder == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(DataBaseFolder));
-            }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((bool)(Selected));
-            if ((Columns1 == null)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Columns1));
-            }
-            if ((Columns2 == null)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Columns2));
-            }
-            if ((Table1 == null)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(Table1));
-            }
-            if ((Table2 == null)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Table2));
-            }
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(Original_ID));
-            this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((bool)(Original_OtherDB));
-            if ((Original_MaskKey == null)) {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[15].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[15].Value = ((string)(Original_MaskKey));
-            }
-            if ((Original_MaskDB == null)) {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[16].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((string)(Original_MaskDB));
-            }
-            this.Adapter.UpdateCommand.Parameters[18].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[19].Value = ((bool)(Original_Selected));
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-    }
     
     /// <summary>
     ///Represents the connection and commands used to retrieve and save data.
@@ -6270,6 +5903,7 @@ namespace AGR.MainDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Скорость потока;Среднее", "Скорость потока;Среднее");
             tableMapping.ColumnMappings.Add("Скорость потока;Среднее по кассетам", "Скорость потока;Среднее по кассетам");
             tableMapping.ColumnMappings.Add("Скорость потока;Шаг усреднения, л", "Скорость потока;Шаг усреднения, л");
+            tableMapping.ColumnMappings.Add("Скорость потока;Шаг усреднения, мин", "Скорость потока;Шаг усреднения, мин");
             tableMapping.ColumnMappings.Add("Входное давление;По времени", "Входное давление;По времени");
             tableMapping.ColumnMappings.Add("Входное давление;По ресурсу", "Входное давление;По ресурсу");
             tableMapping.ColumnMappings.Add("Входное давление;Среднее", "Входное давление;Среднее");
@@ -6288,46 +5922,61 @@ namespace AGR.MainDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("Дифференциальное давление;Среднее по кассетам", "Дифференциальное давление;Среднее по кассетам");
             tableMapping.ColumnMappings.Add("Дифференциальное давление;Шаг усреднения, л", "Дифференциальное давление;Шаг усреднения, л");
             tableMapping.ColumnMappings.Add("Дифференциальное давление;Шаг усреднения,мин", "Дифференциальное давление;Шаг усреднения,мин");
-            tableMapping.ColumnMappings.Add("Скорость потока;Шаг усреднения, мин", "Скорость потока;Шаг усреднения, мин");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = "DELETE FROM `DefaultGroups` WHERE ((`Код` = ?) AND ((? = 1 AND `Входное давление;" +
-                "По времени` IS NULL) OR (`Входное давление;По времени` = ?)) AND ((? = 1 AND `Вх" +
-                "одное давление;По ресурсу` IS NULL) OR (`Входное давление;По ресурсу` = ?)) AND " +
-                "((? = 1 AND `Входное давление;Среднее` IS NULL) OR (`Входное давление;Среднее` =" +
-                " ?)) AND ((? = 1 AND `Входное давление;Среднее по кассетам` IS NULL) OR (`Входно" +
-                "е давление;Среднее по кассетам` = ?)) AND ((? = 1 AND `Входное давление;Шаг усре" +
-                "днения, л` IS NULL) OR (`Входное давление;Шаг усреднения, л` = ?)) AND ((? = 1 A" +
-                "ND `Входное давление;Шаг усреднения,мин` IS NULL) OR (`Входное давление;Шаг усре" +
-                "днения,мин` = ?)) AND ((? = 1 AND `Выходное давление;По времени` IS NULL) OR (`В" +
-                "ыходное давление;По времени` = ?)) AND ((? = 1 AND `Выходное давление;По ресурсу" +
-                "` IS NULL) OR (`Выходное давление;По ресурсу` = ?)) AND ((? = 1 AND `Выходное да" +
-                "вление;Среднее` IS NULL) OR (`Выходное давление;Среднее` = ?)) AND ((? = 1 AND `" +
-                "Выходное давление;Среднее по кассетам` IS NULL) OR (`Выходное давление;Среднее п" +
-                "о кассетам` = ?)) AND ((? = 1 AND `Выходное давление;Шаг усреднения, л` IS NULL)" +
-                " OR (`Выходное давление;Шаг усреднения, л` = ?)) AND ((? = 1 AND `Выходное давле" +
-                "ние;Шаг усреднения,мин` IS NULL) OR (`Выходное давление;Шаг усреднения,мин` = ?)" +
-                ") AND ((? = 1 AND `Группа` IS NULL) OR (`Группа` = ?)) AND ((? = 1 AND `Дифферен" +
-                "циальное давление;По времени` IS NULL) OR (`Дифференциальное давление;По времени" +
-                "` = ?)) AND ((? = 1 AND `Дифференциальное давление;По ресурсу` IS NULL) OR (`Диф" +
-                "ференциальное давление;По ресурсу` = ?)) AND ((? = 1 AND `Дифференциальное давле" +
-                "ние;Среднее` IS NULL) OR (`Дифференциальное давление;Среднее` = ?)) AND ((? = 1 " +
-                "AND `Дифференциальное давление;Среднее по кассетам` IS NULL) OR (`Дифференциальн" +
-                "ое давление;Среднее по кассетам` = ?)) AND ((? = 1 AND `Дифференциальное давлени" +
-                "е;Шаг усреднения, л` IS NULL) OR (`Дифференциальное давление;Шаг усреднения, л` " +
-                "= ?)) AND ((? = 1 AND `Дифференциальное давление;Шаг усреднения,мин` IS NULL) OR" +
-                " (`Дифференциальное давление;Шаг усреднения,мин` = ?)) AND ((? = 1 AND `Подгрупп" +
-                "ы` IS NULL) OR (`Подгруппы` = ?)) AND ((? = 1 AND `Скорость потока;По времени` I" +
-                "S NULL) OR (`Скорость потока;По времени` = ?)) AND ((? = 1 AND `Скорость потока;" +
-                "По ресурсу` IS NULL) OR (`Скорость потока;По ресурсу` = ?)) AND ((? = 1 AND `Ско" +
-                "рость потока;Среднее` IS NULL) OR (`Скорость потока;Среднее` = ?)) AND ((? = 1 A" +
-                "ND `Скорость потока;Среднее по кассетам` IS NULL) OR (`Скорость потока;Среднее п" +
-                "о кассетам` = ?)) AND ((? = 1 AND `Скорость потока;Шаг усреднения, л` IS NULL) O" +
-                "R (`Скорость потока;Шаг усреднения, л` = ?)) AND ((? = 1 AND `Скорость потока;Ша" +
-                "г усреднения, мин` IS NULL) OR (`Скорость потока;Шаг усреднения, мин` = ?)))";
+            this._adapter.DeleteCommand.CommandText = "DELETE FROM `DefaultGroups` WHERE ((`Код` = ?) AND ((? = 1 AND `Группа` IS NULL) " +
+                "OR (`Группа` = ?)) AND ((? = 1 AND `Подгруппы` IS NULL) OR (`Подгруппы` = ?)) AN" +
+                "D ((? = 1 AND `Скорость потока;По времени` IS NULL) OR (`Скорость потока;По врем" +
+                "ени` = ?)) AND ((? = 1 AND `Скорость потока;По ресурсу` IS NULL) OR (`Скорость п" +
+                "отока;По ресурсу` = ?)) AND ((? = 1 AND `Скорость потока;Среднее` IS NULL) OR (`" +
+                "Скорость потока;Среднее` = ?)) AND ((? = 1 AND `Скорость потока;Среднее по кассе" +
+                "там` IS NULL) OR (`Скорость потока;Среднее по кассетам` = ?)) AND ((? = 1 AND `С" +
+                "корость потока;Шаг усреднения, л` IS NULL) OR (`Скорость потока;Шаг усреднения, " +
+                "л` = ?)) AND ((? = 1 AND `Скорость потока;Шаг усреднения, мин` IS NULL) OR (`Ско" +
+                "рость потока;Шаг усреднения, мин` = ?)) AND ((? = 1 AND `Входное давление;По вре" +
+                "мени` IS NULL) OR (`Входное давление;По времени` = ?)) AND ((? = 1 AND `Входное " +
+                "давление;По ресурсу` IS NULL) OR (`Входное давление;По ресурсу` = ?)) AND ((? = " +
+                "1 AND `Входное давление;Среднее` IS NULL) OR (`Входное давление;Среднее` = ?)) A" +
+                "ND ((? = 1 AND `Входное давление;Среднее по кассетам` IS NULL) OR (`Входное давл" +
+                "ение;Среднее по кассетам` = ?)) AND ((? = 1 AND `Входное давление;Шаг усреднения" +
+                ", л` IS NULL) OR (`Входное давление;Шаг усреднения, л` = ?)) AND ((? = 1 AND `Вх" +
+                "одное давление;Шаг усреднения,мин` IS NULL) OR (`Входное давление;Шаг усреднения" +
+                ",мин` = ?)) AND ((? = 1 AND `Выходное давление;По времени` IS NULL) OR (`Выходно" +
+                "е давление;По времени` = ?)) AND ((? = 1 AND `Выходное давление;По ресурсу` IS N" +
+                "ULL) OR (`Выходное давление;По ресурсу` = ?)) AND ((? = 1 AND `Выходное давление" +
+                ";Среднее` IS NULL) OR (`Выходное давление;Среднее` = ?)) AND ((? = 1 AND `Выходн" +
+                "ое давление;Среднее по кассетам` IS NULL) OR (`Выходное давление;Среднее по касс" +
+                "етам` = ?)) AND ((? = 1 AND `Выходное давление;Шаг усреднения, л` IS NULL) OR (`" +
+                "Выходное давление;Шаг усреднения, л` = ?)) AND ((? = 1 AND `Выходное давление;Ша" +
+                "г усреднения,мин` IS NULL) OR (`Выходное давление;Шаг усреднения,мин` = ?)) AND " +
+                "((? = 1 AND `Дифференциальное давление;По времени` IS NULL) OR (`Дифференциально" +
+                "е давление;По времени` = ?)) AND ((? = 1 AND `Дифференциальное давление;По ресур" +
+                "су` IS NULL) OR (`Дифференциальное давление;По ресурсу` = ?)) AND ((? = 1 AND `Д" +
+                "ифференциальное давление;Среднее` IS NULL) OR (`Дифференциальное давление;Средне" +
+                "е` = ?)) AND ((? = 1 AND `Дифференциальное давление;Среднее по кассетам` IS NULL" +
+                ") OR (`Дифференциальное давление;Среднее по кассетам` = ?)) AND ((? = 1 AND `Диф" +
+                "ференциальное давление;Шаг усреднения, л` IS NULL) OR (`Дифференциальное давлени" +
+                "е;Шаг усреднения, л` = ?)) AND ((? = 1 AND `Дифференциальное давление;Шаг усредн" +
+                "ения,мин` IS NULL) OR (`Дифференциальное давление;Шаг усреднения,мин` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Код", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Код", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Группа", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Группа", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Подгруппы", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Подгруппы", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Входное_давление;По_времени", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;По времени", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Входное_давление;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;По времени", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Входное_давление;По_ресурсу", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;По ресурсу", global::System.Data.DataRowVersion.Original, true, null));
@@ -6352,8 +6001,6 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Выходное_давление;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Выходное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Выходное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Группа", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Группа", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Дифференциальное_давление;По_времени", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;По времени", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Дифференциальное_давление;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;По времени", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Дифференциальное_давление;По_ресурсу", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;По ресурсу", global::System.Data.DataRowVersion.Original, true, null));
@@ -6366,24 +6013,18 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Дифференциальное_давление;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Дифференциальное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Дифференциальное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Подгруппы", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Подгруппы", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = @"INSERT INTO `DefaultGroups` (`Входное давление;По времени`, `Входное давление;По ресурсу`, `Входное давление;Среднее`, `Входное давление;Среднее по кассетам`, `Входное давление;Шаг усреднения, л`, `Входное давление;Шаг усреднения,мин`, `Выходное давление;По времени`, `Выходное давление;По ресурсу`, `Выходное давление;Среднее`, `Выходное давление;Среднее по кассетам`, `Выходное давление;Шаг усреднения, л`, `Выходное давление;Шаг усреднения,мин`, `Группа`, `Дифференциальное давление;По времени`, `Дифференциальное давление;По ресурсу`, `Дифференциальное давление;Среднее`, `Дифференциальное давление;Среднее по кассетам`, `Дифференциальное давление;Шаг усреднения, л`, `Дифференциальное давление;Шаг усреднения,мин`, `Подгруппы`, `Скорость потока;По времени`, `Скорость потока;По ресурсу`, `Скорость потока;Среднее`, `Скорость потока;Среднее по кассетам`, `Скорость потока;Шаг усреднения, л`, `Скорость потока;Шаг усреднения, мин`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = @"INSERT INTO `DefaultGroups` (`Группа`, `Подгруппы`, `Скорость потока;По времени`, `Скорость потока;По ресурсу`, `Скорость потока;Среднее`, `Скорость потока;Среднее по кассетам`, `Скорость потока;Шаг усреднения, л`, `Скорость потока;Шаг усреднения, мин`, `Входное давление;По времени`, `Входное давление;По ресурсу`, `Входное давление;Среднее`, `Входное давление;Среднее по кассетам`, `Входное давление;Шаг усреднения, л`, `Входное давление;Шаг усреднения,мин`, `Выходное давление;По времени`, `Выходное давление;По ресурсу`, `Выходное давление;Среднее`, `Выходное давление;Среднее по кассетам`, `Выходное давление;Шаг усреднения, л`, `Выходное давление;Шаг усреднения,мин`, `Дифференциальное давление;По времени`, `Дифференциальное давление;По ресурсу`, `Дифференциальное давление;Среднее`, `Дифференциальное давление;Среднее по кассетам`, `Дифференциальное давление;Шаг усреднения, л`, `Дифференциальное давление;Шаг усреднения,мин`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Группа", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Подгруппы", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Входное_давление;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;По времени", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Входное_давление;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;По ресурсу", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Входное_давление;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;Среднее", global::System.Data.DataRowVersion.Current, false, null));
@@ -6396,70 +6037,70 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Выходное_давление;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Среднее по кассетам", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Выходное_давление;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Шаг усреднения, л", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Выходное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Группа", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;По времени", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;По ресурсу", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Среднее", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Среднее по кассетам", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Шаг усреднения, л", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Подгруппы", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = "UPDATE `DefaultGroups` SET `Входное давление;По времени` = ?, `Входное давление;П" +
-                "о ресурсу` = ?, `Входное давление;Среднее` = ?, `Входное давление;Среднее по кас" +
-                "сетам` = ?, `Входное давление;Шаг усреднения, л` = ?, `Входное давление;Шаг усре" +
-                "днения,мин` = ?, `Выходное давление;По времени` = ?, `Выходное давление;По ресур" +
-                "су` = ?, `Выходное давление;Среднее` = ?, `Выходное давление;Среднее по кассетам" +
-                "` = ?, `Выходное давление;Шаг усреднения, л` = ?, `Выходное давление;Шаг усредне" +
-                "ния,мин` = ?, `Группа` = ?, `Дифференциальное давление;По времени` = ?, `Диффере" +
-                "нциальное давление;По ресурсу` = ?, `Дифференциальное давление;Среднее` = ?, `Ди" +
-                "фференциальное давление;Среднее по кассетам` = ?, `Дифференциальное давление;Шаг" +
-                " усреднения, л` = ?, `Дифференциальное давление;Шаг усреднения,мин` = ?, `Подгру" +
-                "ппы` = ?, `Скорость потока;По времени` = ?, `Скорость потока;По ресурсу` = ?, `С" +
-                "корость потока;Среднее` = ?, `Скорость потока;Среднее по кассетам` = ?, `Скорост" +
-                "ь потока;Шаг усреднения, л` = ?, `Скорость потока;Шаг усреднения, мин` = ? WHERE" +
-                " ((`Код` = ?) AND ((? = 1 AND `Входное давление;По времени` IS NULL) OR (`Входно" +
-                "е давление;По времени` = ?)) AND ((? = 1 AND `Входное давление;По ресурсу` IS NU" +
-                "LL) OR (`Входное давление;По ресурсу` = ?)) AND ((? = 1 AND `Входное давление;Ср" +
-                "еднее` IS NULL) OR (`Входное давление;Среднее` = ?)) AND ((? = 1 AND `Входное да" +
-                "вление;Среднее по кассетам` IS NULL) OR (`Входное давление;Среднее по кассетам` " +
-                "= ?)) AND ((? = 1 AND `Входное давление;Шаг усреднения, л` IS NULL) OR (`Входное" +
-                " давление;Шаг усреднения, л` = ?)) AND ((? = 1 AND `Входное давление;Шаг усредне" +
-                "ния,мин` IS NULL) OR (`Входное давление;Шаг усреднения,мин` = ?)) AND ((? = 1 AN" +
-                "D `Выходное давление;По времени` IS NULL) OR (`Выходное давление;По времени` = ?" +
-                ")) AND ((? = 1 AND `Выходное давление;По ресурсу` IS NULL) OR (`Выходное давлени" +
-                "е;По ресурсу` = ?)) AND ((? = 1 AND `Выходное давление;Среднее` IS NULL) OR (`Вы" +
-                "ходное давление;Среднее` = ?)) AND ((? = 1 AND `Выходное давление;Среднее по кас" +
-                "сетам` IS NULL) OR (`Выходное давление;Среднее по кассетам` = ?)) AND ((? = 1 AN" +
-                "D `Выходное давление;Шаг усреднения, л` IS NULL) OR (`Выходное давление;Шаг усре" +
-                "днения, л` = ?)) AND ((? = 1 AND `Выходное давление;Шаг усреднения,мин` IS NULL)" +
-                " OR (`Выходное давление;Шаг усреднения,мин` = ?)) AND ((? = 1 AND `Группа` IS NU" +
-                "LL) OR (`Группа` = ?)) AND ((? = 1 AND `Дифференциальное давление;По времени` IS" +
-                " NULL) OR (`Дифференциальное давление;По времени` = ?)) AND ((? = 1 AND `Диффере" +
-                "нциальное давление;По ресурсу` IS NULL) OR (`Дифференциальное давление;По ресурс" +
-                "у` = ?)) AND ((? = 1 AND `Дифференциальное давление;Среднее` IS NULL) OR (`Диффе" +
-                "ренциальное давление;Среднее` = ?)) AND ((? = 1 AND `Дифференциальное давление;С" +
-                "реднее по кассетам` IS NULL) OR (`Дифференциальное давление;Среднее по кассетам`" +
-                " = ?)) AND ((? = 1 AND `Дифференциальное давление;Шаг усреднения, л` IS NULL) OR" +
-                " (`Дифференциальное давление;Шаг усреднения, л` = ?)) AND ((? = 1 AND `Дифференц" +
-                "иальное давление;Шаг усреднения,мин` IS NULL) OR (`Дифференциальное давление;Шаг" +
-                " усреднения,мин` = ?)) AND ((? = 1 AND `Подгруппы` IS NULL) OR (`Подгруппы` = ?)" +
-                ") AND ((? = 1 AND `Скорость потока;По времени` IS NULL) OR (`Скорость потока;По " +
-                "времени` = ?)) AND ((? = 1 AND `Скорость потока;По ресурсу` IS NULL) OR (`Скорос" +
-                "ть потока;По ресурсу` = ?)) AND ((? = 1 AND `Скорость потока;Среднее` IS NULL) O" +
-                "R (`Скорость потока;Среднее` = ?)) AND ((? = 1 AND `Скорость потока;Среднее по к" +
-                "ассетам` IS NULL) OR (`Скорость потока;Среднее по кассетам` = ?)) AND ((? = 1 AN" +
-                "D `Скорость потока;Шаг усреднения, л` IS NULL) OR (`Скорость потока;Шаг усреднен" +
-                "ия, л` = ?)) AND ((? = 1 AND `Скорость потока;Шаг усреднения, мин` IS NULL) OR (" +
-                "`Скорость потока;Шаг усреднения, мин` = ?)))";
+            this._adapter.UpdateCommand.CommandText = "UPDATE `DefaultGroups` SET `Группа` = ?, `Подгруппы` = ?, `Скорость потока;По вре" +
+                "мени` = ?, `Скорость потока;По ресурсу` = ?, `Скорость потока;Среднее` = ?, `Ско" +
+                "рость потока;Среднее по кассетам` = ?, `Скорость потока;Шаг усреднения, л` = ?, " +
+                "`Скорость потока;Шаг усреднения, мин` = ?, `Входное давление;По времени` = ?, `В" +
+                "ходное давление;По ресурсу` = ?, `Входное давление;Среднее` = ?, `Входное давлен" +
+                "ие;Среднее по кассетам` = ?, `Входное давление;Шаг усреднения, л` = ?, `Входное " +
+                "давление;Шаг усреднения,мин` = ?, `Выходное давление;По времени` = ?, `Выходное " +
+                "давление;По ресурсу` = ?, `Выходное давление;Среднее` = ?, `Выходное давление;Ср" +
+                "еднее по кассетам` = ?, `Выходное давление;Шаг усреднения, л` = ?, `Выходное дав" +
+                "ление;Шаг усреднения,мин` = ?, `Дифференциальное давление;По времени` = ?, `Дифф" +
+                "еренциальное давление;По ресурсу` = ?, `Дифференциальное давление;Среднее` = ?, " +
+                "`Дифференциальное давление;Среднее по кассетам` = ?, `Дифференциальное давление;" +
+                "Шаг усреднения, л` = ?, `Дифференциальное давление;Шаг усреднения,мин` = ? WHERE" +
+                " ((`Код` = ?) AND ((? = 1 AND `Группа` IS NULL) OR (`Группа` = ?)) AND ((? = 1 A" +
+                "ND `Подгруппы` IS NULL) OR (`Подгруппы` = ?)) AND ((? = 1 AND `Скорость потока;П" +
+                "о времени` IS NULL) OR (`Скорость потока;По времени` = ?)) AND ((? = 1 AND `Скор" +
+                "ость потока;По ресурсу` IS NULL) OR (`Скорость потока;По ресурсу` = ?)) AND ((? " +
+                "= 1 AND `Скорость потока;Среднее` IS NULL) OR (`Скорость потока;Среднее` = ?)) A" +
+                "ND ((? = 1 AND `Скорость потока;Среднее по кассетам` IS NULL) OR (`Скорость пото" +
+                "ка;Среднее по кассетам` = ?)) AND ((? = 1 AND `Скорость потока;Шаг усреднения, л" +
+                "` IS NULL) OR (`Скорость потока;Шаг усреднения, л` = ?)) AND ((? = 1 AND `Скорос" +
+                "ть потока;Шаг усреднения, мин` IS NULL) OR (`Скорость потока;Шаг усреднения, мин" +
+                "` = ?)) AND ((? = 1 AND `Входное давление;По времени` IS NULL) OR (`Входное давл" +
+                "ение;По времени` = ?)) AND ((? = 1 AND `Входное давление;По ресурсу` IS NULL) OR" +
+                " (`Входное давление;По ресурсу` = ?)) AND ((? = 1 AND `Входное давление;Среднее`" +
+                " IS NULL) OR (`Входное давление;Среднее` = ?)) AND ((? = 1 AND `Входное давление" +
+                ";Среднее по кассетам` IS NULL) OR (`Входное давление;Среднее по кассетам` = ?)) " +
+                "AND ((? = 1 AND `Входное давление;Шаг усреднения, л` IS NULL) OR (`Входное давле" +
+                "ние;Шаг усреднения, л` = ?)) AND ((? = 1 AND `Входное давление;Шаг усреднения,ми" +
+                "н` IS NULL) OR (`Входное давление;Шаг усреднения,мин` = ?)) AND ((? = 1 AND `Вых" +
+                "одное давление;По времени` IS NULL) OR (`Выходное давление;По времени` = ?)) AND" +
+                " ((? = 1 AND `Выходное давление;По ресурсу` IS NULL) OR (`Выходное давление;По р" +
+                "есурсу` = ?)) AND ((? = 1 AND `Выходное давление;Среднее` IS NULL) OR (`Выходное" +
+                " давление;Среднее` = ?)) AND ((? = 1 AND `Выходное давление;Среднее по кассетам`" +
+                " IS NULL) OR (`Выходное давление;Среднее по кассетам` = ?)) AND ((? = 1 AND `Вых" +
+                "одное давление;Шаг усреднения, л` IS NULL) OR (`Выходное давление;Шаг усреднения" +
+                ", л` = ?)) AND ((? = 1 AND `Выходное давление;Шаг усреднения,мин` IS NULL) OR (`" +
+                "Выходное давление;Шаг усреднения,мин` = ?)) AND ((? = 1 AND `Дифференциальное да" +
+                "вление;По времени` IS NULL) OR (`Дифференциальное давление;По времени` = ?)) AND" +
+                " ((? = 1 AND `Дифференциальное давление;По ресурсу` IS NULL) OR (`Дифференциальн" +
+                "ое давление;По ресурсу` = ?)) AND ((? = 1 AND `Дифференциальное давление;Среднее" +
+                "` IS NULL) OR (`Дифференциальное давление;Среднее` = ?)) AND ((? = 1 AND `Диффер" +
+                "енциальное давление;Среднее по кассетам` IS NULL) OR (`Дифференциальное давление" +
+                ";Среднее по кассетам` = ?)) AND ((? = 1 AND `Дифференциальное давление;Шаг усред" +
+                "нения, л` IS NULL) OR (`Дифференциальное давление;Шаг усреднения, л` = ?)) AND (" +
+                "(? = 1 AND `Дифференциальное давление;Шаг усреднения,мин` IS NULL) OR (`Дифферен" +
+                "циальное давление;Шаг усреднения,мин` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Группа", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Подгруппы", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Входное_давление;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;По времени", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Входное_давление;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;По ресурсу", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Входное_давление;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;Среднее", global::System.Data.DataRowVersion.Current, false, null));
@@ -6472,21 +6113,29 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Выходное_давление;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Среднее по кассетам", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Выходное_давление;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Шаг усреднения, л", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Выходное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Группа", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;По времени", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;По ресурсу", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Среднее", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Среднее по кассетам", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Шаг усреднения, л", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Дифференциальное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Подгруппы", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Код", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Код", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Группа", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Группа", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Подгруппы", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Подгруппы", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Входное_давление;По_времени", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;По времени", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Входное_давление;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;По времени", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Входное_давление;По_ресурсу", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Входное давление;По ресурсу", global::System.Data.DataRowVersion.Original, true, null));
@@ -6511,8 +6160,6 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Выходное_давление;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Выходное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Выходное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Выходное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Группа", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Группа", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Группа", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Дифференциальное_давление;По_времени", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;По времени", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Дифференциальное_давление;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;По времени", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Дифференциальное_давление;По_ресурсу", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;По ресурсу", global::System.Data.DataRowVersion.Original, true, null));
@@ -6525,20 +6172,6 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Дифференциальное_давление;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Дифференциальное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Дифференциальное_давление;Шаг_усреднения,мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Дифференциальное давление;Шаг усреднения,мин", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Подгруппы", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Подгруппы", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Подгруппы", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;По_времени", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По времени", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;По_ресурсу", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;По ресурсу", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Среднее", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Среднее_по_кассетам", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Среднее по кассетам", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Шаг_усреднения,_л", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, л", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Скорость_потока;Шаг_усреднения,_мин", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Скорость потока;Шаг усреднения, мин", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -6554,7 +6187,7 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = @"SELECT Код, [Входное давление;По времени], [Входное давление;По ресурсу], [Входное давление;Среднее], [Входное давление;Среднее по кассетам], [Входное давление;Шаг усреднения, л], [Входное давление;Шаг усреднения,мин], [Выходное давление;По времени], [Выходное давление;По ресурсу], [Выходное давление;Среднее], [Выходное давление;Среднее по кассетам], [Выходное давление;Шаг усреднения, л], [Выходное давление;Шаг усреднения,мин], Группа, [Дифференциальное давление;По времени], [Дифференциальное давление;По ресурсу], [Дифференциальное давление;Среднее], [Дифференциальное давление;Среднее по кассетам], [Дифференциальное давление;Шаг усреднения, л], [Дифференциальное давление;Шаг усреднения,мин], Подгруппы, [Скорость потока;По времени], [Скорость потока;По ресурсу], [Скорость потока;Среднее], [Скорость потока;Среднее по кассетам], [Скорость потока;Шаг усреднения, л], [Скорость потока;Шаг усреднения, мин] FROM DefaultGroups";
+            this._commandCollection[0].CommandText = @"SELECT Код, Группа, Подгруппы, [Скорость потока;По времени], [Скорость потока;По ресурсу], [Скорость потока;Среднее], [Скорость потока;Среднее по кассетам], [Скорость потока;Шаг усреднения, л], [Скорость потока;Шаг усреднения, мин], [Входное давление;По времени], [Входное давление;По ресурсу], [Входное давление;Среднее], [Входное давление;Среднее по кассетам], [Входное давление;Шаг усреднения, л], [Входное давление;Шаг усреднения,мин], [Выходное давление;По времени], [Выходное давление;По ресурсу], [Выходное давление;Среднее], [Выходное давление;Среднее по кассетам], [Выходное давление;Шаг усреднения, л], [Выходное давление;Шаг усреднения,мин], [Дифференциальное давление;По времени], [Дифференциальное давление;По ресурсу], [Дифференциальное давление;Среднее], [Дифференциальное давление;Среднее по кассетам], [Дифференциальное давление;Шаг усреднения, л], [Дифференциальное давление;Шаг усреднения,мин] FROM DefaultGroups";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -6617,6 +6250,14 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
         public virtual int Delete(
                     int Original_Код, 
+                    string Original_Группа, 
+                    bool Original_Подгруппы, 
+                    bool _Original_Скорость_потока_По_времени, 
+                    bool _Original_Скорость_потока_По_ресурсу, 
+                    bool _Original_Скорость_потока_Среднее, 
+                    bool _Original_Скорость_потока_Среднее_по_кассетам, 
+                    global::System.Nullable<int> _Original_Скорость_потока_Шаг_усреднения__л, 
+                    global::System.Nullable<int> _Original_Скорость_потока_Шаг_усреднения__мин, 
                     bool _Original_Входное_давление_По_времени, 
                     bool _Original_Входное_давление_По_ресурсу, 
                     bool _Original_Входное_давление_Среднее, 
@@ -6629,122 +6270,114 @@ namespace AGR.MainDBDataSetTableAdapters {
                     bool _Original_Выходное_давление_Среднее_по_кассетам, 
                     global::System.Nullable<int> _Original_Выходное_давление_Шаг_усреднения__л, 
                     global::System.Nullable<int> _Original_Выходное_давление_Шаг_усреднения_мин, 
-                    string Original_Группа, 
                     bool _Original_Дифференциальное_давление_По_времени, 
                     bool _Original_Дифференциальное_давление_По_ресурсу, 
                     bool _Original_Дифференциальное_давление_Среднее, 
                     bool _Original_Дифференциальное_давление_Среднее_по_кассетам, 
                     global::System.Nullable<int> _Original_Дифференциальное_давление_Шаг_усреднения__л, 
-                    global::System.Nullable<int> _Original_Дифференциальное_давление_Шаг_усреднения_мин, 
-                    bool Original_Подгруппы, 
-                    bool _Original_Скорость_потока_По_времени, 
-                    bool _Original_Скорость_потока_По_ресурсу, 
-                    bool _Original_Скорость_потока_Среднее, 
-                    bool _Original_Скорость_потока_Среднее_по_кассетам, 
-                    global::System.Nullable<int> _Original_Скорость_потока_Шаг_усреднения__л, 
-                    global::System.Nullable<int> _Original_Скорость_потока_Шаг_усреднения__мин) {
+                    global::System.Nullable<int> _Original_Дифференциальное_давление_Шаг_усреднения_мин) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Код));
-            this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[2].Value = ((bool)(_Original_Входное_давление_По_времени));
-            this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[4].Value = ((bool)(_Original_Входное_давление_По_ресурсу));
-            this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[6].Value = ((bool)(_Original_Входное_давление_Среднее));
-            this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[8].Value = ((bool)(_Original_Входное_давление_Среднее_по_кассетам));
-            if ((_Original_Входное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[10].Value = ((int)(_Original_Входное_давление_Шаг_усреднения__л.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            if ((_Original_Входное_давление_Шаг_усреднения_мин.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[12].Value = ((int)(_Original_Входное_давление_Шаг_усреднения_мин.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[14].Value = ((bool)(_Original_Выходное_давление_По_времени));
-            this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[16].Value = ((bool)(_Original_Выходное_давление_По_ресурсу));
-            this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[18].Value = ((bool)(_Original_Выходное_давление_Среднее));
-            this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[20].Value = ((bool)(_Original_Выходное_давление_Среднее_по_кассетам));
-            if ((_Original_Выходное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[22].Value = ((int)(_Original_Выходное_давление_Шаг_усреднения__л.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[22].Value = global::System.DBNull.Value;
-            }
-            if ((_Original_Выходное_давление_Шаг_усреднения_мин.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[24].Value = ((int)(_Original_Выходное_давление_Шаг_усреднения_мин.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[24].Value = global::System.DBNull.Value;
-            }
             if ((Original_Группа == null)) {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_Группа));
+            }
+            this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[4].Value = ((bool)(Original_Подгруппы));
+            this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[6].Value = ((bool)(_Original_Скорость_потока_По_времени));
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((bool)(_Original_Скорость_потока_По_ресурсу));
+            this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[10].Value = ((bool)(_Original_Скорость_потока_Среднее));
+            this.Adapter.DeleteCommand.Parameters[11].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[12].Value = ((bool)(_Original_Скорость_потока_Среднее_по_кассетам));
+            if ((_Original_Скорость_потока_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[14].Value = ((int)(_Original_Скорость_потока_Шаг_усреднения__л.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[13].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[14].Value = global::System.DBNull.Value;
+            }
+            if ((_Original_Скорость_потока_Шаг_усреднения__мин.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[16].Value = ((int)(_Original_Скорость_потока_Шаг_усреднения__мин.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.DeleteCommand.Parameters[17].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[18].Value = ((bool)(_Original_Входное_давление_По_времени));
+            this.Adapter.DeleteCommand.Parameters[19].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[20].Value = ((bool)(_Original_Входное_давление_По_ресурсу));
+            this.Adapter.DeleteCommand.Parameters[21].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[22].Value = ((bool)(_Original_Входное_давление_Среднее));
+            this.Adapter.DeleteCommand.Parameters[23].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[24].Value = ((bool)(_Original_Входное_давление_Среднее_по_кассетам));
+            if ((_Original_Входное_давление_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[25].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[26].Value = ((int)(_Original_Входное_давление_Шаг_усреднения__л.Value));
+            }
+            else {
                 this.Adapter.DeleteCommand.Parameters[25].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[26].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.DeleteCommand.Parameters[25].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[26].Value = ((string)(Original_Группа));
+            if ((_Original_Входное_давление_Шаг_усреднения_мин.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[27].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[28].Value = ((int)(_Original_Входное_давление_Шаг_усреднения_мин.Value));
             }
-            this.Adapter.DeleteCommand.Parameters[27].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[28].Value = ((bool)(_Original_Дифференциальное_давление_По_времени));
+            else {
+                this.Adapter.DeleteCommand.Parameters[27].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[28].Value = global::System.DBNull.Value;
+            }
             this.Adapter.DeleteCommand.Parameters[29].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[30].Value = ((bool)(_Original_Дифференциальное_давление_По_ресурсу));
+            this.Adapter.DeleteCommand.Parameters[30].Value = ((bool)(_Original_Выходное_давление_По_времени));
             this.Adapter.DeleteCommand.Parameters[31].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[32].Value = ((bool)(_Original_Дифференциальное_давление_Среднее));
+            this.Adapter.DeleteCommand.Parameters[32].Value = ((bool)(_Original_Выходное_давление_По_ресурсу));
             this.Adapter.DeleteCommand.Parameters[33].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[34].Value = ((bool)(_Original_Дифференциальное_давление_Среднее_по_кассетам));
-            if ((_Original_Дифференциальное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.DeleteCommand.Parameters[35].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[36].Value = ((int)(_Original_Дифференциальное_давление_Шаг_усреднения__л.Value));
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[35].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[36].Value = global::System.DBNull.Value;
-            }
-            if ((_Original_Дифференциальное_давление_Шаг_усреднения_мин.HasValue == true)) {
+            this.Adapter.DeleteCommand.Parameters[34].Value = ((bool)(_Original_Выходное_давление_Среднее));
+            this.Adapter.DeleteCommand.Parameters[35].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[36].Value = ((bool)(_Original_Выходное_давление_Среднее_по_кассетам));
+            if ((_Original_Выходное_давление_Шаг_усреднения__л.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[37].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[38].Value = ((int)(_Original_Дифференциальное_давление_Шаг_усреднения_мин.Value));
+                this.Adapter.DeleteCommand.Parameters[38].Value = ((int)(_Original_Выходное_давление_Шаг_усреднения__л.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[37].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[38].Value = global::System.DBNull.Value;
             }
-            this.Adapter.DeleteCommand.Parameters[39].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[40].Value = ((bool)(Original_Подгруппы));
+            if ((_Original_Выходное_давление_Шаг_усреднения_мин.HasValue == true)) {
+                this.Adapter.DeleteCommand.Parameters[39].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[40].Value = ((int)(_Original_Выходное_давление_Шаг_усреднения_мин.Value));
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[39].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[40].Value = global::System.DBNull.Value;
+            }
             this.Adapter.DeleteCommand.Parameters[41].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[42].Value = ((bool)(_Original_Скорость_потока_По_времени));
+            this.Adapter.DeleteCommand.Parameters[42].Value = ((bool)(_Original_Дифференциальное_давление_По_времени));
             this.Adapter.DeleteCommand.Parameters[43].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[44].Value = ((bool)(_Original_Скорость_потока_По_ресурсу));
+            this.Adapter.DeleteCommand.Parameters[44].Value = ((bool)(_Original_Дифференциальное_давление_По_ресурсу));
             this.Adapter.DeleteCommand.Parameters[45].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[46].Value = ((bool)(_Original_Скорость_потока_Среднее));
+            this.Adapter.DeleteCommand.Parameters[46].Value = ((bool)(_Original_Дифференциальное_давление_Среднее));
             this.Adapter.DeleteCommand.Parameters[47].Value = ((object)(0));
-            this.Adapter.DeleteCommand.Parameters[48].Value = ((bool)(_Original_Скорость_потока_Среднее_по_кассетам));
-            if ((_Original_Скорость_потока_Шаг_усреднения__л.HasValue == true)) {
+            this.Adapter.DeleteCommand.Parameters[48].Value = ((bool)(_Original_Дифференциальное_давление_Среднее_по_кассетам));
+            if ((_Original_Дифференциальное_давление_Шаг_усреднения__л.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[49].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[50].Value = ((int)(_Original_Скорость_потока_Шаг_усреднения__л.Value));
+                this.Adapter.DeleteCommand.Parameters[50].Value = ((int)(_Original_Дифференциальное_давление_Шаг_усреднения__л.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[49].Value = ((object)(1));
                 this.Adapter.DeleteCommand.Parameters[50].Value = global::System.DBNull.Value;
             }
-            if ((_Original_Скорость_потока_Шаг_усреднения__мин.HasValue == true)) {
+            if ((_Original_Дифференциальное_давление_Шаг_усреднения_мин.HasValue == true)) {
                 this.Adapter.DeleteCommand.Parameters[51].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[52].Value = ((int)(_Original_Скорость_потока_Шаг_усреднения__мин.Value));
+                this.Adapter.DeleteCommand.Parameters[52].Value = ((int)(_Original_Дифференциальное_давление_Шаг_усреднения_мин.Value));
             }
             else {
                 this.Adapter.DeleteCommand.Parameters[51].Value = ((object)(1));
@@ -6771,6 +6404,14 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
         public virtual int Insert(
+                    string Группа, 
+                    bool Подгруппы, 
+                    bool _Скорость_потока_По_времени, 
+                    bool _Скорость_потока_По_ресурсу, 
+                    bool _Скорость_потока_Среднее, 
+                    bool _Скорость_потока_Среднее_по_кассетам, 
+                    global::System.Nullable<int> _Скорость_потока_Шаг_усреднения__л, 
+                    global::System.Nullable<int> _Скорость_потока_Шаг_усреднения__мин, 
                     bool _Входное_давление_По_времени, 
                     bool _Входное_давление_По_ресурсу, 
                     bool _Входное_давление_Среднее, 
@@ -6783,87 +6424,79 @@ namespace AGR.MainDBDataSetTableAdapters {
                     bool _Выходное_давление_Среднее_по_кассетам, 
                     global::System.Nullable<int> _Выходное_давление_Шаг_усреднения__л, 
                     global::System.Nullable<int> _Выходное_давление_Шаг_усреднения_мин, 
-                    string Группа, 
                     bool _Дифференциальное_давление_По_времени, 
                     bool _Дифференциальное_давление_По_ресурсу, 
                     bool _Дифференциальное_давление_Среднее, 
                     bool _Дифференциальное_давление_Среднее_по_кассетам, 
                     global::System.Nullable<int> _Дифференциальное_давление_Шаг_усреднения__л, 
-                    global::System.Nullable<int> _Дифференциальное_давление_Шаг_усреднения_мин, 
-                    bool Подгруппы, 
-                    bool _Скорость_потока_По_времени, 
-                    bool _Скорость_потока_По_ресурсу, 
-                    bool _Скорость_потока_Среднее, 
-                    bool _Скорость_потока_Среднее_по_кассетам, 
-                    global::System.Nullable<int> _Скорость_потока_Шаг_усреднения__л, 
-                    global::System.Nullable<int> _Скорость_потока_Шаг_усреднения__мин) {
-            this.Adapter.InsertCommand.Parameters[0].Value = ((bool)(_Входное_давление_По_времени));
-            this.Adapter.InsertCommand.Parameters[1].Value = ((bool)(_Входное_давление_По_ресурсу));
-            this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(_Входное_давление_Среднее));
-            this.Adapter.InsertCommand.Parameters[3].Value = ((bool)(_Входное_давление_Среднее_по_кассетам));
-            if ((_Входное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[4].Value = ((int)(_Входное_давление_Шаг_усреднения__л.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((_Входное_давление_Шаг_усреднения_мин.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[5].Value = ((int)(_Входное_давление_Шаг_усреднения_мин.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.InsertCommand.Parameters[6].Value = ((bool)(_Выходное_давление_По_времени));
-            this.Adapter.InsertCommand.Parameters[7].Value = ((bool)(_Выходное_давление_По_ресурсу));
-            this.Adapter.InsertCommand.Parameters[8].Value = ((bool)(_Выходное_давление_Среднее));
-            this.Adapter.InsertCommand.Parameters[9].Value = ((bool)(_Выходное_давление_Среднее_по_кассетам));
-            if ((_Выходное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[10].Value = ((int)(_Выходное_давление_Шаг_усреднения__л.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            if ((_Выходное_давление_Шаг_усреднения_мин.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[11].Value = ((int)(_Выходное_давление_Шаг_усреднения_мин.Value));
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
-            }
+                    global::System.Nullable<int> _Дифференциальное_давление_Шаг_усреднения_мин) {
             if ((Группа == null)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Группа));
+            }
+            this.Adapter.InsertCommand.Parameters[1].Value = ((bool)(Подгруппы));
+            this.Adapter.InsertCommand.Parameters[2].Value = ((bool)(_Скорость_потока_По_времени));
+            this.Adapter.InsertCommand.Parameters[3].Value = ((bool)(_Скорость_потока_По_ресурсу));
+            this.Adapter.InsertCommand.Parameters[4].Value = ((bool)(_Скорость_потока_Среднее));
+            this.Adapter.InsertCommand.Parameters[5].Value = ((bool)(_Скорость_потока_Среднее_по_кассетам));
+            if ((_Скорость_потока_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[6].Value = ((int)(_Скорость_потока_Шаг_усреднения__л.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((_Скорость_потока_Шаг_усреднения__мин.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((int)(_Скорость_потока_Шаг_усреднения__мин.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.InsertCommand.Parameters[8].Value = ((bool)(_Входное_давление_По_времени));
+            this.Adapter.InsertCommand.Parameters[9].Value = ((bool)(_Входное_давление_По_ресурсу));
+            this.Adapter.InsertCommand.Parameters[10].Value = ((bool)(_Входное_давление_Среднее));
+            this.Adapter.InsertCommand.Parameters[11].Value = ((bool)(_Входное_давление_Среднее_по_кассетам));
+            if ((_Входное_давление_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[12].Value = ((int)(_Входное_давление_Шаг_усреднения__л.Value));
+            }
+            else {
                 this.Adapter.InsertCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.InsertCommand.Parameters[12].Value = ((string)(Группа));
-            }
-            this.Adapter.InsertCommand.Parameters[13].Value = ((bool)(_Дифференциальное_давление_По_времени));
-            this.Adapter.InsertCommand.Parameters[14].Value = ((bool)(_Дифференциальное_давление_По_ресурсу));
-            this.Adapter.InsertCommand.Parameters[15].Value = ((bool)(_Дифференциальное_давление_Среднее));
-            this.Adapter.InsertCommand.Parameters[16].Value = ((bool)(_Дифференциальное_давление_Среднее_по_кассетам));
-            if ((_Дифференциальное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[17].Value = ((int)(_Дифференциальное_давление_Шаг_усреднения__л.Value));
+            if ((_Входное_давление_Шаг_усреднения_мин.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[13].Value = ((int)(_Входное_давление_Шаг_усреднения_мин.Value));
             }
             else {
-                this.Adapter.InsertCommand.Parameters[17].Value = global::System.DBNull.Value;
+                this.Adapter.InsertCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
-            if ((_Дифференциальное_давление_Шаг_усреднения_мин.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[18].Value = ((int)(_Дифференциальное_давление_Шаг_усреднения_мин.Value));
+            this.Adapter.InsertCommand.Parameters[14].Value = ((bool)(_Выходное_давление_По_времени));
+            this.Adapter.InsertCommand.Parameters[15].Value = ((bool)(_Выходное_давление_По_ресурсу));
+            this.Adapter.InsertCommand.Parameters[16].Value = ((bool)(_Выходное_давление_Среднее));
+            this.Adapter.InsertCommand.Parameters[17].Value = ((bool)(_Выходное_давление_Среднее_по_кассетам));
+            if ((_Выходное_давление_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[18].Value = ((int)(_Выходное_давление_Шаг_усреднения__л.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
-            this.Adapter.InsertCommand.Parameters[19].Value = ((bool)(Подгруппы));
-            this.Adapter.InsertCommand.Parameters[20].Value = ((bool)(_Скорость_потока_По_времени));
-            this.Adapter.InsertCommand.Parameters[21].Value = ((bool)(_Скорость_потока_По_ресурсу));
-            this.Adapter.InsertCommand.Parameters[22].Value = ((bool)(_Скорость_потока_Среднее));
-            this.Adapter.InsertCommand.Parameters[23].Value = ((bool)(_Скорость_потока_Среднее_по_кассетам));
-            if ((_Скорость_потока_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[24].Value = ((int)(_Скорость_потока_Шаг_усреднения__л.Value));
+            if ((_Выходное_давление_Шаг_усреднения_мин.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[19].Value = ((int)(_Выходное_давление_Шаг_усреднения_мин.Value));
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[19].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.InsertCommand.Parameters[20].Value = ((bool)(_Дифференциальное_давление_По_времени));
+            this.Adapter.InsertCommand.Parameters[21].Value = ((bool)(_Дифференциальное_давление_По_ресурсу));
+            this.Adapter.InsertCommand.Parameters[22].Value = ((bool)(_Дифференциальное_давление_Среднее));
+            this.Adapter.InsertCommand.Parameters[23].Value = ((bool)(_Дифференциальное_давление_Среднее_по_кассетам));
+            if ((_Дифференциальное_давление_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[24].Value = ((int)(_Дифференциальное_давление_Шаг_усреднения__л.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[24].Value = global::System.DBNull.Value;
             }
-            if ((_Скорость_потока_Шаг_усреднения__мин.HasValue == true)) {
-                this.Adapter.InsertCommand.Parameters[25].Value = ((int)(_Скорость_потока_Шаг_усреднения__мин.Value));
+            if ((_Дифференциальное_давление_Шаг_усреднения_мин.HasValue == true)) {
+                this.Adapter.InsertCommand.Parameters[25].Value = ((int)(_Дифференциальное_давление_Шаг_усреднения_мин.Value));
             }
             else {
                 this.Adapter.InsertCommand.Parameters[25].Value = global::System.DBNull.Value;
@@ -6889,6 +6522,14 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
         public virtual int Update(
+                    string Группа, 
+                    bool Подгруппы, 
+                    bool _Скорость_потока_По_времени, 
+                    bool _Скорость_потока_По_ресурсу, 
+                    bool _Скорость_потока_Среднее, 
+                    bool _Скорость_потока_Среднее_по_кассетам, 
+                    global::System.Nullable<int> _Скорость_потока_Шаг_усреднения__л, 
+                    global::System.Nullable<int> _Скорость_потока_Шаг_усреднения__мин, 
                     bool _Входное_давление_По_времени, 
                     bool _Входное_давление_По_ресурсу, 
                     bool _Входное_давление_Среднее, 
@@ -6901,21 +6542,21 @@ namespace AGR.MainDBDataSetTableAdapters {
                     bool _Выходное_давление_Среднее_по_кассетам, 
                     global::System.Nullable<int> _Выходное_давление_Шаг_усреднения__л, 
                     global::System.Nullable<int> _Выходное_давление_Шаг_усреднения_мин, 
-                    string Группа, 
                     bool _Дифференциальное_давление_По_времени, 
                     bool _Дифференциальное_давление_По_ресурсу, 
                     bool _Дифференциальное_давление_Среднее, 
                     bool _Дифференциальное_давление_Среднее_по_кассетам, 
                     global::System.Nullable<int> _Дифференциальное_давление_Шаг_усреднения__л, 
                     global::System.Nullable<int> _Дифференциальное_давление_Шаг_усреднения_мин, 
-                    bool Подгруппы, 
-                    bool _Скорость_потока_По_времени, 
-                    bool _Скорость_потока_По_ресурсу, 
-                    bool _Скорость_потока_Среднее, 
-                    bool _Скорость_потока_Среднее_по_кассетам, 
-                    global::System.Nullable<int> _Скорость_потока_Шаг_усреднения__л, 
-                    global::System.Nullable<int> _Скорость_потока_Шаг_усреднения__мин, 
                     int Original_Код, 
+                    string Original_Группа, 
+                    bool Original_Подгруппы, 
+                    bool _Original_Скорость_потока_По_времени, 
+                    bool _Original_Скорость_потока_По_ресурсу, 
+                    bool _Original_Скорость_потока_Среднее, 
+                    bool _Original_Скорость_потока_Среднее_по_кассетам, 
+                    global::System.Nullable<int> _Original_Скорость_потока_Шаг_усреднения__л, 
+                    global::System.Nullable<int> _Original_Скорость_потока_Шаг_усреднения__мин, 
                     bool _Original_Входное_давление_По_времени, 
                     bool _Original_Входное_давление_По_ресурсу, 
                     bool _Original_Входное_давление_Среднее, 
@@ -6928,197 +6569,1137 @@ namespace AGR.MainDBDataSetTableAdapters {
                     bool _Original_Выходное_давление_Среднее_по_кассетам, 
                     global::System.Nullable<int> _Original_Выходное_давление_Шаг_усреднения__л, 
                     global::System.Nullable<int> _Original_Выходное_давление_Шаг_усреднения_мин, 
-                    string Original_Группа, 
                     bool _Original_Дифференциальное_давление_По_времени, 
                     bool _Original_Дифференциальное_давление_По_ресурсу, 
                     bool _Original_Дифференциальное_давление_Среднее, 
                     bool _Original_Дифференциальное_давление_Среднее_по_кассетам, 
                     global::System.Nullable<int> _Original_Дифференциальное_давление_Шаг_усреднения__л, 
-                    global::System.Nullable<int> _Original_Дифференциальное_давление_Шаг_усреднения_мин, 
-                    bool Original_Подгруппы, 
-                    bool _Original_Скорость_потока_По_времени, 
-                    bool _Original_Скорость_потока_По_ресурсу, 
-                    bool _Original_Скорость_потока_Среднее, 
-                    bool _Original_Скорость_потока_Среднее_по_кассетам, 
-                    global::System.Nullable<int> _Original_Скорость_потока_Шаг_усреднения__л, 
-                    global::System.Nullable<int> _Original_Скорость_потока_Шаг_усреднения__мин) {
-            this.Adapter.UpdateCommand.Parameters[0].Value = ((bool)(_Входное_давление_По_времени));
-            this.Adapter.UpdateCommand.Parameters[1].Value = ((bool)(_Входное_давление_По_ресурсу));
-            this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(_Входное_давление_Среднее));
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(_Входное_давление_Среднее_по_кассетам));
-            if ((_Входное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(_Входное_давление_Шаг_усреднения__л.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            if ((_Входное_давление_Шаг_усреднения_мин.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(_Входное_давление_Шаг_усреднения_мин.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[6].Value = ((bool)(_Выходное_давление_По_времени));
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((bool)(_Выходное_давление_По_ресурсу));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((bool)(_Выходное_давление_Среднее));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((bool)(_Выходное_давление_Среднее_по_кассетам));
-            if ((_Выходное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(_Выходное_давление_Шаг_усреднения__л.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            if ((_Выходное_давление_Шаг_усреднения_мин.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((int)(_Выходное_давление_Шаг_усреднения_мин.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
-            }
+                    global::System.Nullable<int> _Original_Дифференциальное_давление_Шаг_усреднения_мин) {
             if ((Группа == null)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Группа));
+            }
+            this.Adapter.UpdateCommand.Parameters[1].Value = ((bool)(Подгруппы));
+            this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(_Скорость_потока_По_времени));
+            this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(_Скорость_потока_По_ресурсу));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((bool)(_Скорость_потока_Среднее));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((bool)(_Скорость_потока_Среднее_по_кассетам));
+            if ((_Скорость_потока_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(_Скорость_потока_Шаг_усреднения__л.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            if ((_Скорость_потока_Шаг_усреднения__мин.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(_Скорость_потока_Шаг_усреднения__мин.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((bool)(_Входное_давление_По_времени));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((bool)(_Входное_давление_По_ресурсу));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((bool)(_Входное_давление_Среднее));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((bool)(_Входное_давление_Среднее_по_кассетам));
+            if ((_Входное_давление_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(_Входное_давление_Шаг_усреднения__л.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Группа));
-            }
-            this.Adapter.UpdateCommand.Parameters[13].Value = ((bool)(_Дифференциальное_давление_По_времени));
-            this.Adapter.UpdateCommand.Parameters[14].Value = ((bool)(_Дифференциальное_давление_По_ресурсу));
-            this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(_Дифференциальное_давление_Среднее));
-            this.Adapter.UpdateCommand.Parameters[16].Value = ((bool)(_Дифференциальное_давление_Среднее_по_кассетам));
-            if ((_Дифференциальное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[17].Value = ((int)(_Дифференциальное_давление_Шаг_усреднения__л.Value));
+            if ((_Входное_давление_Шаг_усреднения_мин.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[13].Value = ((int)(_Входное_давление_Шаг_усреднения_мин.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[17].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[13].Value = global::System.DBNull.Value;
             }
-            if ((_Дифференциальное_давление_Шаг_усреднения_мин.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(_Дифференциальное_давление_Шаг_усреднения_мин.Value));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((bool)(_Выходное_давление_По_времени));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(_Выходное_давление_По_ресурсу));
+            this.Adapter.UpdateCommand.Parameters[16].Value = ((bool)(_Выходное_давление_Среднее));
+            this.Adapter.UpdateCommand.Parameters[17].Value = ((bool)(_Выходное_давление_Среднее_по_кассетам));
+            if ((_Выходное_давление_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((int)(_Выходное_давление_Шаг_усреднения__л.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[19].Value = ((bool)(Подгруппы));
-            this.Adapter.UpdateCommand.Parameters[20].Value = ((bool)(_Скорость_потока_По_времени));
-            this.Adapter.UpdateCommand.Parameters[21].Value = ((bool)(_Скорость_потока_По_ресурсу));
-            this.Adapter.UpdateCommand.Parameters[22].Value = ((bool)(_Скорость_потока_Среднее));
-            this.Adapter.UpdateCommand.Parameters[23].Value = ((bool)(_Скорость_потока_Среднее_по_кассетам));
-            if ((_Скорость_потока_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[24].Value = ((int)(_Скорость_потока_Шаг_усреднения__л.Value));
+            if ((_Выходное_давление_Шаг_усреднения_мин.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[19].Value = ((int)(_Выходное_давление_Шаг_усреднения_мин.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[19].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[20].Value = ((bool)(_Дифференциальное_давление_По_времени));
+            this.Adapter.UpdateCommand.Parameters[21].Value = ((bool)(_Дифференциальное_давление_По_ресурсу));
+            this.Adapter.UpdateCommand.Parameters[22].Value = ((bool)(_Дифференциальное_давление_Среднее));
+            this.Adapter.UpdateCommand.Parameters[23].Value = ((bool)(_Дифференциальное_давление_Среднее_по_кассетам));
+            if ((_Дифференциальное_давление_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[24].Value = ((int)(_Дифференциальное_давление_Шаг_усреднения__л.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[24].Value = global::System.DBNull.Value;
             }
-            if ((_Скорость_потока_Шаг_усреднения__мин.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[25].Value = ((int)(_Скорость_потока_Шаг_усреднения__мин.Value));
+            if ((_Дифференциальное_давление_Шаг_усреднения_мин.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[25].Value = ((int)(_Дифференциальное_давление_Шаг_усреднения_мин.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[25].Value = global::System.DBNull.Value;
             }
             this.Adapter.UpdateCommand.Parameters[26].Value = ((int)(Original_Код));
-            this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[28].Value = ((bool)(_Original_Входное_давление_По_времени));
-            this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[30].Value = ((bool)(_Original_Входное_давление_По_ресурсу));
-            this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[32].Value = ((bool)(_Original_Входное_давление_Среднее));
-            this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[34].Value = ((bool)(_Original_Входное_давление_Среднее_по_кассетам));
-            if ((_Original_Входное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[36].Value = ((int)(_Original_Входное_давление_Шаг_усреднения__л.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[36].Value = global::System.DBNull.Value;
-            }
-            if ((_Original_Входное_давление_Шаг_усреднения_мин.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[38].Value = ((int)(_Original_Входное_давление_Шаг_усреднения_мин.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[38].Value = global::System.DBNull.Value;
-            }
-            this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[40].Value = ((bool)(_Original_Выходное_давление_По_времени));
-            this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[42].Value = ((bool)(_Original_Выходное_давление_По_ресурсу));
-            this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[44].Value = ((bool)(_Original_Выходное_давление_Среднее));
-            this.Adapter.UpdateCommand.Parameters[45].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[46].Value = ((bool)(_Original_Выходное_давление_Среднее_по_кассетам));
-            if ((_Original_Выходное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[47].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[48].Value = ((int)(_Original_Выходное_давление_Шаг_усреднения__л.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[47].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[48].Value = global::System.DBNull.Value;
-            }
-            if ((_Original_Выходное_давление_Шаг_усреднения_мин.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[49].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[50].Value = ((int)(_Original_Выходное_давление_Шаг_усреднения_мин.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[49].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[50].Value = global::System.DBNull.Value;
-            }
             if ((Original_Группа == null)) {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[28].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[27].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[28].Value = ((string)(Original_Группа));
+            }
+            this.Adapter.UpdateCommand.Parameters[29].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[30].Value = ((bool)(Original_Подгруппы));
+            this.Adapter.UpdateCommand.Parameters[31].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[32].Value = ((bool)(_Original_Скорость_потока_По_времени));
+            this.Adapter.UpdateCommand.Parameters[33].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[34].Value = ((bool)(_Original_Скорость_потока_По_ресурсу));
+            this.Adapter.UpdateCommand.Parameters[35].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[36].Value = ((bool)(_Original_Скорость_потока_Среднее));
+            this.Adapter.UpdateCommand.Parameters[37].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[38].Value = ((bool)(_Original_Скорость_потока_Среднее_по_кассетам));
+            if ((_Original_Скорость_потока_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[40].Value = ((int)(_Original_Скорость_потока_Шаг_усреднения__л.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[39].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[40].Value = global::System.DBNull.Value;
+            }
+            if ((_Original_Скорость_потока_Шаг_усреднения__мин.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[42].Value = ((int)(_Original_Скорость_потока_Шаг_усреднения__мин.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[41].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[42].Value = global::System.DBNull.Value;
+            }
+            this.Adapter.UpdateCommand.Parameters[43].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[44].Value = ((bool)(_Original_Входное_давление_По_времени));
+            this.Adapter.UpdateCommand.Parameters[45].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[46].Value = ((bool)(_Original_Входное_давление_По_ресурсу));
+            this.Adapter.UpdateCommand.Parameters[47].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[48].Value = ((bool)(_Original_Входное_давление_Среднее));
+            this.Adapter.UpdateCommand.Parameters[49].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[50].Value = ((bool)(_Original_Входное_давление_Среднее_по_кассетам));
+            if ((_Original_Входное_давление_Шаг_усреднения__л.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[52].Value = ((int)(_Original_Входное_давление_Шаг_усреднения__л.Value));
+            }
+            else {
                 this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[52].Value = global::System.DBNull.Value;
             }
-            else {
-                this.Adapter.UpdateCommand.Parameters[51].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[52].Value = ((string)(Original_Группа));
+            if ((_Original_Входное_давление_Шаг_усреднения_мин.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[53].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[54].Value = ((int)(_Original_Входное_давление_Шаг_усреднения_мин.Value));
             }
-            this.Adapter.UpdateCommand.Parameters[53].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[54].Value = ((bool)(_Original_Дифференциальное_давление_По_времени));
+            else {
+                this.Adapter.UpdateCommand.Parameters[53].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[54].Value = global::System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[55].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[56].Value = ((bool)(_Original_Дифференциальное_давление_По_ресурсу));
+            this.Adapter.UpdateCommand.Parameters[56].Value = ((bool)(_Original_Выходное_давление_По_времени));
             this.Adapter.UpdateCommand.Parameters[57].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[58].Value = ((bool)(_Original_Дифференциальное_давление_Среднее));
+            this.Adapter.UpdateCommand.Parameters[58].Value = ((bool)(_Original_Выходное_давление_По_ресурсу));
             this.Adapter.UpdateCommand.Parameters[59].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[60].Value = ((bool)(_Original_Дифференциальное_давление_Среднее_по_кассетам));
-            if ((_Original_Дифференциальное_давление_Шаг_усреднения__л.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[61].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[62].Value = ((int)(_Original_Дифференциальное_давление_Шаг_усреднения__л.Value));
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[61].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[62].Value = global::System.DBNull.Value;
-            }
-            if ((_Original_Дифференциальное_давление_Шаг_усреднения_мин.HasValue == true)) {
+            this.Adapter.UpdateCommand.Parameters[60].Value = ((bool)(_Original_Выходное_давление_Среднее));
+            this.Adapter.UpdateCommand.Parameters[61].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[62].Value = ((bool)(_Original_Выходное_давление_Среднее_по_кассетам));
+            if ((_Original_Выходное_давление_Шаг_усреднения__л.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[63].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[64].Value = ((int)(_Original_Дифференциальное_давление_Шаг_усреднения_мин.Value));
+                this.Adapter.UpdateCommand.Parameters[64].Value = ((int)(_Original_Выходное_давление_Шаг_усреднения__л.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[63].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[64].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[65].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[66].Value = ((bool)(Original_Подгруппы));
+            if ((_Original_Выходное_давление_Шаг_усреднения_мин.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[65].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[66].Value = ((int)(_Original_Выходное_давление_Шаг_усреднения_мин.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[65].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[66].Value = global::System.DBNull.Value;
+            }
             this.Adapter.UpdateCommand.Parameters[67].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[68].Value = ((bool)(_Original_Скорость_потока_По_времени));
+            this.Adapter.UpdateCommand.Parameters[68].Value = ((bool)(_Original_Дифференциальное_давление_По_времени));
             this.Adapter.UpdateCommand.Parameters[69].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[70].Value = ((bool)(_Original_Скорость_потока_По_ресурсу));
+            this.Adapter.UpdateCommand.Parameters[70].Value = ((bool)(_Original_Дифференциальное_давление_По_ресурсу));
             this.Adapter.UpdateCommand.Parameters[71].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[72].Value = ((bool)(_Original_Скорость_потока_Среднее));
+            this.Adapter.UpdateCommand.Parameters[72].Value = ((bool)(_Original_Дифференциальное_давление_Среднее));
             this.Adapter.UpdateCommand.Parameters[73].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[74].Value = ((bool)(_Original_Скорость_потока_Среднее_по_кассетам));
-            if ((_Original_Скорость_потока_Шаг_усреднения__л.HasValue == true)) {
+            this.Adapter.UpdateCommand.Parameters[74].Value = ((bool)(_Original_Дифференциальное_давление_Среднее_по_кассетам));
+            if ((_Original_Дифференциальное_давление_Шаг_усреднения__л.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[75].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[76].Value = ((int)(_Original_Скорость_потока_Шаг_усреднения__л.Value));
+                this.Adapter.UpdateCommand.Parameters[76].Value = ((int)(_Original_Дифференциальное_давление_Шаг_усреднения__л.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[75].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[76].Value = global::System.DBNull.Value;
             }
-            if ((_Original_Скорость_потока_Шаг_усреднения__мин.HasValue == true)) {
+            if ((_Original_Дифференциальное_давление_Шаг_усреднения_мин.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[77].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[78].Value = ((int)(_Original_Скорость_потока_Шаг_усреднения__мин.Value));
+                this.Adapter.UpdateCommand.Parameters[78].Value = ((int)(_Original_Дифференциальное_давление_Шаг_усреднения_мин.Value));
             }
             else {
                 this.Adapter.UpdateCommand.Parameters[77].Value = ((object)(1));
                 this.Adapter.UpdateCommand.Parameters[78].Value = global::System.DBNull.Value;
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class ExcelParametersTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.OleDb.OleDbDataAdapter _adapter;
+        
+        private global::System.Data.OleDb.OleDbConnection _connection;
+        
+        private global::System.Data.OleDb.OleDbTransaction _transaction;
+        
+        private global::System.Data.OleDb.OleDbCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public ExcelParametersTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.OleDb.OleDbDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.OleDb.OleDbConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.OleDb.OleDbCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.OleDb.OleDbTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.OleDb.OleDbCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.OleDb.OleDbDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "ExcelParameters";
+            tableMapping.ColumnMappings.Add("Код", "Код");
+            tableMapping.ColumnMappings.Add("Параметр", "Параметр");
+            tableMapping.ColumnMappings.Add("База данных", "База данных");
+            tableMapping.ColumnMappings.Add("Таблица", "Таблица");
+            tableMapping.ColumnMappings.Add("Столбец", "Столбец");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ExcelParameters` WHERE ((`Код` = ?) AND ((? = 1 AND `Параметр` IS NULL) OR (`Параметр` = ?)) AND ((? = 1 AND `База данных` IS NULL) OR (`База данных` = ?)) AND ((? = 1 AND `Таблица` IS NULL) OR (`Таблица` = ?)) AND ((? = 1 AND `Столбец` IS NULL) OR (`Столбец` = ?)))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Код", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Код", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Параметр", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Параметр", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_База_данных", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_База_данных", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Таблица", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Таблица", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Столбец", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Столбец", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `ExcelParameters` (`Параметр`, `База данных`, `Таблица`, `Столбец`) V" +
+                "ALUES (?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Параметр", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("База_данных", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Таблица", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Столбец", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `ExcelParameters` SET `Параметр` = ?, `База данных` = ?, `Таблица` = ?, `Столбец` = ? WHERE ((`Код` = ?) AND ((? = 1 AND `Параметр` IS NULL) OR (`Параметр` = ?)) AND ((? = 1 AND `База данных` IS NULL) OR (`База данных` = ?)) AND ((? = 1 AND `Таблица` IS NULL) OR (`Таблица` = ?)) AND ((? = 1 AND `Столбец` IS NULL) OR (`Столбец` = ?)))";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Параметр", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("База_данных", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Таблица", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Столбец", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Код", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Код", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Параметр", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Параметр", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_База_данных", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_База_данных", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Таблица", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Таблица", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Столбец", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Столбец", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Original, false, null));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.OleDb.OleDbConnection();
+            this._connection.ConnectionString = global::AGR.Properties.Settings.Default.MainDBConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
+            this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT Код, Параметр, [База данных], Таблица, Столбец FROM ExcelParameters";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MainDBDataSet.ExcelParametersDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MainDBDataSet.ExcelParametersDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MainDBDataSet.ExcelParametersDataTable dataTable = new MainDBDataSet.ExcelParametersDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MainDBDataSet.ExcelParametersDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MainDBDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "ExcelParameters");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_Код, string Original_Параметр, string Original_База_данных, string Original_Таблица, string Original_Столбец) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Код));
+            if ((Original_Параметр == null)) {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_Параметр));
+            }
+            if ((Original_База_данных == null)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_База_данных));
+            }
+            if ((Original_Таблица == null)) {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_Таблица));
+            }
+            if ((Original_Столбец == null)) {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[8].Value = ((string)(Original_Столбец));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(string Параметр, string База_данных, string Таблица, string Столбец) {
+            if ((Параметр == null)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Параметр));
+            }
+            if ((База_данных == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(База_данных));
+            }
+            if ((Таблица == null)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Таблица));
+            }
+            if ((Столбец == null)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Столбец));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(string Параметр, string База_данных, string Таблица, string Столбец, int Original_Код, string Original_Параметр, string Original_База_данных, string Original_Таблица, string Original_Столбец) {
+            if ((Параметр == null)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Параметр));
+            }
+            if ((База_данных == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(База_данных));
+            }
+            if ((Таблица == null)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Таблица));
+            }
+            if ((Столбец == null)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Столбец));
+            }
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Код));
+            if ((Original_Параметр == null)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_Параметр));
+            }
+            if ((Original_База_данных == null)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_База_данных));
+            }
+            if ((Original_Таблица == null)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_Таблица));
+            }
+            if ((Original_Столбец == null)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_Столбец));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
+            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.UpdateCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.UpdateCommand.Connection.Close();
+                }
+            }
+        }
+    }
+    
+    /// <summary>
+    ///Represents the connection and commands used to retrieve and save data.
+    ///</summary>
+    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
+    [global::System.ComponentModel.ToolboxItem(true)]
+    [global::System.ComponentModel.DataObjectAttribute(true)]
+    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
+        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
+    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+    public partial class ProfilesTableAdapter : global::System.ComponentModel.Component {
+        
+        private global::System.Data.OleDb.OleDbDataAdapter _adapter;
+        
+        private global::System.Data.OleDb.OleDbConnection _connection;
+        
+        private global::System.Data.OleDb.OleDbTransaction _transaction;
+        
+        private global::System.Data.OleDb.OleDbCommand[] _commandCollection;
+        
+        private bool _clearBeforeFill;
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public ProfilesTableAdapter() {
+            this.ClearBeforeFill = true;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected internal global::System.Data.OleDb.OleDbDataAdapter Adapter {
+            get {
+                if ((this._adapter == null)) {
+                    this.InitAdapter();
+                }
+                return this._adapter;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.OleDb.OleDbConnection Connection {
+            get {
+                if ((this._connection == null)) {
+                    this.InitConnection();
+                }
+                return this._connection;
+            }
+            set {
+                this._connection = value;
+                if ((this.Adapter.InsertCommand != null)) {
+                    this.Adapter.InsertCommand.Connection = value;
+                }
+                if ((this.Adapter.DeleteCommand != null)) {
+                    this.Adapter.DeleteCommand.Connection = value;
+                }
+                if ((this.Adapter.UpdateCommand != null)) {
+                    this.Adapter.UpdateCommand.Connection = value;
+                }
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    if ((this.CommandCollection[i] != null)) {
+                        ((global::System.Data.OleDb.OleDbCommand)(this.CommandCollection[i])).Connection = value;
+                    }
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        internal global::System.Data.OleDb.OleDbTransaction Transaction {
+            get {
+                return this._transaction;
+            }
+            set {
+                this._transaction = value;
+                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
+                    this.CommandCollection[i].Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.DeleteCommand != null))) {
+                    this.Adapter.DeleteCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.InsertCommand != null))) {
+                    this.Adapter.InsertCommand.Transaction = this._transaction;
+                }
+                if (((this.Adapter != null) 
+                            && (this.Adapter.UpdateCommand != null))) {
+                    this.Adapter.UpdateCommand.Transaction = this._transaction;
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        protected global::System.Data.OleDb.OleDbCommand[] CommandCollection {
+            get {
+                if ((this._commandCollection == null)) {
+                    this.InitCommandCollection();
+                }
+                return this._commandCollection;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        public bool ClearBeforeFill {
+            get {
+                return this._clearBeforeFill;
+            }
+            set {
+                this._clearBeforeFill = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitAdapter() {
+            this._adapter = new global::System.Data.OleDb.OleDbDataAdapter();
+            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
+            tableMapping.SourceTable = "Table";
+            tableMapping.DataSetTable = "Profiles";
+            tableMapping.ColumnMappings.Add("ID", "ID");
+            tableMapping.ColumnMappings.Add("ProfileName", "ProfileName");
+            tableMapping.ColumnMappings.Add("DataBasePlace", "DataBasePlace");
+            tableMapping.ColumnMappings.Add("Table1", "Table1");
+            tableMapping.ColumnMappings.Add("Columns1", "Columns1");
+            tableMapping.ColumnMappings.Add("Table2", "Table2");
+            tableMapping.ColumnMappings.Add("Columns2", "Columns2");
+            tableMapping.ColumnMappings.Add("OtherDB", "OtherDB");
+            tableMapping.ColumnMappings.Add("MaskKey", "MaskKey");
+            tableMapping.ColumnMappings.Add("MaskDB", "MaskDB");
+            tableMapping.ColumnMappings.Add("DataBaseFolder", "DataBaseFolder");
+            tableMapping.ColumnMappings.Add("Selected", "Selected");
+            tableMapping.ColumnMappings.Add("MainColumn", "MainColumn");
+            this._adapter.TableMappings.Add(tableMapping);
+            this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.DeleteCommand.Connection = this.Connection;
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `Profiles` WHERE ((`ID` = ?) AND ((? = 1 AND `OtherDB` IS NULL) OR (`OtherDB` = ?)) AND ((? = 1 AND `MaskKey` IS NULL) OR (`MaskKey` = ?)) AND ((? = 1 AND `MaskDB` IS NULL) OR (`MaskDB` = ?)) AND ((? = 1 AND `Selected` IS NULL) OR (`Selected` = ?)) AND ((? = 1 AND `MainColumn` IS NULL) OR (`MainColumn` = ?)))";
+            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OtherDB", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OtherDB", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MaskKey", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MaskKey", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MaskDB", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MaskDB", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Selected", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Selected", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MainColumn", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MainColumn", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MainColumn", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MainColumn", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.InsertCommand.Connection = this.Connection;
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `Profiles` (`ProfileName`, `DataBasePlace`, `Table1`, `Columns1`, `Ta" +
+                "ble2`, `Columns2`, `OtherDB`, `MaskKey`, `MaskDB`, `DataBaseFolder`, `Selected`," +
+                " `MainColumn`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProfileName", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProfileName", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DataBasePlace", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DataBasePlace", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Table1", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Table1", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Columns1", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Columns1", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Table2", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Table2", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Columns2", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Columns2", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OtherDB", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MaskKey", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MaskDB", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DataBaseFolder", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DataBaseFolder", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Selected", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MainColumn", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MainColumn", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
+            this._adapter.UpdateCommand.Connection = this.Connection;
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `Profiles` SET `ProfileName` = ?, `DataBasePlace` = ?, `Table1` = ?, `Columns1` = ?, `Table2` = ?, `Columns2` = ?, `OtherDB` = ?, `MaskKey` = ?, `MaskDB` = ?, `DataBaseFolder` = ?, `Selected` = ?, `MainColumn` = ? WHERE ((`ID` = ?) AND ((? = 1 AND `OtherDB` IS NULL) OR (`OtherDB` = ?)) AND ((? = 1 AND `MaskKey` IS NULL) OR (`MaskKey` = ?)) AND ((? = 1 AND `MaskDB` IS NULL) OR (`MaskDB` = ?)) AND ((? = 1 AND `Selected` IS NULL) OR (`Selected` = ?)) AND ((? = 1 AND `MainColumn` IS NULL) OR (`MainColumn` = ?)))";
+            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ProfileName", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ProfileName", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DataBasePlace", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DataBasePlace", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Table1", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Table1", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Columns1", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Columns1", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Table2", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Table2", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Columns2", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Columns2", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("OtherDB", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MaskKey", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MaskDB", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("DataBaseFolder", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "DataBaseFolder", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Selected", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("MainColumn", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MainColumn", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_OtherDB", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_OtherDB", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "OtherDB", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MaskKey", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MaskKey", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskKey", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MaskDB", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MaskDB", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MaskDB", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Selected", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Selected", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Selected", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_MainColumn", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MainColumn", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_MainColumn", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "MainColumn", global::System.Data.DataRowVersion.Original, false, null));
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitConnection() {
+            this._connection = new global::System.Data.OleDb.OleDbConnection();
+            this._connection.ConnectionString = global::AGR.Properties.Settings.Default.MainDBConnectionString;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        private void InitCommandCollection() {
+            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
+            this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
+            this._commandCollection[0].Connection = this.Connection;
+            this._commandCollection[0].CommandText = "SELECT ID, ProfileName, DataBasePlace, Table1, Columns1, Table2, Columns2, OtherD" +
+                "B, MaskKey, MaskDB, DataBaseFolder, Selected, MainColumn FROM Profiles";
+            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
+        public virtual int Fill(MainDBDataSet.ProfilesDataTable dataTable) {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            if ((this.ClearBeforeFill == true)) {
+                dataTable.Clear();
+            }
+            int returnValue = this.Adapter.Fill(dataTable);
+            return returnValue;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
+        public virtual MainDBDataSet.ProfilesDataTable GetData() {
+            this.Adapter.SelectCommand = this.CommandCollection[0];
+            MainDBDataSet.ProfilesDataTable dataTable = new MainDBDataSet.ProfilesDataTable();
+            this.Adapter.Fill(dataTable);
+            return dataTable;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MainDBDataSet.ProfilesDataTable dataTable) {
+            return this.Adapter.Update(dataTable);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(MainDBDataSet dataSet) {
+            return this.Adapter.Update(dataSet, "Profiles");
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow dataRow) {
+            return this.Adapter.Update(new global::System.Data.DataRow[] {
+                        dataRow});
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        public virtual int Update(global::System.Data.DataRow[] dataRows) {
+            return this.Adapter.Update(dataRows);
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
+        public virtual int Delete(int Original_ID, bool Original_OtherDB, string Original_MaskKey, string Original_MaskDB, bool Original_Selected, string Original_MainColumn) {
+            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID));
+            this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[2].Value = ((bool)(Original_OtherDB));
+            if ((Original_MaskKey == null)) {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_MaskKey));
+            }
+            if ((Original_MaskDB == null)) {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_MaskDB));
+            }
+            this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[8].Value = ((bool)(Original_Selected));
+            if ((Original_MainColumn == null)) {
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.DeleteCommand.Parameters[10].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.DeleteCommand.Parameters[10].Value = ((string)(Original_MainColumn));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
+            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.DeleteCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.DeleteCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
+        public virtual int Insert(string ProfileName, string DataBasePlace, string Table1, string Columns1, string Table2, string Columns2, bool OtherDB, string MaskKey, string MaskDB, string DataBaseFolder, bool Selected, string MainColumn) {
+            if ((ProfileName == null)) {
+                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(ProfileName));
+            }
+            if ((DataBasePlace == null)) {
+                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(DataBasePlace));
+            }
+            if ((Table1 == null)) {
+                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Table1));
+            }
+            if ((Columns1 == null)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Columns1));
+            }
+            if ((Table2 == null)) {
+                this.Adapter.InsertCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[4].Value = ((string)(Table2));
+            }
+            if ((Columns2 == null)) {
+                this.Adapter.InsertCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[5].Value = ((string)(Columns2));
+            }
+            this.Adapter.InsertCommand.Parameters[6].Value = ((bool)(OtherDB));
+            if ((MaskKey == null)) {
+                this.Adapter.InsertCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[7].Value = ((string)(MaskKey));
+            }
+            if ((MaskDB == null)) {
+                this.Adapter.InsertCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[8].Value = ((string)(MaskDB));
+            }
+            if ((DataBaseFolder == null)) {
+                this.Adapter.InsertCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[9].Value = ((string)(DataBaseFolder));
+            }
+            this.Adapter.InsertCommand.Parameters[10].Value = ((bool)(Selected));
+            if ((MainColumn == null)) {
+                this.Adapter.InsertCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[11].Value = ((string)(MainColumn));
+            }
+            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
+            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
+                        != global::System.Data.ConnectionState.Open)) {
+                this.Adapter.InsertCommand.Connection.Open();
+            }
+            try {
+                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
+                return returnValue;
+            }
+            finally {
+                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
+                    this.Adapter.InsertCommand.Connection.Close();
+                }
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
+        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
+        public virtual int Update(
+                    string ProfileName, 
+                    string DataBasePlace, 
+                    string Table1, 
+                    string Columns1, 
+                    string Table2, 
+                    string Columns2, 
+                    bool OtherDB, 
+                    string MaskKey, 
+                    string MaskDB, 
+                    string DataBaseFolder, 
+                    bool Selected, 
+                    string MainColumn, 
+                    int Original_ID, 
+                    bool Original_OtherDB, 
+                    string Original_MaskKey, 
+                    string Original_MaskDB, 
+                    bool Original_Selected, 
+                    string Original_MainColumn) {
+            if ((ProfileName == null)) {
+                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(ProfileName));
+            }
+            if ((DataBasePlace == null)) {
+                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(DataBasePlace));
+            }
+            if ((Table1 == null)) {
+                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Table1));
+            }
+            if ((Columns1 == null)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Columns1));
+            }
+            if ((Table2 == null)) {
+                this.Adapter.UpdateCommand.Parameters[4].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[4].Value = ((string)(Table2));
+            }
+            if ((Columns2 == null)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((string)(Columns2));
+            }
+            this.Adapter.UpdateCommand.Parameters[6].Value = ((bool)(OtherDB));
+            if ((MaskKey == null)) {
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(MaskKey));
+            }
+            if ((MaskDB == null)) {
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(MaskDB));
+            }
+            if ((DataBaseFolder == null)) {
+                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((string)(DataBaseFolder));
+            }
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((bool)(Selected));
+            if ((MainColumn == null)) {
+                this.Adapter.UpdateCommand.Parameters[11].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[11].Value = ((string)(MainColumn));
+            }
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((int)(Original_ID));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((bool)(Original_OtherDB));
+            if ((Original_MaskKey == null)) {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[16].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[15].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[16].Value = ((string)(Original_MaskKey));
+            }
+            if ((Original_MaskDB == null)) {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[18].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[17].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[18].Value = ((string)(Original_MaskDB));
+            }
+            this.Adapter.UpdateCommand.Parameters[19].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[20].Value = ((bool)(Original_Selected));
+            if ((Original_MainColumn == null)) {
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[22].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[21].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[22].Value = ((string)(Original_MainColumn));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7262,6 +7843,7 @@ namespace AGR.MainDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("ID Group", "ID Group");
             tableMapping.ColumnMappings.Add("ID SubGroup", "ID SubGroup");
             tableMapping.ColumnMappings.Add("ID SubParameter", "ID SubParameter");
+            tableMapping.ColumnMappings.Add("Values", "Values");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
@@ -7279,19 +7861,21 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID_SubParameter", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID SubParameter", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `SaveGroupParameters` (`ID Group`, `ID SubGroup`, `ID SubParameter`) " +
-                "VALUES (?, ?, ?)";
+            this._adapter.InsertCommand.CommandText = "INSERT INTO `SaveGroupParameters` (`ID Group`, `ID SubGroup`, `ID SubParameter`, " +
+                "`Values`) VALUES (?, ?, ?, ?)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID_Group", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID Group", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID_SubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID SubGroup", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID_SubParameter", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID SubParameter", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Values", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Values", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `SaveGroupParameters` SET `ID Group` = ?, `ID SubGroup` = ?, `ID SubParameter` = ? WHERE ((`ID Parameter` = ?) AND ((? = 1 AND `ID Group` IS NULL) OR (`ID Group` = ?)) AND ((? = 1 AND `ID SubGroup` IS NULL) OR (`ID SubGroup` = ?)) AND ((? = 1 AND `ID SubParameter` IS NULL) OR (`ID SubParameter` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `SaveGroupParameters` SET `ID Group` = ?, `ID SubGroup` = ?, `ID SubParameter` = ?, `Values` = ? WHERE ((`ID Parameter` = ?) AND ((? = 1 AND `ID Group` IS NULL) OR (`ID Group` = ?)) AND ((? = 1 AND `ID SubGroup` IS NULL) OR (`ID SubGroup` = ?)) AND ((? = 1 AND `ID SubParameter` IS NULL) OR (`ID SubParameter` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID_Group", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID Group", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID_SubGroup", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID SubGroup", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("ID_SubParameter", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID SubParameter", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Values", global::System.Data.OleDb.OleDbType.LongVarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Values", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID_Parameter", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID Parameter", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_ID_Group", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID Group", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID_Group", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID Group", global::System.Data.DataRowVersion.Original, false, null));
@@ -7314,8 +7898,8 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT [ID Parameter], [ID Group], [ID SubGroup], [ID SubParameter] FROM SaveGrou" +
-                "pParameters";
+            this._commandCollection[0].CommandText = "SELECT [ID Parameter], [ID Group], [ID SubGroup], [ID SubParameter], [Values] FRO" +
+                "M SaveGroupParameters";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7422,7 +8006,7 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(global::System.Nullable<int> ID_Group, global::System.Nullable<int> ID_SubGroup, global::System.Nullable<int> ID_SubParameter) {
+        public virtual int Insert(global::System.Nullable<int> ID_Group, global::System.Nullable<int> ID_SubGroup, global::System.Nullable<int> ID_SubParameter, string Values) {
             if ((ID_Group.HasValue == true)) {
                 this.Adapter.InsertCommand.Parameters[0].Value = ((int)(ID_Group.Value));
             }
@@ -7440,6 +8024,12 @@ namespace AGR.MainDBDataSetTableAdapters {
             }
             else {
                 this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
+            }
+            if ((Values == null)) {
+                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
+            }
+            else {
+                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Values));
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
             if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7461,7 +8051,7 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(global::System.Nullable<int> ID_Group, global::System.Nullable<int> ID_SubGroup, global::System.Nullable<int> ID_SubParameter, int Original_ID_Parameter, global::System.Nullable<int> Original_ID_Group, global::System.Nullable<int> Original_ID_SubGroup, global::System.Nullable<int> Original_ID_SubParameter) {
+        public virtual int Update(global::System.Nullable<int> ID_Group, global::System.Nullable<int> ID_SubGroup, global::System.Nullable<int> ID_SubParameter, string Values, int Original_ID_Parameter, global::System.Nullable<int> Original_ID_Group, global::System.Nullable<int> Original_ID_SubGroup, global::System.Nullable<int> Original_ID_SubParameter) {
             if ((ID_Group.HasValue == true)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = ((int)(ID_Group.Value));
             }
@@ -7480,30 +8070,36 @@ namespace AGR.MainDBDataSetTableAdapters {
             else {
                 this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
             }
-            this.Adapter.UpdateCommand.Parameters[3].Value = ((int)(Original_ID_Parameter));
-            if ((Original_ID_Group.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ID_Group.Value));
+            if ((Values == null)) {
+                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[4].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[5].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Values));
+            }
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_ID_Parameter));
+            if ((Original_ID_Group.HasValue == true)) {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((int)(Original_ID_Group.Value));
+            }
+            else {
+                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
             }
             if ((Original_ID_SubGroup.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((int)(Original_ID_SubGroup.Value));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[8].Value = ((int)(Original_ID_SubGroup.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
             }
             if ((Original_ID_SubParameter.HasValue == true)) {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((int)(Original_ID_SubParameter.Value));
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[10].Value = ((int)(Original_ID_SubParameter.Value));
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[9].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
             }
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
@@ -7648,10 +8244,11 @@ namespace AGR.MainDBDataSetTableAdapters {
             tableMapping.ColumnMappings.Add("SubGroup1", "SubGroup1");
             tableMapping.ColumnMappings.Add("SubGroup2", "SubGroup2");
             tableMapping.ColumnMappings.Add("SubGroup3", "SubGroup3");
+            tableMapping.ColumnMappings.Add("SubGroup4", "SubGroup4");
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `SaveGroups` WHERE ((`ID Group` = ?) AND ((? = 1 AND `Group` IS NULL) OR (`Group` = ?)) AND ((? = 1 AND `SubGroup1` IS NULL) OR (`SubGroup1` = ?)) AND ((? = 1 AND `SubGroup2` IS NULL) OR (`SubGroup2` = ?)) AND ((? = 1 AND `SubGroup3` IS NULL) OR (`SubGroup3` = ?)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `SaveGroups` WHERE ((`ID Group` = ?) AND ((? = 1 AND `Group` IS NULL) OR (`Group` = ?)) AND ((? = 1 AND `SubGroup1` IS NULL) OR (`SubGroup1` = ?)) AND ((? = 1 AND `SubGroup2` IS NULL) OR (`SubGroup2` = ?)) AND ((? = 1 AND `SubGroup3` IS NULL) OR (`SubGroup3` = ?)) AND ((? = 1 AND `SubGroup4` IS NULL) OR (`SubGroup4` = ?)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID_Group", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID Group", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Group", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Group", global::System.Data.DataRowVersion.Original, true, null));
@@ -7662,6 +8259,8 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_SubGroup2", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup2", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_SubGroup3", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup3", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_SubGroup3", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup3", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_SubGroup4", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup4", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_SubGroup4", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup4", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
             this._adapter.InsertCommand.CommandText = "INSERT INTO `SaveGroups` (`Group`, `SubGroup1`, `SubGroup2`, `SubGroup3`, `SubGro" +
@@ -7674,12 +8273,13 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("SubGroup4", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup4", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `SaveGroups` SET `Group` = ?, `SubGroup1` = ?, `SubGroup2` = ?, `SubGroup3` = ? WHERE ((`ID Group` = ?) AND ((? = 1 AND `Group` IS NULL) OR (`Group` = ?)) AND ((? = 1 AND `SubGroup1` IS NULL) OR (`SubGroup1` = ?)) AND ((? = 1 AND `SubGroup2` IS NULL) OR (`SubGroup2` = ?)) AND ((? = 1 AND `SubGroup3` IS NULL) OR (`SubGroup3` = ?)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE `SaveGroups` SET `Group` = ?, `SubGroup1` = ?, `SubGroup2` = ?, `SubGroup3` = ?, `SubGroup4` = ? WHERE ((`ID Group` = ?) AND ((? = 1 AND `Group` IS NULL) OR (`Group` = ?)) AND ((? = 1 AND `SubGroup1` IS NULL) OR (`SubGroup1` = ?)) AND ((? = 1 AND `SubGroup2` IS NULL) OR (`SubGroup2` = ?)) AND ((? = 1 AND `SubGroup3` IS NULL) OR (`SubGroup3` = ?)) AND ((? = 1 AND `SubGroup4` IS NULL) OR (`SubGroup4` = ?)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Group", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Group", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("SubGroup1", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup1", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("SubGroup2", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup2", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("SubGroup3", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup3", global::System.Data.DataRowVersion.Current, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("SubGroup4", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup4", global::System.Data.DataRowVersion.Current, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_ID_Group", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "ID Group", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Group", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Group", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Group", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Group", global::System.Data.DataRowVersion.Original, false, null));
@@ -7689,6 +8289,8 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_SubGroup2", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup2", global::System.Data.DataRowVersion.Original, false, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_SubGroup3", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup3", global::System.Data.DataRowVersion.Original, true, null));
             this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_SubGroup3", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup3", global::System.Data.DataRowVersion.Original, false, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_SubGroup4", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup4", global::System.Data.DataRowVersion.Original, true, null));
+            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_SubGroup4", global::System.Data.OleDb.OleDbType.Boolean, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "SubGroup4", global::System.Data.DataRowVersion.Original, false, null));
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -7704,7 +8306,8 @@ namespace AGR.MainDBDataSetTableAdapters {
             this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
             this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT [ID Group], [Group], SubGroup1, SubGroup2, SubGroup3 FROM SaveGroups";
+            this._commandCollection[0].CommandText = "SELECT [ID Group], [Group], SubGroup1, SubGroup2, SubGroup3, SubGroup4 FROM SaveG" +
+                "roups";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }
         
@@ -7765,7 +8368,7 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_ID_Group, string Original_Group, bool Original_SubGroup1, bool Original_SubGroup2, bool Original_SubGroup3) {
+        public virtual int Delete(int Original_ID_Group, string Original_Group, bool Original_SubGroup1, bool Original_SubGroup2, bool Original_SubGroup3, bool Original_SubGroup4) {
             this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_ID_Group));
             if ((Original_Group == null)) {
                 this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
@@ -7781,6 +8384,8 @@ namespace AGR.MainDBDataSetTableAdapters {
             this.Adapter.DeleteCommand.Parameters[6].Value = ((bool)(Original_SubGroup2));
             this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
             this.Adapter.DeleteCommand.Parameters[8].Value = ((bool)(Original_SubGroup3));
+            this.Adapter.DeleteCommand.Parameters[9].Value = ((object)(0));
+            this.Adapter.DeleteCommand.Parameters[10].Value = ((bool)(Original_SubGroup4));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
             if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -7832,7 +8437,7 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
         [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Group, bool SubGroup1, bool SubGroup2, bool SubGroup3, int Original_ID_Group, string Original_Group, bool Original_SubGroup1, bool Original_SubGroup2, bool Original_SubGroup3) {
+        public virtual int Update(string Group, bool SubGroup1, bool SubGroup2, bool SubGroup3, bool SubGroup4, int Original_ID_Group, string Original_Group, bool Original_SubGroup1, bool Original_SubGroup2, bool Original_SubGroup3, bool Original_SubGroup4) {
             if ((Group == null)) {
                 this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
             }
@@ -7842,21 +8447,24 @@ namespace AGR.MainDBDataSetTableAdapters {
             this.Adapter.UpdateCommand.Parameters[1].Value = ((bool)(SubGroup1));
             this.Adapter.UpdateCommand.Parameters[2].Value = ((bool)(SubGroup2));
             this.Adapter.UpdateCommand.Parameters[3].Value = ((bool)(SubGroup3));
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_ID_Group));
+            this.Adapter.UpdateCommand.Parameters[4].Value = ((bool)(SubGroup4));
+            this.Adapter.UpdateCommand.Parameters[5].Value = ((int)(Original_ID_Group));
             if ((Original_Group == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(1));
+                this.Adapter.UpdateCommand.Parameters[7].Value = global::System.DBNull.Value;
             }
             else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_Group));
+                this.Adapter.UpdateCommand.Parameters[6].Value = ((object)(0));
+                this.Adapter.UpdateCommand.Parameters[7].Value = ((string)(Original_Group));
             }
-            this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[8].Value = ((bool)(Original_SubGroup1));
-            this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[10].Value = ((bool)(Original_SubGroup2));
-            this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-            this.Adapter.UpdateCommand.Parameters[12].Value = ((bool)(Original_SubGroup3));
+            this.Adapter.UpdateCommand.Parameters[8].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[9].Value = ((bool)(Original_SubGroup1));
+            this.Adapter.UpdateCommand.Parameters[10].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[11].Value = ((bool)(Original_SubGroup2));
+            this.Adapter.UpdateCommand.Parameters[12].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[13].Value = ((bool)(Original_SubGroup3));
+            this.Adapter.UpdateCommand.Parameters[14].Value = ((object)(0));
+            this.Adapter.UpdateCommand.Parameters[15].Value = ((bool)(Original_SubGroup4));
             global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
             if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
                         != global::System.Data.ConnectionState.Open)) {
@@ -8912,422 +9520,6 @@ namespace AGR.MainDBDataSetTableAdapters {
     }
     
     /// <summary>
-    ///Represents the connection and commands used to retrieve and save data.
-    ///</summary>
-    [global::System.ComponentModel.DesignerCategoryAttribute("code")]
-    [global::System.ComponentModel.ToolboxItem(true)]
-    [global::System.ComponentModel.DataObjectAttribute(true)]
-    [global::System.ComponentModel.DesignerAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterDesigner, Microsoft.VSDesigner" +
-        ", Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a")]
-    [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-    public partial class ExcelParametersTableAdapter : global::System.ComponentModel.Component {
-        
-        private global::System.Data.OleDb.OleDbDataAdapter _adapter;
-        
-        private global::System.Data.OleDb.OleDbConnection _connection;
-        
-        private global::System.Data.OleDb.OleDbTransaction _transaction;
-        
-        private global::System.Data.OleDb.OleDbCommand[] _commandCollection;
-        
-        private bool _clearBeforeFill;
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public ExcelParametersTableAdapter() {
-            this.ClearBeforeFill = true;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected internal global::System.Data.OleDb.OleDbDataAdapter Adapter {
-            get {
-                if ((this._adapter == null)) {
-                    this.InitAdapter();
-                }
-                return this._adapter;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        internal global::System.Data.OleDb.OleDbConnection Connection {
-            get {
-                if ((this._connection == null)) {
-                    this.InitConnection();
-                }
-                return this._connection;
-            }
-            set {
-                this._connection = value;
-                if ((this.Adapter.InsertCommand != null)) {
-                    this.Adapter.InsertCommand.Connection = value;
-                }
-                if ((this.Adapter.DeleteCommand != null)) {
-                    this.Adapter.DeleteCommand.Connection = value;
-                }
-                if ((this.Adapter.UpdateCommand != null)) {
-                    this.Adapter.UpdateCommand.Connection = value;
-                }
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    if ((this.CommandCollection[i] != null)) {
-                        ((global::System.Data.OleDb.OleDbCommand)(this.CommandCollection[i])).Connection = value;
-                    }
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        internal global::System.Data.OleDb.OleDbTransaction Transaction {
-            get {
-                return this._transaction;
-            }
-            set {
-                this._transaction = value;
-                for (int i = 0; (i < this.CommandCollection.Length); i = (i + 1)) {
-                    this.CommandCollection[i].Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.DeleteCommand != null))) {
-                    this.Adapter.DeleteCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.InsertCommand != null))) {
-                    this.Adapter.InsertCommand.Transaction = this._transaction;
-                }
-                if (((this.Adapter != null) 
-                            && (this.Adapter.UpdateCommand != null))) {
-                    this.Adapter.UpdateCommand.Transaction = this._transaction;
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        protected global::System.Data.OleDb.OleDbCommand[] CommandCollection {
-            get {
-                if ((this._commandCollection == null)) {
-                    this.InitCommandCollection();
-                }
-                return this._commandCollection;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        public bool ClearBeforeFill {
-            get {
-                return this._clearBeforeFill;
-            }
-            set {
-                this._clearBeforeFill = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private void InitAdapter() {
-            this._adapter = new global::System.Data.OleDb.OleDbDataAdapter();
-            global::System.Data.Common.DataTableMapping tableMapping = new global::System.Data.Common.DataTableMapping();
-            tableMapping.SourceTable = "Table";
-            tableMapping.DataSetTable = "ExcelParameters";
-            tableMapping.ColumnMappings.Add("Код", "Код");
-            tableMapping.ColumnMappings.Add("Параметр", "Параметр");
-            tableMapping.ColumnMappings.Add("База данных", "База данных");
-            tableMapping.ColumnMappings.Add("Таблица", "Таблица");
-            tableMapping.ColumnMappings.Add("Столбец", "Столбец");
-            this._adapter.TableMappings.Add(tableMapping);
-            this._adapter.DeleteCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM `ExcelParameters` WHERE ((`Код` = ?) AND ((? = 1 AND `Параметр` IS NULL) OR (`Параметр` = ?)) AND ((? = 1 AND `База данных` IS NULL) OR (`База данных` = ?)) AND ((? = 1 AND `Таблица` IS NULL) OR (`Таблица` = ?)) AND ((? = 1 AND `Столбец` IS NULL) OR (`Столбец` = ?)))";
-            this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Код", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Код", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Параметр", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Параметр", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_База_данных", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_База_данных", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Таблица", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Таблица", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Столбец", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.DeleteCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Столбец", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.InsertCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO `ExcelParameters` (`Параметр`, `База данных`, `Таблица`, `Столбец`) V" +
-                "ALUES (?, ?, ?, ?)";
-            this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Параметр", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("База_данных", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Таблица", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.InsertCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Столбец", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand = new global::System.Data.OleDb.OleDbCommand();
-            this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE `ExcelParameters` SET `Параметр` = ?, `База данных` = ?, `Таблица` = ?, `Столбец` = ? WHERE ((`Код` = ?) AND ((? = 1 AND `Параметр` IS NULL) OR (`Параметр` = ?)) AND ((? = 1 AND `База данных` IS NULL) OR (`База данных` = ?)) AND ((? = 1 AND `Таблица` IS NULL) OR (`Таблица` = ?)) AND ((? = 1 AND `Столбец` IS NULL) OR (`Столбец` = ?)))";
-            this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Параметр", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("База_данных", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Таблица", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Столбец", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Current, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Код", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Код", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Параметр", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Параметр", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Параметр", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_База_данных", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_База_данных", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "База данных", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Таблица", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Таблица", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Таблица", global::System.Data.DataRowVersion.Original, false, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("IsNull_Столбец", global::System.Data.OleDb.OleDbType.Integer, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Original, true, null));
-            this._adapter.UpdateCommand.Parameters.Add(new global::System.Data.OleDb.OleDbParameter("Original_Столбец", global::System.Data.OleDb.OleDbType.VarWChar, 0, global::System.Data.ParameterDirection.Input, ((byte)(0)), ((byte)(0)), "Столбец", global::System.Data.DataRowVersion.Original, false, null));
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private void InitConnection() {
-            this._connection = new global::System.Data.OleDb.OleDbConnection();
-            this._connection.ConnectionString = global::AGR.Properties.Settings.Default.MainDBConnectionString;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        private void InitCommandCollection() {
-            this._commandCollection = new global::System.Data.OleDb.OleDbCommand[1];
-            this._commandCollection[0] = new global::System.Data.OleDb.OleDbCommand();
-            this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Код, Параметр, [База данных], Таблица, Столбец FROM ExcelParameters";
-            this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Fill, true)]
-        public virtual int Fill(MainDBDataSet.ExcelParametersDataTable dataTable) {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            if ((this.ClearBeforeFill == true)) {
-                dataTable.Clear();
-            }
-            int returnValue = this.Adapter.Fill(dataTable);
-            return returnValue;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Select, true)]
-        public virtual MainDBDataSet.ExcelParametersDataTable GetData() {
-            this.Adapter.SelectCommand = this.CommandCollection[0];
-            MainDBDataSet.ExcelParametersDataTable dataTable = new MainDBDataSet.ExcelParametersDataTable();
-            this.Adapter.Fill(dataTable);
-            return dataTable;
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MainDBDataSet.ExcelParametersDataTable dataTable) {
-            return this.Adapter.Update(dataTable);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(MainDBDataSet dataSet) {
-            return this.Adapter.Update(dataSet, "ExcelParameters");
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow dataRow) {
-            return this.Adapter.Update(new global::System.Data.DataRow[] {
-                        dataRow});
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        public virtual int Update(global::System.Data.DataRow[] dataRows) {
-            return this.Adapter.Update(dataRows);
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Delete, true)]
-        public virtual int Delete(int Original_Код, string Original_Параметр, string Original_База_данных, string Original_Таблица, string Original_Столбец) {
-            this.Adapter.DeleteCommand.Parameters[0].Value = ((int)(Original_Код));
-            if ((Original_Параметр == null)) {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[1].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[2].Value = ((string)(Original_Параметр));
-            }
-            if ((Original_База_данных == null)) {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[4].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[3].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[4].Value = ((string)(Original_База_данных));
-            }
-            if ((Original_Таблица == null)) {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[6].Value = ((string)(Original_Таблица));
-            }
-            if ((Original_Столбец == null)) {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.DeleteCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.DeleteCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.DeleteCommand.Parameters[8].Value = ((string)(Original_Столбец));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.DeleteCommand.Connection.State;
-            if (((this.Adapter.DeleteCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.DeleteCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.DeleteCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.DeleteCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Insert, true)]
-        public virtual int Insert(string Параметр, string База_данных, string Таблица, string Столбец) {
-            if ((Параметр == null)) {
-                this.Adapter.InsertCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[0].Value = ((string)(Параметр));
-            }
-            if ((База_данных == null)) {
-                this.Adapter.InsertCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[1].Value = ((string)(База_данных));
-            }
-            if ((Таблица == null)) {
-                this.Adapter.InsertCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[2].Value = ((string)(Таблица));
-            }
-            if ((Столбец == null)) {
-                this.Adapter.InsertCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.InsertCommand.Parameters[3].Value = ((string)(Столбец));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.InsertCommand.Connection.State;
-            if (((this.Adapter.InsertCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.InsertCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.InsertCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.InsertCommand.Connection.Close();
-                }
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.Design.HelpKeywordAttribute("vs.data.TableAdapter")]
-        [global::System.ComponentModel.DataObjectMethodAttribute(global::System.ComponentModel.DataObjectMethodType.Update, true)]
-        public virtual int Update(string Параметр, string База_данных, string Таблица, string Столбец, int Original_Код, string Original_Параметр, string Original_База_данных, string Original_Таблица, string Original_Столбец) {
-            if ((Параметр == null)) {
-                this.Adapter.UpdateCommand.Parameters[0].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[0].Value = ((string)(Параметр));
-            }
-            if ((База_данных == null)) {
-                this.Adapter.UpdateCommand.Parameters[1].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[1].Value = ((string)(База_данных));
-            }
-            if ((Таблица == null)) {
-                this.Adapter.UpdateCommand.Parameters[2].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[2].Value = ((string)(Таблица));
-            }
-            if ((Столбец == null)) {
-                this.Adapter.UpdateCommand.Parameters[3].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[3].Value = ((string)(Столбец));
-            }
-            this.Adapter.UpdateCommand.Parameters[4].Value = ((int)(Original_Код));
-            if ((Original_Параметр == null)) {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[6].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[5].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[6].Value = ((string)(Original_Параметр));
-            }
-            if ((Original_База_данных == null)) {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[8].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[7].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[8].Value = ((string)(Original_База_данных));
-            }
-            if ((Original_Таблица == null)) {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[10].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[9].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[10].Value = ((string)(Original_Таблица));
-            }
-            if ((Original_Столбец == null)) {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(1));
-                this.Adapter.UpdateCommand.Parameters[12].Value = global::System.DBNull.Value;
-            }
-            else {
-                this.Adapter.UpdateCommand.Parameters[11].Value = ((object)(0));
-                this.Adapter.UpdateCommand.Parameters[12].Value = ((string)(Original_Столбец));
-            }
-            global::System.Data.ConnectionState previousConnectionState = this.Adapter.UpdateCommand.Connection.State;
-            if (((this.Adapter.UpdateCommand.Connection.State & global::System.Data.ConnectionState.Open) 
-                        != global::System.Data.ConnectionState.Open)) {
-                this.Adapter.UpdateCommand.Connection.Open();
-            }
-            try {
-                int returnValue = this.Adapter.UpdateCommand.ExecuteNonQuery();
-                return returnValue;
-            }
-            finally {
-                if ((previousConnectionState == global::System.Data.ConnectionState.Closed)) {
-                    this.Adapter.UpdateCommand.Connection.Close();
-                }
-            }
-        }
-    }
-    
-    /// <summary>
     ///TableAdapterManager is used to coordinate TableAdapters in the dataset to enable Hierarchical Update scenarios
     ///</summary>
     [global::System.ComponentModel.DesignerCategoryAttribute("code")]
@@ -9339,9 +9531,11 @@ namespace AGR.MainDBDataSetTableAdapters {
         
         private UpdateOrderOption _updateOrder;
         
-        private MainTableAdapter _MainTableAdapter;
-        
         private DefaultGroupsTableAdapter _defaultGroupsTableAdapter;
+        
+        private ExcelParametersTableAdapter _excelParametersTableAdapter;
+        
+        private ProfilesTableAdapter _profilesTableAdapter;
         
         private SaveGroupParametersTableAdapter _saveGroupParametersTableAdapter;
         
@@ -9352,8 +9546,6 @@ namespace AGR.MainDBDataSetTableAdapters {
         private SubGroupParametersTableAdapter _subGroupParametersTableAdapter;
         
         private SubgroupsTableAdapter _subgroupsTableAdapter;
-        
-        private ExcelParametersTableAdapter _excelParametersTableAdapter;
         
         private bool _backupDataSetBeforeUpdate;
         
@@ -9375,12 +9567,12 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public MainTableAdapter MainTableAdapter {
+        public DefaultGroupsTableAdapter DefaultGroupsTableAdapter {
             get {
-                return this._MainTableAdapter;
+                return this._defaultGroupsTableAdapter;
             }
             set {
-                this._MainTableAdapter = value;
+                this._defaultGroupsTableAdapter = value;
             }
         }
         
@@ -9389,12 +9581,26 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
             "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
             "a", "System.Drawing.Design.UITypeEditor")]
-        public DefaultGroupsTableAdapter DefaultGroupsTableAdapter {
+        public ExcelParametersTableAdapter ExcelParametersTableAdapter {
             get {
-                return this._defaultGroupsTableAdapter;
+                return this._excelParametersTableAdapter;
             }
             set {
-                this._defaultGroupsTableAdapter = value;
+                this._excelParametersTableAdapter = value;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
+        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
+            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
+            "a", "System.Drawing.Design.UITypeEditor")]
+        public ProfilesTableAdapter ProfilesTableAdapter {
+            get {
+                return this._profilesTableAdapter;
+            }
+            set {
+                this._profilesTableAdapter = value;
             }
         }
         
@@ -9470,20 +9676,6 @@ namespace AGR.MainDBDataSetTableAdapters {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
-        [global::System.ComponentModel.EditorAttribute("Microsoft.VSDesigner.DataSource.Design.TableAdapterManagerPropertyEditor, Microso" +
-            "ft.VSDesigner, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3" +
-            "a", "System.Drawing.Design.UITypeEditor")]
-        public ExcelParametersTableAdapter ExcelParametersTableAdapter {
-            get {
-                return this._excelParametersTableAdapter;
-            }
-            set {
-                this._excelParametersTableAdapter = value;
-            }
-        }
-        
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         public bool BackupDataSetBeforeUpdate {
             get {
                 return this._backupDataSetBeforeUpdate;
@@ -9501,13 +9693,17 @@ namespace AGR.MainDBDataSetTableAdapters {
                 if ((this._connection != null)) {
                     return this._connection;
                 }
-                if (((this._MainTableAdapter != null) 
-                            && (this._MainTableAdapter.Connection != null))) {
-                    return this._MainTableAdapter.Connection;
-                }
                 if (((this._defaultGroupsTableAdapter != null) 
                             && (this._defaultGroupsTableAdapter.Connection != null))) {
                     return this._defaultGroupsTableAdapter.Connection;
+                }
+                if (((this._excelParametersTableAdapter != null) 
+                            && (this._excelParametersTableAdapter.Connection != null))) {
+                    return this._excelParametersTableAdapter.Connection;
+                }
+                if (((this._profilesTableAdapter != null) 
+                            && (this._profilesTableAdapter.Connection != null))) {
+                    return this._profilesTableAdapter.Connection;
                 }
                 if (((this._saveGroupParametersTableAdapter != null) 
                             && (this._saveGroupParametersTableAdapter.Connection != null))) {
@@ -9529,10 +9725,6 @@ namespace AGR.MainDBDataSetTableAdapters {
                             && (this._subgroupsTableAdapter.Connection != null))) {
                     return this._subgroupsTableAdapter.Connection;
                 }
-                if (((this._excelParametersTableAdapter != null) 
-                            && (this._excelParametersTableAdapter.Connection != null))) {
-                    return this._excelParametersTableAdapter.Connection;
-                }
                 return null;
             }
             set {
@@ -9546,10 +9738,13 @@ namespace AGR.MainDBDataSetTableAdapters {
         public int TableAdapterInstanceCount {
             get {
                 int count = 0;
-                if ((this._MainTableAdapter != null)) {
+                if ((this._defaultGroupsTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._defaultGroupsTableAdapter != null)) {
+                if ((this._excelParametersTableAdapter != null)) {
+                    count = (count + 1);
+                }
+                if ((this._profilesTableAdapter != null)) {
                     count = (count + 1);
                 }
                 if ((this._saveGroupParametersTableAdapter != null)) {
@@ -9567,9 +9762,6 @@ namespace AGR.MainDBDataSetTableAdapters {
                 if ((this._subgroupsTableAdapter != null)) {
                     count = (count + 1);
                 }
-                if ((this._excelParametersTableAdapter != null)) {
-                    count = (count + 1);
-                }
                 return count;
             }
         }
@@ -9581,6 +9773,15 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateUpdatedRows(MainDBDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._saveGroupsTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.SaveGroups.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._saveGroupsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
             if ((this._subGroupParametersTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.SubGroupParameters.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
@@ -9599,30 +9800,30 @@ namespace AGR.MainDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._saveGroupsTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.SaveGroups.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._saveGroupsTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
-            if ((this._MainTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.Profiles.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._MainTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             if ((this._defaultGroupsTableAdapter != null)) {
                 global::System.Data.DataRow[] updatedRows = dataSet.DefaultGroups.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
                 updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
                 if (((updatedRows != null) 
                             && (0 < updatedRows.Length))) {
                     result = (result + this._defaultGroupsTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._excelParametersTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.ExcelParameters.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._excelParametersTableAdapter.Update(updatedRows));
+                    allChangedRows.AddRange(updatedRows);
+                }
+            }
+            if ((this._profilesTableAdapter != null)) {
+                global::System.Data.DataRow[] updatedRows = dataSet.Profiles.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
+                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
+                if (((updatedRows != null) 
+                            && (0 < updatedRows.Length))) {
+                    result = (result + this._profilesTableAdapter.Update(updatedRows));
                     allChangedRows.AddRange(updatedRows);
                 }
             }
@@ -9644,15 +9845,6 @@ namespace AGR.MainDBDataSetTableAdapters {
                     allChangedRows.AddRange(updatedRows);
                 }
             }
-            if ((this._excelParametersTableAdapter != null)) {
-                global::System.Data.DataRow[] updatedRows = dataSet.ExcelParameters.Select(null, null, global::System.Data.DataViewRowState.ModifiedCurrent);
-                updatedRows = this.GetRealUpdatedRows(updatedRows, allAddedRows);
-                if (((updatedRows != null) 
-                            && (0 < updatedRows.Length))) {
-                    result = (result + this._excelParametersTableAdapter.Update(updatedRows));
-                    allChangedRows.AddRange(updatedRows);
-                }
-            }
             return result;
         }
         
@@ -9663,6 +9855,14 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateInsertedRows(MainDBDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allAddedRows) {
             int result = 0;
+            if ((this._saveGroupsTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.SaveGroups.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._saveGroupsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
             if ((this._subGroupParametersTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.SubGroupParameters.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
@@ -9679,27 +9879,27 @@ namespace AGR.MainDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._saveGroupsTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.SaveGroups.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._saveGroupsTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
-            if ((this._MainTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.Profiles.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._MainTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             if ((this._defaultGroupsTableAdapter != null)) {
                 global::System.Data.DataRow[] addedRows = dataSet.DefaultGroups.Select(null, null, global::System.Data.DataViewRowState.Added);
                 if (((addedRows != null) 
                             && (0 < addedRows.Length))) {
                     result = (result + this._defaultGroupsTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._excelParametersTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.ExcelParameters.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._excelParametersTableAdapter.Update(addedRows));
+                    allAddedRows.AddRange(addedRows);
+                }
+            }
+            if ((this._profilesTableAdapter != null)) {
+                global::System.Data.DataRow[] addedRows = dataSet.Profiles.Select(null, null, global::System.Data.DataViewRowState.Added);
+                if (((addedRows != null) 
+                            && (0 < addedRows.Length))) {
+                    result = (result + this._profilesTableAdapter.Update(addedRows));
                     allAddedRows.AddRange(addedRows);
                 }
             }
@@ -9719,14 +9919,6 @@ namespace AGR.MainDBDataSetTableAdapters {
                     allAddedRows.AddRange(addedRows);
                 }
             }
-            if ((this._excelParametersTableAdapter != null)) {
-                global::System.Data.DataRow[] addedRows = dataSet.ExcelParameters.Select(null, null, global::System.Data.DataViewRowState.Added);
-                if (((addedRows != null) 
-                            && (0 < addedRows.Length))) {
-                    result = (result + this._excelParametersTableAdapter.Update(addedRows));
-                    allAddedRows.AddRange(addedRows);
-                }
-            }
             return result;
         }
         
@@ -9737,14 +9929,6 @@ namespace AGR.MainDBDataSetTableAdapters {
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "16.0.0.0")]
         private int UpdateDeletedRows(MainDBDataSet dataSet, global::System.Collections.Generic.List<global::System.Data.DataRow> allChangedRows) {
             int result = 0;
-            if ((this._excelParametersTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.ExcelParameters.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._excelParametersTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
             if ((this._selectedSpillsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.SelectedSpills.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
@@ -9761,27 +9945,27 @@ namespace AGR.MainDBDataSetTableAdapters {
                     allChangedRows.AddRange(deletedRows);
                 }
             }
+            if ((this._profilesTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.Profiles.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._profilesTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._excelParametersTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.ExcelParameters.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._excelParametersTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
             if ((this._defaultGroupsTableAdapter != null)) {
                 global::System.Data.DataRow[] deletedRows = dataSet.DefaultGroups.Select(null, null, global::System.Data.DataViewRowState.Deleted);
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._defaultGroupsTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._MainTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.Profiles.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._MainTableAdapter.Update(deletedRows));
-                    allChangedRows.AddRange(deletedRows);
-                }
-            }
-            if ((this._saveGroupsTableAdapter != null)) {
-                global::System.Data.DataRow[] deletedRows = dataSet.SaveGroups.Select(null, null, global::System.Data.DataViewRowState.Deleted);
-                if (((deletedRows != null) 
-                            && (0 < deletedRows.Length))) {
-                    result = (result + this._saveGroupsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -9798,6 +9982,14 @@ namespace AGR.MainDBDataSetTableAdapters {
                 if (((deletedRows != null) 
                             && (0 < deletedRows.Length))) {
                     result = (result + this._subGroupParametersTableAdapter.Update(deletedRows));
+                    allChangedRows.AddRange(deletedRows);
+                }
+            }
+            if ((this._saveGroupsTableAdapter != null)) {
+                global::System.Data.DataRow[] deletedRows = dataSet.SaveGroups.Select(null, null, global::System.Data.DataViewRowState.Deleted);
+                if (((deletedRows != null) 
+                            && (0 < deletedRows.Length))) {
+                    result = (result + this._saveGroupsTableAdapter.Update(deletedRows));
                     allChangedRows.AddRange(deletedRows);
                 }
             }
@@ -9840,13 +10032,18 @@ namespace AGR.MainDBDataSetTableAdapters {
             if ((dataSet.HasChanges() == false)) {
                 return 0;
             }
-            if (((this._MainTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._MainTableAdapter.Connection) == false))) {
+            if (((this._defaultGroupsTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._defaultGroupsTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("Все адаптеры таблицы, управляемые диспетчером адаптера таблицы TableAdapterManage" +
                         "r, должны использовать одинаковую строку подключения.");
             }
-            if (((this._defaultGroupsTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._defaultGroupsTableAdapter.Connection) == false))) {
+            if (((this._excelParametersTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._excelParametersTableAdapter.Connection) == false))) {
+                throw new global::System.ArgumentException("Все адаптеры таблицы, управляемые диспетчером адаптера таблицы TableAdapterManage" +
+                        "r, должны использовать одинаковую строку подключения.");
+            }
+            if (((this._profilesTableAdapter != null) 
+                        && (this.MatchTableAdapterConnection(this._profilesTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("Все адаптеры таблицы, управляемые диспетчером адаптера таблицы TableAdapterManage" +
                         "r, должны использовать одинаковую строку подключения.");
             }
@@ -9872,11 +10069,6 @@ namespace AGR.MainDBDataSetTableAdapters {
             }
             if (((this._subgroupsTableAdapter != null) 
                         && (this.MatchTableAdapterConnection(this._subgroupsTableAdapter.Connection) == false))) {
-                throw new global::System.ArgumentException("Все адаптеры таблицы, управляемые диспетчером адаптера таблицы TableAdapterManage" +
-                        "r, должны использовать одинаковую строку подключения.");
-            }
-            if (((this._excelParametersTableAdapter != null) 
-                        && (this.MatchTableAdapterConnection(this._excelParametersTableAdapter.Connection) == false))) {
                 throw new global::System.ArgumentException("Все адаптеры таблицы, управляемые диспетчером адаптера таблицы TableAdapterManage" +
                         "r, должны использовать одинаковую строку подключения.");
             }
@@ -9912,15 +10104,6 @@ namespace AGR.MainDBDataSetTableAdapters {
             try {
                 // ---- Prepare for update -----------
                 //
-                if ((this._MainTableAdapter != null)) {
-                    revertConnections.Add(this._MainTableAdapter, this._MainTableAdapter.Connection);
-                    this._MainTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
-                    this._MainTableAdapter.Transaction = ((global::System.Data.OleDb.OleDbTransaction)(workTransaction));
-                    if (this._MainTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._MainTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._MainTableAdapter.Adapter);
-                    }
-                }
                 if ((this._defaultGroupsTableAdapter != null)) {
                     revertConnections.Add(this._defaultGroupsTableAdapter, this._defaultGroupsTableAdapter.Connection);
                     this._defaultGroupsTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
@@ -9928,6 +10111,24 @@ namespace AGR.MainDBDataSetTableAdapters {
                     if (this._defaultGroupsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._defaultGroupsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._defaultGroupsTableAdapter.Adapter);
+                    }
+                }
+                if ((this._excelParametersTableAdapter != null)) {
+                    revertConnections.Add(this._excelParametersTableAdapter, this._excelParametersTableAdapter.Connection);
+                    this._excelParametersTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
+                    this._excelParametersTableAdapter.Transaction = ((global::System.Data.OleDb.OleDbTransaction)(workTransaction));
+                    if (this._excelParametersTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._excelParametersTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._excelParametersTableAdapter.Adapter);
+                    }
+                }
+                if ((this._profilesTableAdapter != null)) {
+                    revertConnections.Add(this._profilesTableAdapter, this._profilesTableAdapter.Connection);
+                    this._profilesTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
+                    this._profilesTableAdapter.Transaction = ((global::System.Data.OleDb.OleDbTransaction)(workTransaction));
+                    if (this._profilesTableAdapter.Adapter.AcceptChangesDuringUpdate) {
+                        this._profilesTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
+                        adaptersWithAcceptChangesDuringUpdate.Add(this._profilesTableAdapter.Adapter);
                     }
                 }
                 if ((this._saveGroupParametersTableAdapter != null)) {
@@ -9973,15 +10174,6 @@ namespace AGR.MainDBDataSetTableAdapters {
                     if (this._subgroupsTableAdapter.Adapter.AcceptChangesDuringUpdate) {
                         this._subgroupsTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
                         adaptersWithAcceptChangesDuringUpdate.Add(this._subgroupsTableAdapter.Adapter);
-                    }
-                }
-                if ((this._excelParametersTableAdapter != null)) {
-                    revertConnections.Add(this._excelParametersTableAdapter, this._excelParametersTableAdapter.Connection);
-                    this._excelParametersTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(workConnection));
-                    this._excelParametersTableAdapter.Transaction = ((global::System.Data.OleDb.OleDbTransaction)(workTransaction));
-                    if (this._excelParametersTableAdapter.Adapter.AcceptChangesDuringUpdate) {
-                        this._excelParametersTableAdapter.Adapter.AcceptChangesDuringUpdate = false;
-                        adaptersWithAcceptChangesDuringUpdate.Add(this._excelParametersTableAdapter.Adapter);
                     }
                 }
                 // 
@@ -10042,13 +10234,17 @@ namespace AGR.MainDBDataSetTableAdapters {
                 if (workConnOpened) {
                     workConnection.Close();
                 }
-                if ((this._MainTableAdapter != null)) {
-                    this._MainTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._MainTableAdapter]));
-                    this._MainTableAdapter.Transaction = null;
-                }
                 if ((this._defaultGroupsTableAdapter != null)) {
                     this._defaultGroupsTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._defaultGroupsTableAdapter]));
                     this._defaultGroupsTableAdapter.Transaction = null;
+                }
+                if ((this._excelParametersTableAdapter != null)) {
+                    this._excelParametersTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._excelParametersTableAdapter]));
+                    this._excelParametersTableAdapter.Transaction = null;
+                }
+                if ((this._profilesTableAdapter != null)) {
+                    this._profilesTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._profilesTableAdapter]));
+                    this._profilesTableAdapter.Transaction = null;
                 }
                 if ((this._saveGroupParametersTableAdapter != null)) {
                     this._saveGroupParametersTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._saveGroupParametersTableAdapter]));
@@ -10069,10 +10265,6 @@ namespace AGR.MainDBDataSetTableAdapters {
                 if ((this._subgroupsTableAdapter != null)) {
                     this._subgroupsTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._subgroupsTableAdapter]));
                     this._subgroupsTableAdapter.Transaction = null;
-                }
-                if ((this._excelParametersTableAdapter != null)) {
-                    this._excelParametersTableAdapter.Connection = ((global::System.Data.OleDb.OleDbConnection)(revertConnections[this._excelParametersTableAdapter]));
-                    this._excelParametersTableAdapter.Transaction = null;
                 }
                 if ((0 < adaptersWithAcceptChangesDuringUpdate.Count)) {
                     global::System.Data.Common.DataAdapter[] adapters = new System.Data.Common.DataAdapter[adaptersWithAcceptChangesDuringUpdate.Count];

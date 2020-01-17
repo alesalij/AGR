@@ -46,7 +46,6 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.oFD_BD = new System.Windows.Forms.OpenFileDialog();
             this.button2 = new System.Windows.Forms.Button();
-            this.mainTableAdapter = new AGR.MainDBDataSetTableAdapters.MainTableAdapter();
             this.b_delete = new System.Windows.Forms.Button();
             this.b_make = new System.Windows.Forms.Button();
             this.fBD_DB_Folder = new System.Windows.Forms.FolderBrowserDialog();
@@ -56,8 +55,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.tB_MainColumn1 = new System.Windows.Forms.TextBox();
-            this.tB_MainColumn2 = new System.Windows.Forms.TextBox();
+            this.tB_MainColumn = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -250,10 +248,6 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click);
             // 
-            // mainTableAdapter
-            // 
-            this.mainTableAdapter.ClearBeforeFill = true;
-            // 
             // b_delete
             // 
             this.b_delete.Location = new System.Drawing.Point(679, 383);
@@ -340,32 +334,21 @@
             this.label4.Text = "Столбцы:";
             this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // tB_MainColumn1
+            // tB_MainColumn
             // 
-            this.tB_MainColumn1.Location = new System.Drawing.Point(948, 100);
-            this.tB_MainColumn1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tB_MainColumn1.Name = "tB_MainColumn1";
-            this.tB_MainColumn1.Size = new System.Drawing.Size(96, 22);
-            this.tB_MainColumn1.TabIndex = 12;
-            this.tB_MainColumn1.Text = "C:\\";
-            // 
-            // tB_MainColumn2
-            // 
-            this.tB_MainColumn2.Location = new System.Drawing.Point(948, 152);
-            this.tB_MainColumn2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.tB_MainColumn2.Name = "tB_MainColumn2";
-            this.tB_MainColumn2.Size = new System.Drawing.Size(96, 22);
-            this.tB_MainColumn2.TabIndex = 12;
-            this.tB_MainColumn2.Text = "C:\\";
-            this.tB_MainColumn2.Visible = false;
+            this.tB_MainColumn.Location = new System.Drawing.Point(948, 100);
+            this.tB_MainColumn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
+            this.tB_MainColumn.Name = "tB_MainColumn";
+            this.tB_MainColumn.Size = new System.Drawing.Size(96, 22);
+            this.tB_MainColumn.TabIndex = 12;
+            this.tB_MainColumn.Text = "C:\\";
             // 
             // FormDB
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1065, 686);
-            this.Controls.Add(this.tB_MainColumn2);
-            this.Controls.Add(this.tB_MainColumn1);
+            this.Controls.Add(this.tB_MainColumn);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -420,7 +403,7 @@
         
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.OpenFileDialog oFD_BD;
-        private MainDBDataSetTableAdapters.MainTableAdapter mainTableAdapter;
+        //private MainDBDataSetTableAdapters.MainTableAdapter mainTableAdapter;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button b_delete;
         private System.Windows.Forms.Button b_make;
@@ -431,7 +414,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.TextBox tB_MainColumn1;
-        private System.Windows.Forms.TextBox tB_MainColumn2;
+        private System.Windows.Forms.TextBox tB_MainColumn;
     }
 }
