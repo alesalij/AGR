@@ -74,8 +74,12 @@
     <Reference Include="WindowsFormsIntegration" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Classes\SubGroup.cs" />
-    <Compile Include="Classes\SubGroupParameter.cs" />
+    <Compile Include="Classes\SubGroup.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Classes\SubGroupParameter.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Classes\Test.cs" />
     <Compile Include="MainDBDataSet.Designer.cs">
       <AutoGen>True</AutoGen>
@@ -91,12 +95,18 @@
     <Compile Include="Forms\FormDialog.Designer.cs">
       <DependentUpon>FormDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="Classes\Group.cs" />
+    <Compile Include="Classes\Group.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="MyElements\NumberBoxWLabel.xaml.cs">
       <DependentUpon>NumberBoxWLabel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Classes\ProfileSettings.cs" />
-    <Compile Include="Classes\DB.cs" />
+    <Compile Include="Classes\ProfileSettings.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
+    <Compile Include="Classes\DB.cs">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Compile>
     <Compile Include="Forms\FormDB.cs">
       <SubType>Form</SubType>
     </Compile>

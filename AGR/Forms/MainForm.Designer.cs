@@ -375,6 +375,7 @@
             this.Text = "Form1";
             this.Activated += new System.EventHandler(this.MainForm_Activated);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.MainForm_FormClosed);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.Enter += new System.EventHandler(this.MainForm_Enter);
             ((System.ComponentModel.ISupportInitialize)(this.dGV_DB1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

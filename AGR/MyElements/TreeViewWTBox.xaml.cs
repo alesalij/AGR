@@ -28,21 +28,21 @@ namespace AGR
         {
             AddSItem(s, item);
         }
-        public void AddItem(TreeViewItem item, string Type, string s, object obj) 
+        public void AddItem(TreeViewItem item, string Type, string s, object Value) 
         {
             
 
             
                 if (Type == "System.Boolean")
                 {
-                    if (obj!=null)
-                        AddChItem(s, Convert.ToBoolean(obj),item);
+                    if (Value != null)
+                        AddChItem(s, Convert.ToBoolean(Value),item);
                     else
                         AddChItem(s,item);
                 } else if (Type == "System.Int32")
                 {
-                    if (obj!=null)
-                        AddTItem(s, obj.ToString(),item);
+                    if (Value != null)
+                        AddTItem(s, Value.ToString(),item);
                     else
                         AddTItem(s,item);
                 } else 
@@ -123,6 +123,12 @@ namespace AGR
                 t.Items.Add(item);
         }
 
-
+        public void ExpandAll(bool expand) 
+        {
+            foreach (TreeViewItem I in Tree.Items)
+            {
+                I.IsExpanded = expand;
+            }
+        }
     }
 }

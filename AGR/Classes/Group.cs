@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using System.Data;
 using System.Windows.Forms;
 using AGR.Classes;
+using System.Windows.Controls;
+using AGR;
 
 namespace AGR
 {
@@ -31,26 +33,22 @@ namespace AGR
         public DataTable MainDT;*/
 
         // Функция занесения данных в таблицу.
-        public void MakeSave()
+        public void MakeTreeView(TreeViewWTBox tV)
         {
-            /*  if (MainDT.Columns.Count > 3)
+            //TreeViewWTBox tV = new TreeViewWTBox();
 
-                  for (int i = 2; i < MainDT.Columns.Count; i++)
-                  {
-                      for (int j = 0; j < MainDT.Rows.Count; j++)
-                      {
-                          MainDT.Rows[j][i] = SubGroupParametersCheck[i - 2, j];
-                      }
-                  }*/
+            for (int i = 0; i < SubGroups.Length; i++)
+            {
+                tV.AddItem(null, true.GetType().ToString(), SubGroups[i].NameSubGroup, SubGroups[i].Check);
+
+                for (int j = 0; j < SubGroups[i].Parameters.Length; j++) 
+                {
+                    tV.AddItem(tV.Tree.Items[tV.Tree.Items.Count - 1] as TreeViewItem, SubGroups[i].Parameters[j].Type, SubGroups[i].Parameters[j].NameParameter, SubGroups[i].Parameters[j].Value);
+                }
+            }
+            
         }
-        /* public void Save() 
-         {
 
-         }*/
-        /* public Group(DataTable DTSelecteSpills, DataTable DTSubgroups, DataTable DTSubgroupsParameters, DataTable DTSaveGroups, DataTable DTSaveGroupParameters)
-         {
-             NameGroup = "Группа";
-         } */
         public Group(int ID, MainDBDataSet DS)
         {
             IDGroup = ID;
@@ -87,7 +85,7 @@ namespace AGR
                 SubGroups[i] = new SubGroup(Convert.ToInt32(DS.Subgroups.Rows[i][0]), DS);
             }
 
-        }// Конструктор группы по
+        }// Конструктор группы по DataSet
         public Group(int ID, DataTable DTSelecteSpills, DataTable DTSubgroups, DataTable DTSubgroupsParameters, DataTable DTSaveGroups, DataTable DTSaveGroupParameters) 
         {
             IDGroup = ID;
@@ -235,7 +233,7 @@ namespace AGR
 
 
             }
-        public Group() { }
+        
         // Конструктор класса по таблице.;
         public Group(DataTable DT)
         {
@@ -283,7 +281,7 @@ namespace AGR
                 }
             }*/
         }
-        
+        public Group() { }
    
        
 
