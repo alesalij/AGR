@@ -7,20 +7,21 @@ using System.Data.OleDb;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using AGR.Classes;
 
 namespace AGR
 {
 
-   public class DB
+    public class DB
     {
         const string Connect_accdb = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=";
         private OleDbDataAdapter[] OleDBAdapters;
-        private OleDbCommandBuilder[] OleCB;     
+        private OleDbCommandBuilder[] OleCB;
         private string ConnectString; // Строка подключения
 
         public string[] DBTables; //Массив названий таблиц
         public string[] DBColumns; // Колонки в таблицах через  ","  (длины массивов равны) 
-        
+
         public OleDbConnection OleConnection; // Подключение базы данных
         public DataSet DS; // Таблица данных
 
@@ -28,7 +29,7 @@ namespace AGR
         {
             return "SELECT " + Columns + " FROM " + DT + "";
         }
-       
+
         private void ConstructorWithDS(string PathToBD) // Функция для конструктора 
         {
             ConnectString = PathToBD;
@@ -68,7 +69,7 @@ namespace AGR
  ******************************************Конструкторы***************************************************
         */
 
-        public DB(string Table,string column, string PathToBD) 
+        public DB(string Table, string column, string PathToBD)
         {
             DBColumns = new string[1];
             DBColumns[0] = column;
@@ -79,32 +80,32 @@ namespace AGR
             DS.Tables.Add(DT);
             ConstructorWithDS(PathToBD);
         }
-        public DB(string[] Tables, string[] columns, string PathToBD) 
+        public DB(string[] Tables, string[] columns, string PathToBD)
         {
             DBColumns = columns;
-            DBTables = Tables;     
-            DS = new DataSet();       
-            for(int i = 0;i<DBTables.Length;i++)
+            DBTables = Tables;
+            DS = new DataSet();
+            for (int i = 0; i < DBTables.Length; i++)
             {
                 DataTable DT = new DataTable(DBTables[i]);
                 DS.Tables.Add(DT);
             }
             ConstructorWithDS(PathToBD);
-        }             
-        public DB(DataSet Data, string column,string PathToBD) 
+        }
+        public DB(DataSet Data, string column, string PathToBD)
         {
             DBColumns = new string[1];
             DBColumns[0] = column;
-           DS = Data;
+            DS = Data;
             ConstructorWithDS(PathToBD);
         }
-        public DB(DataSet Data, string[] columns, string PathToBD) 
+        public DB(DataSet Data, string[] columns, string PathToBD)
         {
             DS = Data;
             DBColumns = columns;
             ConstructorWithDS(PathToBD);
         }
-        public DB(DataSet Data,  string PathToBD) 
+        public DB(DataSet Data, string PathToBD)
         {
             DS = Data;
             DBColumns = new string[DS.Tables.Count];
@@ -121,6 +122,7 @@ namespace AGR
             for (int i = 0; i < OleDBAdapters.Length; i++)
             {
                 OleDBAdapters[i].Update(DS.Tables[i]);
+
             }
             OleConnection.Close();
         }
@@ -132,8 +134,69 @@ namespace AGR
                 OleDBAdapters[i].Fill(DS.Tables[i]);
             }
             OleConnection.Close();
-        }   
+        }
+        // Функция сохранения Groups в DataSet в таблицу SaveSubGroupsparameters; 
+        public void SaveGroupParameters(Group[] G, MainDBDataSet MainDS)
+        {for (int i = 0; i < G.Length; i++)
+                SaveGroupParameters(G[i], MainDS);
+        }
+        public void SaveGroupParameters(Group G, MainDBDataSet MainDS)
+        {
 
+
+            for (int i = 0; i < G.SubGroups.Length; i++)
+            {
+                for (int j = 0; j < G.SubGroups[i].Parameters.Length; j++)
+                {
+                    if (G.SubGroups[i].Parameters[j].IDSave == 0)
+                    {
+                        MainDS.SaveGroupParameters.Rows.Add();
+                        MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][1] = G.IDGroup;
+                        MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][2] = G.SubGroups[i].IDSubgroup;
+                        MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][3] = G.SubGroups[i].Parameters[j].IDParameter;
+                        MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][4] = G.SubGroups[i].Parameters[j].Value.ToString();
+                    }
+                    else
+                        for (int k = 0; k < MainDS.SaveGroupParameters.Rows.Count; k++)
+                        {
+                            if (Convert.ToInt32(MainDS.SaveGroupParameters.Rows[k][0]) == G.SubGroups[i].Parameters[j].IDSave)
+                            {
+                                MainDS.SaveGroupParameters.Rows[k][1] = G.IDGroup;
+                                MainDS.SaveGroupParameters.Rows[k][2] = G.SubGroups[i].IDSubgroup;
+                                MainDS.SaveGroupParameters.Rows[k][3] = G.SubGroups[i].Parameters[j].IDParameter;
+                                MainDS.SaveGroupParameters.Rows[k][4] = G.SubGroups[i].Parameters[j].Value.ToString();
+                            }
+                        }
+                }
+            }
+            
+        }
+
+        public void Autoremove(Group[] G, MainDBDataSet MainDS) 
+        {
+            int i = 0;
+            while (i<MainDS.SaveGroupParameters.Rows.Count)
+            {
+                
+                bool f = true;
+                for (int j = 0; j < G.Length; i++) 
+                {
+                    for (int k = 0; k < G[j].SubGroups.Length; k++)
+                    {
+                        for (int l = 0; l < G[j].SubGroups[k].Parameters.Length; l++)
+                        {
+                            if (G[j].SubGroups[k].Parameters[l].IDSave == Convert.ToInt32(MainDS.SaveGroupParameters.Rows[i][0])) 
+                                f = false;                            
+                        }
+                    }
+                } 
+                if(f) 
+                {
+                    MainDS.SaveGroupParameters.Rows[i].Delete();
+                }
+                i++;
+            }
+        }
 
     }
 }

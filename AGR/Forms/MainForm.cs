@@ -14,7 +14,7 @@ using System.Data.OleDb;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 using Access = Microsoft.Office.Interop.Access;
 using AGR.Classes;
-using System.Windows.Controls;
+
 
 namespace AGR
 {
@@ -22,7 +22,7 @@ namespace AGR
     {
         //public static string connectString; // строка подключения 
         DB DataBase1, DataBase2;
-        private OleDbConnection myConnection;
+        
         public MainForm()
         {
             InitializeComponent();
@@ -42,9 +42,14 @@ namespace AGR
 
         private void button1_Click(object sender, EventArgs e)
         {
-            tVWTB_Parameters.AddItem(null,"sss");
-
-              // Создаем пустую книгу. Используйте использование statment, поэтому пакет будет утилизирован, когда мы закончим. 
+           
+                Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
+            Program.GV.MainDB.SaveGroupParameters(Program.GV.Groups, Program.GV.mainDBDataSet);
+            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+            dataGridView1.DataSource = Program.GV.mainDBDataSet.SaveGroupParameters;
+            Program.GV.MainDB.Update();
+            // Создаем пустую книгу. Используйте использование statment, поэтому пакет будет утилизирован, когда мы закончим. 
             /* using (var p = new ExcelPackage(new FileInfo(@"c:\workbooks\myworkbook.xlsx")))
              {
                  var ws = p.Workbook.Worksheets.Add("MySheet");
@@ -57,14 +62,12 @@ namespace AGR
                  p.Save();
                  p.Save();
          }*/
-           
+
         }
         private void button2_Click(object sender, EventArgs e)
         {
-            Test f = new Test();
-            f.MakeDT(Program.GV.mainDBDataSet.SaveGroups);
-          
 
+            dataGridView1.DataSource = Program.GV.mainDBDataSet.SaveGroups;
 
         }
         private void button4_Click(object sender, EventArgs e)
@@ -164,9 +167,21 @@ namespace AGR
             tV_Groups.Nodes[tV_Groups.Nodes.Count-1].Tag = Program.GV.Groups.Length - 1;
             //tB_OpenDB.Text = tV_Groups.Nodes[tV_Groups.Nodes.Count-1].Tag.ToString();
 
-
+            
             Program.GV.MainDB.Fill();
             Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
+            Program.GV.MainDB.SaveGroupParameters(Program.GV.Groups, Program.GV.mainDBDataSet);
+            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+            Program.GV.MainDB.Update();
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
+            Program.GV.MainDB.Autoremove(Program.GV.Groups, Program.GV.mainDBDataSet);
+            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+            Program.GV.MainDB.Update();
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
+
+
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = Program.GV.mainDBDataSet.SaveGroups;
 
@@ -230,8 +245,7 @@ namespace AGR
         {
 
             if (tV_Groups.SelectedNode.Parent == null)
-            {
-               // Program.DBAdapters.Fill();
+            {         
                tVWTB_Parameters.Tree.Items.Clear();
                 Program.GV.MainDB.Fill();
                 Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;

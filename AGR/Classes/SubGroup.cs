@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AGR.Classes
 {
-    class SubGroup : Group
+    public class SubGroup
     {
         public int IDSubgroup;
         public string NameSubGroup;
@@ -15,7 +15,7 @@ namespace AGR.Classes
         public SubGroupParameter[] Parameters;
 
         // Конструктор Подгруппы
-        public SubGroup(int ID, DataTable DTSubgroups, DataTable DTSubgroupsParameters, DataTable DTSaveGroups, DataTable DTSaveGroupParameters)
+        public SubGroup(int IDGroup, int ID, DataTable DTSubgroups, DataTable DTSubgroupsParameters, DataTable DTSaveGroups, DataTable DTSaveGroupParameters)
         {
             IDSubgroup = ID;
             for(int i=0;i<DTSubgroups.Rows.Count;i++)
@@ -39,14 +39,15 @@ namespace AGR.Classes
             Parameters = new SubGroupParameter[DTSubgroupsParameters.Rows.Count];
             for(int i = 0; i<Parameters.Length;i++)
             {
-                Parameters[i] = new SubGroupParameter( Convert.ToInt32(DTSubgroupsParameters.Rows[i][0]), DTSubgroupsParameters, DTSaveGroupParameters);
+                Parameters[i] = new SubGroupParameter( IDGroup,IDSubgroup,Convert.ToInt32(DTSubgroupsParameters.Rows[i][0]), DTSubgroupsParameters, DTSaveGroupParameters);
             }
             
         }
 
-        public SubGroup(int ID, MainDBDataSet DS)
+        public SubGroup(int IDGroup,int ID, MainDBDataSet DS)
         {
             IDSubgroup = ID;
+           
             for (int i = 0; i < DS.Subgroups.Rows.Count; i++)
             {
                 if (ID == Convert.ToInt32(DS.Subgroups.Rows[i][0]))
@@ -68,7 +69,7 @@ namespace AGR.Classes
             Parameters = new SubGroupParameter[DS.SubGroupParameters.Rows.Count];
             for (int i = 0; i < Parameters.Length; i++)
             {
-                Parameters[i] = new SubGroupParameter(Convert.ToInt32(DS.SubGroupParameters.Rows[i][0]), DS);
+                Parameters[i] = new SubGroupParameter(IDGroup,IDSubgroup,Convert.ToInt32(DS.SubGroupParameters.Rows[i][0]), DS);
             }
 
         }
