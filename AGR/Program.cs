@@ -4,6 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Windows.Documents;
+
 namespace AGR
 {
     static class Program
@@ -27,6 +29,8 @@ namespace AGR
             public static MainDBDataSet mainDBDataSet = new AGR.MainDBDataSet();
             public static DB MainDB = new DB(mainDBDataSet, "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=MainDB.accdb;"); // База данных для настроек, для полноценного обновления Данных нужно взаимодействовать между DS и mainDBDataset
             public static Group[] Groups; 
+
+
             
         }
 

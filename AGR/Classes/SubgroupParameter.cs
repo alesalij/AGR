@@ -85,10 +85,11 @@ namespace AGR.Classes
 
             for (int i = 0; i < DS.SaveGroupParameters.Rows.Count; i++)
             {
-                
+
                 if ((Convert.ToInt32(DS.SaveGroupParameters.Rows[i][1]) == IDGroup) &&
                     (Convert.ToInt32(DS.SaveGroupParameters.Rows[i][2]) == IDSubgroup) &&
-                    (Convert.ToInt32(DS.SaveGroupParameters.Rows[i][3]) == IDParameter))
+                    (Convert.ToInt32(DS.SaveGroupParameters.Rows[i][3]) == IDParameter) &&
+                    (IDSave == 0)) 
                 {
                     IDSave = Convert.ToInt32(DS.SaveGroupParameters.Rows[i][0]);
                     Value = DS.SaveGroupParameters.Rows[i][4];

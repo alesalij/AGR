@@ -56,13 +56,14 @@
             this.textBoxWLabel1 = new AGR.TextBoxWLabel();
             this.eH_Parameters = new System.Windows.Forms.Integration.ElementHost();
             this.tVWTB_Parameters = new AGR.TreeViewWTBox();
+            this.b_SaveDefaultGroups = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dGV_DB1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(625, 657);
+            this.button1.Location = new System.Drawing.Point(448, 602);
             this.button1.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(130, 39);
@@ -164,7 +165,7 @@
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(761, 657);
+            this.button2.Location = new System.Drawing.Point(601, 605);
             this.button2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(130, 39);
@@ -231,12 +232,13 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(87, 13);
+            this.button3.Location = new System.Drawing.Point(448, 668);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(104, 31);
             this.button3.TabIndex = 7;
             this.button3.Text = "button3";
             this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // b_AddNode
             // 
@@ -301,7 +303,7 @@
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(448, 646);
+            this.button4.Location = new System.Drawing.Point(601, 649);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(145, 53);
             this.button4.TabIndex = 17;
@@ -319,7 +321,6 @@
             this.checkBox1.Text = "checkBox1";
             this.checkBox1.ThreeState = true;
             this.checkBox1.UseVisualStyleBackColor = true;
-            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // elementHost2
             // 
@@ -340,11 +341,22 @@
             this.eH_Parameters.ChildChanged += new System.EventHandler<System.Windows.Forms.Integration.ChildChangedEventArgs>(this.eH_Parameters_ChildChanged);
             this.eH_Parameters.Child = this.tVWTB_Parameters;
             // 
+            // b_SaveDefaultGroups
+            // 
+            this.b_SaveDefaultGroups.Location = new System.Drawing.Point(1250, 110);
+            this.b_SaveDefaultGroups.Name = "b_SaveDefaultGroups";
+            this.b_SaveDefaultGroups.Size = new System.Drawing.Size(99, 61);
+            this.b_SaveDefaultGroups.TabIndex = 19;
+            this.b_SaveDefaultGroups.Text = "Сохранить по умолчанию";
+            this.b_SaveDefaultGroups.UseVisualStyleBackColor = true;
+            this.b_SaveDefaultGroups.Click += new System.EventHandler(this.b_SaveDefaultGroups_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1363, 711);
+            this.Controls.Add(this.b_SaveDefaultGroups);
             this.Controls.Add(this.checkBox1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.dataGridView1);
@@ -414,6 +426,7 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button b_SaveDefaultGroups;
     }
 }
 

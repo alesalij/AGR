@@ -14,7 +14,7 @@ using System.Data.OleDb;
 using PowerPoint = Microsoft.Office.Interop.PowerPoint;
 using Access = Microsoft.Office.Interop.Access;
 using AGR.Classes;
-
+using System.Windows.Documents;
 
 namespace AGR
 {
@@ -42,13 +42,14 @@ namespace AGR
 
         private void button1_Click(object sender, EventArgs e)
         {
-           
-                Program.GV.MainDB.Fill();
+            
+            Program.GV.MainDB.Fill();
             Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
-            Program.GV.MainDB.SaveGroupParameters(Program.GV.Groups, Program.GV.mainDBDataSet);
-            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+
+            dataGridView1.DataSource = null;
+           
             dataGridView1.DataSource = Program.GV.mainDBDataSet.SaveGroupParameters;
-            Program.GV.MainDB.Update();
+
             // Создаем пустую книгу. Используйте использование statment, поэтому пакет будет утилизирован, когда мы закончим. 
             /* using (var p = new ExcelPackage(new FileInfo(@"c:\workbooks\myworkbook.xlsx")))
              {
@@ -66,9 +67,13 @@ namespace AGR
         }
         private void button2_Click(object sender, EventArgs e)
         {
+            Program.GV.mainDBDataSet.SaveGroupParameters.Rows[0].Delete();
 
-            dataGridView1.DataSource = Program.GV.mainDBDataSet.SaveGroups;
+        }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            Program.GV.MainDB.SaveGroupParameters(Program.GV.Groups, Program.GV.mainDBDataSet);
         }
         private void button4_Click(object sender, EventArgs e)
         {
@@ -139,6 +144,7 @@ namespace AGR
             }
         }
 
+        // Добавление группы
         private void b_AddGroup_Click(object sender, EventArgs e)
         {
 
@@ -170,29 +176,68 @@ namespace AGR
             
             Program.GV.MainDB.Fill();
             Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
+
             Program.GV.MainDB.SaveGroupParameters(Program.GV.Groups, Program.GV.mainDBDataSet);
+            
             Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
             Program.GV.MainDB.Update();
+
             Program.GV.MainDB.Fill();
             Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
-            Program.GV.MainDB.Autoremove(Program.GV.Groups, Program.GV.mainDBDataSet);
+
+            Program.GV.Groups = new Group[Program.GV.mainDBDataSet.SaveGroups.Rows.Count];
+            for (int i = 0; i < Program.GV.Groups.Length; i++)
+                Program.GV.Groups[i] = new Group(Convert.ToInt32(Program.GV.mainDBDataSet.SaveGroups.Rows[i][0]), Program.GV.mainDBDataSet);
+
+                Program.GV.MainDB.Autoremove(Program.GV.Groups, Program.GV.mainDBDataSet);
+            
             Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
             Program.GV.MainDB.Update();
+            
             Program.GV.MainDB.Fill();
             Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
 
 
             dataGridView1.DataSource = null;
-            dataGridView1.DataSource = Program.GV.mainDBDataSet.SaveGroups;
+            dataGridView1.DataSource = Program.GV.mainDBDataSet.SaveGroupParameters;
 
             dataGridView1.Update();
         }
 
+
+        //Удаление группы
         private void b_DeleteGroup_Click(object sender, EventArgs e)
         {
-
-            tV_Groups.Nodes.Remove(tV_Groups.SelectedNode);
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
             
+            Group[] G = new Group[Program.GV.Groups.Length - 1];
+            for (int i = 0; i < G.Length; i++) 
+            {
+                if (i >= Convert.ToInt32(tV_Groups.SelectedNode.Tag))
+                    G[i] = Program.GV.Groups[i + 1];
+                else
+                    G[i] = Program.GV.Groups[i];
+            }
+            Program.GV.Groups = G;
+
+            Program.GV.MainDB.Autoremove(Program.GV.Groups, Program.GV.mainDBDataSet);
+            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+            Program.GV.MainDB.Update();
+
+            for (int i = tV_Groups.SelectedNode.Index; i < tV_Groups.Nodes.Count; i++)
+            {
+                tV_Groups.Nodes[i].Tag = Convert.ToInt32(tV_Groups.Nodes[i].Tag) - 1;
+            }
+
+           /* if (tV_Groups.SelectedNode.Index == 0) 
+            
+                tV_Groups.Nodes.*/
+            tV_Groups.Nodes.Remove(tV_Groups.SelectedNode);
+
+
+
+
         }
      
         // Происходит при каждом переключении на текущую форму
@@ -243,18 +288,18 @@ namespace AGR
         //Функция при выборе элемента в Дереве для групп. 
         private void tV_Groups_AfterSelect(object sender, TreeViewEventArgs e)
         {
+           
+                if (tV_Groups.SelectedNode.Parent == null)
+                {
+                    tVWTB_Parameters.Tree.Items.Clear();
+                    Program.GV.MainDB.Fill();
+                    Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
+                    tB_OpenDB.Text = tV_Groups.SelectedNode.Tag.ToString();
 
-            if (tV_Groups.SelectedNode.Parent == null)
-            {         
-               tVWTB_Parameters.Tree.Items.Clear();
-                Program.GV.MainDB.Fill();
-                Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
-                tB_OpenDB.Text = tV_Groups.SelectedNode.Tag.ToString();
-                
-               Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].MakeTreeView(tVWTB_Parameters);
-                tVWTB_Parameters.ExpandAll(true);
-            }
-
+                    Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].MakeTreeView(tVWTB_Parameters);
+                    tVWTB_Parameters.ExpandAll(true);
+                }
+           
 
 
            /* tV_Groups.SelectedNode.Tag = "Bugaga";
@@ -295,10 +340,7 @@ namespace AGR
              
         }
 
-           private void checkBox1_CheckedChanged(object sender, EventArgs e)
-        {
-            tB_OpenDB.Text = checkBox1.Checked.ToString();
-        }
+
 
         private void eH_Parameters_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
         {
@@ -314,6 +356,11 @@ namespace AGR
         }
 
         private void MainForm_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        private void b_SaveDefaultGroups_Click(object sender, EventArgs e)
         {
 
         }
