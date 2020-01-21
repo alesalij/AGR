@@ -362,7 +362,7 @@ namespace AGR
 
         private void b_SaveDefaultGroups_Click(object sender, EventArgs e)
         {
-
+            
         }
 
         private void MainForm_Enter(object sender, EventArgs e)
