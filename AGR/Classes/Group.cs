@@ -76,6 +76,7 @@ namespace AGR
         /*
          ******************************Конструкторы*************************************
              */
+        
         public Group(int ID, MainDBDataSet DS) // Конструктор группы по DataSet
         {
             IDGroup = ID;

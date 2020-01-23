@@ -27,14 +27,19 @@ namespace AGR
         {
             InitializeComponent();
 
-            //
+            // Чтение БД.
             Program.GV.MainDB.Fill();
             Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
 
             // Получение ДБ Настроек
             Program.GV.Profile.Load(Program.GV.Profile);
 
-
+            //Создание Groups
+            Program.GV.Groups = new Group[Program.GV.mainDBDataSet.SaveGroups.Rows.Count];
+            for (int i = 0; i < Program.GV.Groups.Length; i++)
+            {
+                Program.GV.Groups[i] = new Group(Convert.ToInt32(Program.GV.mainDBDataSet.SaveGroups.Rows[i][0]), Program.GV.mainDBDataSet);
+            }
 
         }
 
@@ -70,10 +75,9 @@ namespace AGR
             Program.GV.mainDBDataSet.SaveGroupParameters.Rows[0].Delete();
 
         }
-
         private void button3_Click(object sender, EventArgs e)
         {
-            Program.GV.MainDB.SaveGroupParameters(Program.GV.Groups, Program.GV.mainDBDataSet);
+            Program.GV.MainDB.SaveGroupParameters(Program.GV.Groups);
         }
         private void button4_Click(object sender, EventArgs e)
         {
@@ -89,6 +93,8 @@ namespace AGR
             Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
             Program.GV.MainDB.Update();
         }
+
+
 
         private void b_LoadDB_Click(object sender, EventArgs e)
         {
@@ -107,8 +113,6 @@ namespace AGR
 
 
         }
-
-      
 
         private void b_BD_Click(object sender, EventArgs e)
         {
@@ -133,7 +137,8 @@ namespace AGR
                     if (dGV_DB1.Columns[i].Name == Program.GV.Profile.MainColumn)
                     {
                         Array.Resize(ref Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].Spills, Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].Spills.Length + 1);
-                        Program.GV.Groups[tV_Groups.SelectedNode.Index].Spills[Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].Spills.Length - 1] = dGV_DB1.SelectedCells[i].Value.ToString();
+
+                        Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].Spills[Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].Spills.Length - 1] = dGV_DB1.SelectedCells[i].Value.ToString();
                         tV_Groups.SelectedNode.Nodes.Add(dGV_DB1.SelectedCells[i].Value.ToString());
                         f = false;
                     }
@@ -147,95 +152,49 @@ namespace AGR
         // Добавление группы
         private void b_AddGroup_Click(object sender, EventArgs e)
         {
-
-
             tV_Groups.Nodes.Add("Группа " + tV_Groups.Nodes.Count);
-            Program.GV.MainDB.Fill();
-            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
-            Program.GV.mainDBDataSet.SaveGroups.Rows.Add();
-            Program.GV.mainDBDataSet.SaveGroups.Rows[Program.GV.mainDBDataSet.SaveGroups.Rows.Count - 1][1] = tV_Groups.Nodes[tV_Groups.Nodes.Count - 1].Text;       
-            for(int i=2;i< Program.GV.mainDBDataSet.SaveGroups.Columns.Count;i++) // проставить значения подгрупп по умолчанию для группы.
-                Program.GV.mainDBDataSet.SaveGroups.Rows[Program.GV.mainDBDataSet.SaveGroups.Rows.Count - 1][i] = true;
-
-            
-            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
-            Program.GV.MainDB.Update();
-            Program.GV.MainDB.Fill();
-            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
-
 
             Array.Resize(ref Program.GV.Groups, Program.GV.Groups.Length + 1);
-            Program.GV.Groups[Program.GV.Groups.Length - 1] = new Group(Convert.ToInt32(
-                   Program.GV.mainDBDataSet.SaveGroups.Rows[Program.GV.mainDBDataSet.SaveGroups.Rows.Count-1][0]), 
-                   Program.GV.mainDBDataSet);
+            Program.GV.Groups[Program.GV.Groups.Length - 1] = new Group(0, Program.GV.mainDBDataSet);
+            Program.GV.Groups[Program.GV.Groups.Length - 1].NameGroup = tV_Groups.Nodes[tV_Groups.Nodes.Count - 1].Text;
 
-           
             tV_Groups.Nodes[tV_Groups.Nodes.Count-1].Tag = Program.GV.Groups.Length - 1;
-            //tB_OpenDB.Text = tV_Groups.Nodes[tV_Groups.Nodes.Count-1].Tag.ToString();
-
-            
-            Program.GV.MainDB.Fill();
-            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
-
-            Program.GV.MainDB.SaveGroupParameters(Program.GV.Groups, Program.GV.mainDBDataSet);
-            
-            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
-            Program.GV.MainDB.Update();
-
-            Program.GV.MainDB.Fill();
-            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
-
-            Program.GV.Groups = new Group[Program.GV.mainDBDataSet.SaveGroups.Rows.Count];
-            for (int i = 0; i < Program.GV.Groups.Length; i++)
-                Program.GV.Groups[i] = new Group(Convert.ToInt32(Program.GV.mainDBDataSet.SaveGroups.Rows[i][0]), Program.GV.mainDBDataSet);
-
-                Program.GV.MainDB.Autoremove(Program.GV.Groups, Program.GV.mainDBDataSet);
-            
-            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
-            Program.GV.MainDB.Update();
-            
-            Program.GV.MainDB.Fill();
-            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
-
-
-            dataGridView1.DataSource = null;
-            dataGridView1.DataSource = Program.GV.mainDBDataSet.SaveGroupParameters;
-
-            dataGridView1.Update();
+ 
         }
-
 
         //Удаление группы
         private void b_DeleteGroup_Click(object sender, EventArgs e)
         {
-            Program.GV.MainDB.Fill();
-            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
-            
-            Group[] G = new Group[Program.GV.Groups.Length - 1];
-            for (int i = 0; i < G.Length; i++) 
+            /* Program.GV.MainDB.Fill();
+             Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
+             */
+            if (tV_Groups.SelectedNode != null)
             {
-                if (i >= Convert.ToInt32(tV_Groups.SelectedNode.Tag))
-                    G[i] = Program.GV.Groups[i + 1];
-                else
-                    G[i] = Program.GV.Groups[i];
+                Group[] G = new Group[Program.GV.Groups.Length - 1];
+                for (int i = 0; i < G.Length; i++)
+                {
+                    if (i >= Convert.ToInt32(tV_Groups.SelectedNode.Tag))
+                        G[i] = Program.GV.Groups[i + 1];
+                    else
+                        G[i] = Program.GV.Groups[i];
+                }
+                Program.GV.Groups = G;
+
+                /* Program.GV.MainDB.Autoremove(Program.GV.Groups, Program.GV.mainDBDataSet);
+                 Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
+                 Program.GV.MainDB.Update();
+                 */
+                for (int i = tV_Groups.SelectedNode.Index; i < tV_Groups.Nodes.Count; i++)
+                {
+                    tV_Groups.Nodes[i].Tag = Convert.ToInt32(tV_Groups.Nodes[i].Tag) - 1;
+                }
+
+                /* if (tV_Groups.SelectedNode.Index == 0) 
+
+                     tV_Groups.Nodes.*/
+                tV_Groups.Nodes.Remove(tV_Groups.SelectedNode);
+
             }
-            Program.GV.Groups = G;
-
-            Program.GV.MainDB.Autoremove(Program.GV.Groups, Program.GV.mainDBDataSet);
-            Program.GV.MainDB.DS = Program.GV.mainDBDataSet;
-            Program.GV.MainDB.Update();
-
-            for (int i = tV_Groups.SelectedNode.Index; i < tV_Groups.Nodes.Count; i++)
-            {
-                tV_Groups.Nodes[i].Tag = Convert.ToInt32(tV_Groups.Nodes[i].Tag) - 1;
-            }
-
-           /* if (tV_Groups.SelectedNode.Index == 0) 
-            
-                tV_Groups.Nodes.*/
-            tV_Groups.Nodes.Remove(tV_Groups.SelectedNode);
-
-
 
 
         }
@@ -254,19 +213,12 @@ namespace AGR
             }
             catch { }
 
-            Program.GV.MainDB.Fill();
-            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
-            
-            // Заполнение treeViewGroups
             tV_Groups.Nodes.Clear();
-            Program.GV.Groups = new Group[Program.GV.mainDBDataSet.SaveGroups.Rows.Count];
-
             for (int i = 0; i < Program.GV.Groups.Length; i++)
             {
-                Program.GV.Groups[i] = new Group(Convert.ToInt32(Program.GV.mainDBDataSet.SaveGroups.Rows[i][0]), Program.GV.mainDBDataSet);
                 tV_Groups.Nodes.Add(Program.GV.Groups[i].NameGroup);
                 tV_Groups.Nodes[tV_Groups.Nodes.Count - 1].Tag = i;
-                if (Program.GV.Groups[i].Spills !=null)
+                if (Program.GV.Groups[i].Spills != null)
                 {
                     for (int j = 0; j < Program.GV.Groups[i].Spills.Length; j++)
                     {
@@ -275,16 +227,8 @@ namespace AGR
                     }
                 }
             }
-
-         /*   if (tV_Groups.SelectedNode != null)
-            {
-                tV_Groups_AfterSelect(sender, e as TreeViewEventArgs);
-            }*/
-               
-
         }
-
-
+        
         //Функция при выборе элемента в Дереве для групп. 
         private void tV_Groups_AfterSelect(object sender, TreeViewEventArgs e)
         {
@@ -292,10 +236,10 @@ namespace AGR
                 if (tV_Groups.SelectedNode.Parent == null)
                 {
                     tVWTB_Parameters.Tree.Items.Clear();
-                    Program.GV.MainDB.Fill();
+                   /* Program.GV.MainDB.Fill();
                     Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
-                    tB_OpenDB.Text = tV_Groups.SelectedNode.Tag.ToString();
-
+                    tB_OpenDB.Text = tV_Groups.SelectedNode.Tag.ToString();*/
+                    
                     Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].MakeTreeView(tVWTB_Parameters);
                     tVWTB_Parameters.ExpandAll(true);
                 }
@@ -340,8 +284,6 @@ namespace AGR
              
         }
 
-
-
         private void eH_Parameters_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
         {
             tB_OpenDB.Text = e.ToString();
@@ -360,19 +302,40 @@ namespace AGR
 
         }
 
+
+        // Кнопка - сохранение групп по умолчанию
         private void b_SaveDefaultGroups_Click(object sender, EventArgs e)
         {
-            int i;
+            Program.GV.MainDB.Fill();
+
+            Program.GV.MainDB.AutoremoveGroupParameters(Program.GV.Groups);
+
+            Program.GV.MainDB.SaveGroups(Program.GV.Groups);
+           
+            Program.GV.MainDB.Update();
+
+            Program.GV.MainDB.Fill();
+            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
+            Program.GV.Groups = new Group[Program.GV.mainDBDataSet.SaveGroups.Rows.Count];
+            for (int i = 0; i < Program.GV.Groups.Length; i++)
+            {
+                Program.GV.Groups[i] = new Group(Convert.ToInt32(Program.GV.mainDBDataSet.SaveGroups.Rows[i][0]), Program.GV.mainDBDataSet);
+            }
+            
+            
+
+
+
+
+
+
+
+
         }
 
         private void MainForm_Enter(object sender, EventArgs e)
         {
-            //tB_OpenDB.Text += "1"; 
-           // DataBase1.ConnectString = Program.GV.Profile.DataBasePlace;
-          //  DataBase1.MakeConnectString();
-           // DataBase1.Connect();
-            //connectStringDB1 = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Program.GV.Profile.DataBasePlace + ";";
-            //connectStringDB2 = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=" + Program.GV.Profile.DataBasePlace + ";";
+           
 
         }
     }

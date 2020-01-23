@@ -7,6 +7,7 @@ using System.Data.OleDb;
 using System.Data;
 using System.Data.SqlClient;
 using System.IO;
+using System.Windows.Forms;
 using AGR.Classes;
 
 namespace AGR
@@ -119,11 +120,27 @@ namespace AGR
         public void Update() // Функция для сохранения DataSet в исходной БД
         {
             OleConnection.Open();
+            List<int> Exception = new List<int>();
+
             for (int i = 0; i < OleDBAdapters.Length; i++)
             {
                 OleDBAdapters[i].Update(DS.Tables[i]);
-
+         //       Exception.Add(i);
             }
+/*
+            int j = -1;
+            while(Exception.Count > 0)
+            try
+            {
+                    j++;
+                    if (j >= Exception.Count) j = 0;
+                    OleDBAdapters[Exception[j]].Update(DS.Tables[Exception[j]]);
+                    Exception.RemoveAt(j);
+                   
+            }
+            catch 
+                {}*/
+
             OleConnection.Close();
         }
         public void Fill() // Функция для обновления DataSet в исходной БД
@@ -136,93 +153,142 @@ namespace AGR
             }
             OleConnection.Close();
         }
-        // Функция сохранения Groups в DataSet в таблицу SaveSubGroupsparameters; 
-        public void SaveGroupParameters(Group[] G, MainDBDataSet MainDS)
+
+
+
+        /*
+         ***********************************Только для БД с настройками (MainDB)*********************************************
+             */
+        public void SaveGroups(Group[] G)
         {
+            MainDBDataSet MainDS = DS as MainDBDataSet;
             for (int i = 0; i < G.Length; i++)
-                SaveGroupParameters(G[i], MainDS);
-           
-           
-
-        }
-        public void SaveGroupParameters(Group G, MainDBDataSet MainDS)
-        {
-
-
-            for (int i = 0; i < G.SubGroups.Length; i++)
             {
-                for (int j = 0; j < G.SubGroups[i].Parameters.Length; j++)
+                if (G[i].IDGroup == 0)
                 {
-                    if (G.SubGroups[i].Parameters[j].IDSave == 0)
+                    MainDS.SaveGroups.Rows.Add();
+                    MainDS.SaveGroups.Rows[MainDS.SaveGroups.Rows.Count - 1][1] = G[i].NameGroup;
+                    for (int j = 0; j < G[i].SubGroups.Length; j++)
                     {
-                        MainDS.SaveGroupParameters.Rows.Add();
-                        MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][1] = G.IDGroup;
-                        MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][2] = G.SubGroups[i].IDSubgroup;
-                        MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][3] = G.SubGroups[i].Parameters[j].IDParameter;
-                        MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][4] = G.SubGroups[i].Parameters[j].Value.ToString();
+                        MainDS.SaveGroups.Rows[MainDS.SaveGroups.Rows.Count - 1][j+2] = G[i].SubGroups[j].Check;
                     }
-                    else
-                        for (int k = 0; k < MainDS.SaveGroupParameters.Rows.Count; k++)
+                }
+            }
+
+            DS = MainDS;
+            Update();
+            Fill();
+            MainDS = DS as MainDBDataSet;
+
+            for (int i = 0; i < G.Length; i++)
+            {
+                G[i].IDGroup = Convert.ToInt32(MainDS.SaveGroups.Rows[i][0]);
+            }
+
+            DS = MainDS;
+            SaveGroupParameters(G);
+        }
+
+        // Функция сохранения Параметров в DataSet в таблицу SaveSubGroupsparameters; 
+        public void SaveGroupParameters(Group[] G)
+        {
+            MainDBDataSet MainDS = DS as MainDBDataSet;
+            for (int l = 0; l < G.Length; l++)
+            {
+                for (int i = 0; i < G[l].SubGroups.Length; i++)
+                {
+                    for (int j = 0; j < G[l].SubGroups[i].Parameters.Length; j++)
+                    {
+                        if (G[l].SubGroups[i].Parameters[j].IDSave == 0)
                         {
-                            if (Convert.ToInt32(MainDS.SaveGroupParameters.Rows[k][0]) == G.SubGroups[i].Parameters[j].IDSave)
+                            MainDS.SaveGroupParameters.Rows.Add();
+                            MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][1] = G[l].IDGroup;
+                            MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][2] = G[l].SubGroups[i].IDSubgroup;
+                            MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][3] = G[l].SubGroups[i].Parameters[j].IDParameter;
+                            MainDS.SaveGroupParameters.Rows[MainDS.SaveGroupParameters.Rows.Count - 1][4] = G[l].SubGroups[i].Parameters[j].Value.ToString();
+                        }
+                        else
+                            for (int k = 0; k < MainDS.SaveGroupParameters.Rows.Count; k++)
                             {
-                                MainDS.SaveGroupParameters.Rows[k][1] = G.IDGroup;
-                                MainDS.SaveGroupParameters.Rows[k][2] = G.SubGroups[i].IDSubgroup;
-                                MainDS.SaveGroupParameters.Rows[k][3] = G.SubGroups[i].Parameters[j].IDParameter;
-                                MainDS.SaveGroupParameters.Rows[k][4] = G.SubGroups[i].Parameters[j].Value.ToString();
+                                if (Convert.ToInt32(MainDS.SaveGroupParameters.Rows[k][0]) == G[l].SubGroups[i].Parameters[j].IDSave)
+                                {
+                                    MainDS.SaveGroupParameters.Rows[k][1] = G[l].IDGroup;
+                                    MainDS.SaveGroupParameters.Rows[k][2] = G[l].SubGroups[i].IDSubgroup;
+                                    MainDS.SaveGroupParameters.Rows[k][3] = G[l].SubGroups[i].Parameters[j].IDParameter;
+                                    MainDS.SaveGroupParameters.Rows[k][4] = G[l].SubGroups[i].Parameters[j].Value.ToString();
+                                }
                             }
-                        }
+                    }
                 }
             }
+            DS = MainDS;
 
         }
 
-        
-        public void Autoremove(Group[] G, MainDBDataSet MainDS)
+        // Функция чистки Параметров, Групп, Проливов в DataSet в таблицах SaveSubGroupsparameters, SaveGroups, Spills ; 
+        public void AutoremoveGroupParameters(Group[] G)
         {
-            for (int i = 0; i < MainDS.SaveGroupParameters.Rows.Count; i++)
-            {
-                bool f = true;
-                for (int j = 0; j < G.Length; j++)
+            MainDBDataSet MainDS = DS as MainDBDataSet;
+             for (int i = 0; i < MainDS.SaveGroupParameters.Rows.Count; i++)
+             {
+                 bool f = true;
+                 for (int j = 0; j < G.Length; j++)
+                 {
+                     for (int k = 0; k < G[j].SubGroups.Length; k++)
+                     {
+                         for (int l = 0; l < G[j].SubGroups[k].Parameters.Length; l++)
+                         {
+                             if (G[j].SubGroups[k].Parameters[l].IDSave == Convert.ToInt32(MainDS.SaveGroupParameters.Rows[i][0]))
+                                 f = false;
+                         }
+                     }
+                 }
+                 if (f)
                 {
-                    for (int k = 0; k < G[j].SubGroups.Length; k++)
-                    {
-                        for (int l = 0; l < G[j].SubGroups[k].Parameters.Length; l++)
-                        {
-                            if (G[j].SubGroups[k].Parameters[l].IDSave == Convert.ToInt32(MainDS.SaveGroupParameters.Rows[i][0]))
-                                f = false;
-                        }
-                    }
+                    if (Convert.ToInt32(MainDS.SaveGroupParameters.Rows.Count) > 1)
+                        MainDS.SaveGroupParameters.Rows[i].Delete();
+                    else MainDS.SaveGroupParameters.Rows.Clear();
                 }
-                if (f)           
-                    MainDS.SaveGroupParameters.Rows[i].Delete();                
-            }
+                             
+             }
 
+
+            //MainDS.SelectedSpills.Rows.Clear();
             for (int i = 0; i < MainDS.SelectedSpills.Rows.Count; i++)
-            {
-                bool f = true;
-                for (int j = 0; j < G.Length; j++)
+             {
+                 bool f = true;
+                 for (int j = 0; j < G.Length; j++)
+                 {
+                     for (int k = 0; k < G[j].IDSpills.Length; k++) 
+                         if (G[j].IDSpills[k] == Convert.ToInt32(MainDS.SelectedSpills.Rows[i][0]))
+                             f = false;
+                 }
+                if (f)
                 {
-                    for (int k = 0; k < G[j].IDSpills.Length; k++) 
-                        if (G[j].IDSpills[k] == Convert.ToInt32(MainDS.SelectedSpills.Rows[i][0]))
-                            f = false;
+                    if (Convert.ToInt32(MainDS.SelectedSpills.Rows.Count) > 1)
+                        MainDS.SelectedSpills.Rows[i].Delete();
+                    else MainDS.SelectedSpills.Rows.Clear();
                 }
-                if (f)         
-                    MainDS.SelectedSpills.Rows[i].Delete();                
-            }
+             }
 
-            for (int i = 0; i < MainDS.SaveGroups.Rows.Count; i++)
-            {
-                bool f = true;
-                for (int j = 0; j < G.Length; j++)
+
+
+             for (int i = 0; i < MainDS.SaveGroups.Rows.Count; i++)
+             {
+                 bool f = true;
+                 for (int j = 0; j < G.Length; j++)
+                 {
+                     if (G[j].IDGroup == Convert.ToInt32(MainDS.SaveGroups.Rows[i][0]))
+                         f = false;
+                 }
+                 if (f)
                 {
-                    if (G[j].IDGroup == Convert.ToInt32(MainDS.SaveGroups.Rows[i][0]))
-                        f = false;
+                    if (Convert.ToInt32(MainDS.SaveGroups.Rows.Count) > 1)
+                        MainDS.SaveGroups.Rows[i].Delete();
+                    else MainDS.SaveGroups.Rows.Clear();
                 }
-                if (f)                
-                    MainDS.SaveGroups.Rows[i].Delete();                
             }
-
+            DS = MainDS;
         }
     }
 }
