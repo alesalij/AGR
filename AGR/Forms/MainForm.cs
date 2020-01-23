@@ -291,11 +291,14 @@ namespace AGR
 
         private void tV_Groups_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
         {
-            if (tV_Groups.SelectedNode.Parent == null)
-                Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].NameGroup = e.Label;
-            else
+            if (tV_Groups.SelectedNode.Parent == null)                        
+                Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].NameGroup = e.Label;            
+            
+                //Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].NameGroup = e.Label;
+           /* else
                 tV_Groups.SelectedNode.Text = Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Parent.Tag)].Spills[Convert.ToInt32(tV_Groups.SelectedNode.Tag)];
-        }
+        */
+    }
 
         private void MainForm_Load(object sender, EventArgs e)
         {
@@ -324,7 +327,7 @@ namespace AGR
             
             
 
-
+            
 
 
 

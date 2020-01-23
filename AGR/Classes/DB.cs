@@ -173,6 +173,23 @@ namespace AGR
                         MainDS.SaveGroups.Rows[MainDS.SaveGroups.Rows.Count - 1][j+2] = G[i].SubGroups[j].Check;
                     }
                 }
+
+                else 
+                {
+                    for (int j = 0; j < MainDS.SaveGroups.Rows.Count; j++) 
+                    {
+                        if (G[i].IDGroup == Convert.ToInt32(MainDS.SaveGroups.Rows[j][0])) 
+                        {
+                            MainDS.SaveGroups.Rows[j][1] = G[i].NameGroup;
+                            for (int l = 0; l < G[i].SubGroups.Length; l++)
+                            {
+                                MainDS.SaveGroups.Rows[j][l + 2] = G[i].SubGroups[l].Check;
+                            }
+                        }
+                    }
+
+
+                }
             }
 
             DS = MainDS;
