@@ -47,13 +47,9 @@ namespace AGR
 
         private void button1_Click(object sender, EventArgs e)
         {
-            
-            Program.GV.MainDB.Fill();
-            Program.GV.mainDBDataSet = Program.GV.MainDB.DS as MainDBDataSet;
+            //bool b = true;
 
-            dataGridView1.DataSource = null;
-           
-            dataGridView1.DataSource = Program.GV.mainDBDataSet.SaveGroupParameters;
+            //checkBox1.Checked
 
             // Создаем пустую книгу. Используйте использование statment, поэтому пакет будет утилизирован, когда мы закончим. 
             /* using (var p = new ExcelPackage(new FileInfo(@"c:\workbooks\myworkbook.xlsx")))
@@ -248,7 +244,7 @@ namespace AGR
 
         private void eH_Parameters_ChildChanged(object sender, System.Windows.Forms.Integration.ChildChangedEventArgs e)
         {
-            tB_OpenDB.Text = e.ToString();
+            tB_OpenDB.Text = e.;
         }
 
         private void tV_Groups_AfterLabelEdit(object sender, NodeLabelEditEventArgs e)
@@ -291,6 +287,11 @@ namespace AGR
 
 
 
+
+        }
+
+        private void checkBox1_CheckedChanged(object sender, EventArgs e)
+        {
 
         }
 

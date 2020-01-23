@@ -10,7 +10,7 @@
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <TextBox Name="TBox" TextWrapping="Wrap" Height="19" Text="50" HorizontalAlignment="Left" VerticalAlignment="Center" KeyDown="TBox_KeyDown" KeyUp="TBox_KeyUp"/>
-        <TextBlock Name="TBlock" Grid.Column="1" Height="19" TextWrapping="Wrap" Text="TextBlock" Width="Auto" VerticalAlignment="Center"/>
+        <TextBox Name="TBox" TextWrapping="Wrap" Height="19" Text="50" HorizontalAlignment="Left" VerticalAlignment="Center" KeyDown="TBox_KeyDown" KeyUp="TBox_KeyUp" Tag=""/>
+        <TextBlock Name="TBlock" Grid.Column="1" Height="19" TextWrapping="Wrap" Text="TextBlock" Width="Auto" VerticalAlignment="Center" Tag=""/>
     </Grid>
 </UserControl>

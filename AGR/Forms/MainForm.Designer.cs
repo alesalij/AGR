@@ -321,6 +321,7 @@
             this.checkBox1.Text = "checkBox1";
             this.checkBox1.ThreeState = true;
             this.checkBox1.UseVisualStyleBackColor = true;
+            this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
             // elementHost2
             // 

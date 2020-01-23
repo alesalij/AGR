@@ -11,9 +11,9 @@
             <ColumnDefinition Width="16"/>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <CheckBox Name="ChBox" ClickMode="Press" IsThreeState="True"/>
+        <CheckBox Name="ChBox" ClickMode="Press" Tag=""/>
 
-        <TextBlock Name="TBlock" TextWrapping="Wrap" Text="TextBlock" Grid.Column="1" Width="Auto" Margin="0,0,134,0" TextAlignment="Left" VerticalAlignment="Center" />
+        <TextBlock Name="TBlock" TextWrapping="Wrap" Text="TextBlock" Grid.Column="1" Width="Auto" Margin="0,0,134,0" TextAlignment="Left" VerticalAlignment="Center" Tag=""/>
         
     </Grid>
 </UserControl>
