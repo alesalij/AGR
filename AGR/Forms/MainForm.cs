@@ -243,44 +243,6 @@ namespace AGR
                     Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].MakeTreeView(tVWTB_Parameters);
                     tVWTB_Parameters.ExpandAll(true);
                 }
-           
-
-
-           /* tV_Groups.SelectedNode.Tag = "Bugaga";
-
-            tB_OpenDB.Text = Program.GV.Groups[2].NameGroup;
-                */
-
-            /*
-            
-                 Program.GV.defaultGroupsTableAdapter.Fill(Program.GV.mainDBDataSet.DefaultGroups);
-
-                 if (tV_Groups.SelectedNode.Parent == null)
-                 {
-                     tVWTB_Parameters.Tree.Items.Clear();
-                     Program.GV.defaultGroupsTableAdapter.Fill(Program.GV.mainDBDataSet.DefaultGroups);
-                    
-                
-                // Класс для работы с настройками группы
-                     Group g = new Group(Program.GV.mainDBDataSet.DefaultGroups);
-                     // tVWTB_Parameters.AddChild();
-
-                     for (int i = 0; i < g.SubGroupParameters.Length; i++)
-                     {
-                         //tVWTB_Parameters.AddSItem(tVWTB_Parameters.Tree.Items[tVWTB_Parameters.Tree.Items.Count - 1].ToString(),null);
-
-                         if (tVWTB_Parameters.Tree.Items.Count != 0)
-                         {
-                             if (g.SubGroups[i] != g.SubGroups[i - 1])
-                                 tVWTB_Parameters.AddItem(null, g.SubGroupParametersType[i], g.SubGroups[i], null);
-                         }
-                         else
-                             tVWTB_Parameters.AddItem(null, g.SubGroupParametersType[i], g.SubGroups[i], null);
-                         tVWTB_Parameters.AddItem(tVWTB_Parameters.Tree.Items[tVWTB_Parameters.Tree.Items.Count - 1] as TreeViewItem, g.SubGroupParametersType[i], g.SubGroupParameters[i], null);
-                         //tVWTB_Parameters.Tree.Items[tVWTB_Parameters.Tree.Items.Count - 1].Add(g.SubGroupParameters[i]);
-                     }
-
-                 }*/
              
         }
 
@@ -293,11 +255,7 @@ namespace AGR
         {
             if (tV_Groups.SelectedNode.Parent == null)                        
                 Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].NameGroup = e.Label;            
-            
-                //Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Tag)].NameGroup = e.Label;
-           /* else
-                tV_Groups.SelectedNode.Text = Program.GV.Groups[Convert.ToInt32(tV_Groups.SelectedNode.Parent.Tag)].Spills[Convert.ToInt32(tV_Groups.SelectedNode.Tag)];
-        */
+
     }
 
         private void MainForm_Load(object sender, EventArgs e)
